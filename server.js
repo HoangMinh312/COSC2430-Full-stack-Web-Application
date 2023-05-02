@@ -2,11 +2,10 @@ import express from "express";
 import bcrypt from "bcrypt";
 const app = express();
 
-<<<<<<< HEAD
+
 app.use(express.json())
-=======
+
 app.use(express.static("./public"))
->>>>>>> cb8415a6af6fcc1c59c0463ed534bce84b1864a2
 
 app.set('views','./src/views');
 app.set("view engine", "ejs")
@@ -17,6 +16,14 @@ const users = []
 app.get('/users', (req, res) => {
     res.json(users)
 })
+
+// Registration routes
+
+app.get('register', (req, res) => {
+
+}) 
+
+
 
 app.post('/users', async (req, res) => {
     try {
