@@ -2,6 +2,11 @@ import express from "express";
 import bcrypt from "bcrypt";
 const app = express();
 
+mongoose.connect('mongodb://localhost/mydatabase', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
 
 app.use(express.json())
 
@@ -19,9 +24,7 @@ app.get('/users', (req, res) => {
 
 // Registration routes
 
-app.get('register', (req, res) => {
 
-}) 
 
 
 
