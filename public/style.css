@@ -38,7 +38,6 @@ html {
   line-height: 1.5;
   /* 1 */
   -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
   /* 2 */
   -moz-tab-size: 4;
   /* 3 */
@@ -523,25 +522,18 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-.m-4 {
-  margin: 1rem;
+.static {
+  position: static;
 }
 
-.w-10 {
-  width: 2.5rem;
+.flex {
+  display: flex;
 }
 
-.w-fit {
-  width: -moz-fit-content;
-  width: fit-content;
+.flex-row {
+  flex-direction: row;
 }
 
-.bg-orange-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(251 146 60 / var(--tw-bg-opacity));
-}
-
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
+.justify-center {
+  justify-content: center;
 }
