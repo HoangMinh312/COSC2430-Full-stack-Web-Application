@@ -10,7 +10,7 @@
 <body>
     <header>
         <!-- Navigation bar -->
-        <%- include("_navigation_bar"); %>
+        <!-- <%- include("_navigation_bar"); %> -->
         <!-- <ul>
             <li><a href="#">About Us</a></li>
             <li><a href="#">Shop</a></li>
@@ -19,7 +19,30 @@
         </ul> -->
     </header>
     <main>
-
+        <!-- Top seller items section here -->
+        <%- include('_top_seller_items.ejs') %>
+        <!-- <section class="flex flex-col justify-center p-2 m-2 border-solid border-2 border-black rounded">
+            <div class="flex flex-row justify-center my-2 mx-1">
+                <h1 class="font-sans font-bold text-3xl italic">
+                    Top seller items of the month
+                </h1>
+            </div>
+            <hr>
+            <div class="flex flex-row justify-around shadow">
+                <div class="m-2 p-2 flex flex-col">
+                    <%- include('_product_card.ejs') %>
+                </div>
+                <div class="m-2 p-2 flex flex-col">
+                    <%- include('_product_card.ejs') %>
+                </div>
+                <div class="m-2 p-2 flex flex-col">
+                    <%- include('_product_card.ejs') %>
+                </div>
+                <div class="m-2 p-2 flex flex-col">
+                    <%- include('_product_card.ejs') %>
+                </div>
+            </div>
+        </section> -->
     </main>
     <footer>
 
