@@ -9,8 +9,8 @@ mongoose.connect('mongodb://localhost/mydatabase', {
 
 
 app.use(express.json())
-
 app.use(express.static("./public"))
+
 
 app.set('views','./src/views');
 app.set("view engine", "ejs")
@@ -23,10 +23,6 @@ app.get('/users', (req, res) => {
 })
 
 // Registration routes
-
-
-
-
 
 app.post('/users', async (req, res) => {
     try {
