@@ -1,5 +1,7 @@
 import express from "express";
 import bcrypt from "bcrypt";
+import browserSync from "browser-sync";
+import { config } from "./bs-config.js";
 const app = express();
 
 mongoose.connect('mongodb://localhost/mydatabase', {
@@ -9,6 +11,14 @@ mongoose.connect('mongodb://localhost/mydatabase', {
 
 
 app.use(express.json())
+// BrowserSync
+const bs = browserSync.create();
+bs.init({
+  ...config,
+  watch: true
+});
+
+// app
 app.use(express.static("./public"))
 
 
@@ -55,7 +65,7 @@ app.post('/users/login', async (req, res) => {
 
 app.get("/", (req, res) => {
     console.log("Loaded website")
-    res.render("index", {text: "newbies"})
+    res.render("index")
 })
 
 app.listen(6900)
