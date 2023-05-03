@@ -1,16 +1,14 @@
+// Express modules
 import express from "express";
+
+//Authentication modules
 import bcrypt from "bcrypt";
+
+//Browsersync modules
 import browserSync from "browser-sync";
 import { config } from "./bs-config.js";
 const app = express();
 
-mongoose.connect('mongodb://localhost/mydatabase', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-
-app.use(express.json())
 // BrowserSync
 const bs = browserSync.create();
 bs.init({
@@ -18,13 +16,14 @@ bs.init({
   watch: true
 });
 
-// app
+app.use(express.json())
 app.use(express.static("./public"))
-
 
 app.set('views','./src/views');
 app.set("view engine", "ejs")
 
+
+// Testing users database
 const users = []
 
 
