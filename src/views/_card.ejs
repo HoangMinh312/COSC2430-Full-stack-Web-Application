@@ -11,16 +11,16 @@
                 <!-- Second div contains info of products -->
     <div class="flex flex-col my-2">
                 <!-- This div contains the name of products -->
-        <div class="my-3  flex flex-row justify-center ">
+        <div class="my-3 flex flex-row justify-center ">
             <h2 class='font-mono font-extrabold text-2xl'>
-                Air Yeezy 2
+                <%- locals.productName || "Null" %>
             </h2>
         </div>
                 <!-- This div contains the name of products -->
     <!-- This div contains description of products (ex: brand, usage, ...) -->
         <div class="my-3 flex flex-row justify-center">
             <p class="font-normal text-sm">
-                Nike.com (Some description)
+                <%- locals.brandName || "Null" %>
             </p>
         </div>
     <!-- This div contains description of products (ex: brand, usage, ...) -->
@@ -36,14 +36,14 @@
         <!-- This div contains numbers of reviews given by customers -->
         <div class="flex flex-row justify-center my-2">
             <p class="text-xs font-semibold">
-                20.3k reviews
+                <%- locals.reviewsNumber || "Null" %>
             </p>
         </div>
         <!-- This div contains numbers of reviews given by customers -->
                 <!-- This div contains the price of products -->
         <div class="my-2"> 
             <p class="flex flex-row justify-center font-bold">
-                $250
+                <%- locals.priceValue || "$Null" %>
             </p>
         </div>
                 <!-- This div contains the price of products -->
