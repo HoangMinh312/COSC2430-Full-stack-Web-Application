@@ -2,7 +2,7 @@ GET http://localhost:6900/users
 
 ###
 
-POST http://localhost:6900/users
+POST http://localhost:6900/register
 Content-Type: application/json
 
 {
