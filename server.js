@@ -3,7 +3,7 @@ import express from "express";
 
 //Authentication modules
 import bcrypt from "bcrypt";
-import { router as authenticationRoute } from './src/routes/_registration.js';
+import { router as registrationRoutes } from './src/routes/_registration.js';
 
 //Browsersync modules
 import browserSync from "browser-sync";
@@ -38,6 +38,24 @@ app.get("/", (req, res) => {
     res.render("index")
 })
 
-app.use("/register", authenticationRoute)
+app.use("/register", registrationRoutes)
+
+app.post('/login', async (req, res) => {
+    const user = users.find(user => user.username = req.body.username)
+    if (user == null) {
+        return res.status(400).send("Cannot find user")
+    }
+
+    try {
+        if (await bcrypt.compare(req.body.password, user.password)) {
+            res.send("Success")
+        } else {
+            res.send("Not allowed")
+        }
+        
+    } catch {
+        res.status(500).send()
+    }
+})
 
 app.listen(6900)
