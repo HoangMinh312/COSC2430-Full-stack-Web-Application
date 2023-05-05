@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose"
 
 // define schema for customer user
 const customerSchema = new mongoose.Schema({
@@ -12,14 +12,19 @@ const customerSchema = new mongoose.Schema({
     required: true,
   },
   profilePicture: {
-    type: Image,
+    type: Buffer,
   },
   name: {
     type: String,
+    required: true,
   },
   address: {
     type: String,
-    required: true
+    required: true,
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
   // other fields specific to customer users
 });
@@ -36,7 +41,7 @@ const vendorSchema = new mongoose.Schema({
     required: true,
   },
   profilePicture: {
-    type: Image,
+    type: Buffer,
   },
   businessName: {
     type: String,
@@ -47,6 +52,10 @@ const vendorSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  date: {
+    type: Date,
+    default: Date.now
+  }
   // other fields specific to vendor users
 });
 
@@ -62,11 +71,19 @@ const shipperSchema = new mongoose.Schema({
     required: true,
   },
   profilePicture: {
-    type: Image,
+    type: Buffer,
+  },
+  name: {
+    type: String,
+    required: true,
   },
   distributionHub: {
     type: String,
     required: true,
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
   // other fields specific to shipper users
 });
@@ -76,4 +93,4 @@ const Customer = mongoose.model('Customer', customerSchema);
 const Vendor = mongoose.model('Vendor', vendorSchema);
 const Shipper = mongoose.model('Shipper', shipperSchema);
 
-module.exports = { Customer, Vendor, Shipper };
+export { Customer, Vendor, Shipper}

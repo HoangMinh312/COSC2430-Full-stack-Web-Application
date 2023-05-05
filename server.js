@@ -1,14 +1,35 @@
 // Express modules
 import express from "express";
 
+// Flashing messages and session
+import flash from "connect-flash";
+import session from "express-session";
+
+// Passport config
+import passport from "passport"
+import { initializePassport } from './passport.js'
+initializePassport(passport)
+
+// Mongoose + MongoDB
+const MONGODB_URI = "mongodb+srv://user:s3977773@fullstack-database.3im5ftq.mongodb.net/?retryWrites=true&w=majority"
+import mongoose from "mongoose";
+mongoose.connect(MONGODB_URI, { useNewURLParser: true})
+.then(() => console.log('MongoDB Connected...'))
+.catch(err => console.log(err))
+
+
 //Authentication modules
 import bcrypt from "bcrypt";
-import { router as registrationRoutes } from './src/routes/_registration.js';
+import { router as userRoute } from './src/routes/_users.js';
+import { ensureAuthenticated } from "./auth.js";
+
 
 //Browsersync modules
 import browserSync from "browser-sync";
 import { config } from "./bs-config.js";
 const app = express();
+const PORT = process.env.PORT || 6900;
+
 
 // BrowserSync
 const bs = browserSync.create();
@@ -17,45 +38,46 @@ bs.init({
   watch: true
 });
 
-app.use(express.json())
-app.use(express.static("./public"))
 
+// Bodyparser
+app.use(express.urlencoded({ extended: false }))
+
+
+// Flash and session middleware
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
+}))
+app.use(flash())
+
+// Passport middleware
+app.use(passport.initialize())
+app.use(passport.session())
+
+
+// Global Vars
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg')
+    res.locals.error_msg = req.flash('error_msg')
+    res.locals.error = req.flash('error')
+    next()  
+})
+
+
+
+// Views middleware and setup
+app.use(express.static("./public"))
 app.set('views','./src/views');
 app.set("view engine", "ejs");
 
-
-// Testing users database
-const users = []
-
-
-
-
-// Registration routes
-
-
-app.get("/", (req, res) => {
+app.get("/", ensureAuthenticated,(req, res) => {
     console.log("Loaded website")
     res.render("index")
 })
 
-app.use("/register", registrationRoutes)
+// Routes 
+app.use('/users', userRoute)
 
-app.post('/login', async (req, res) => {
-    const user = users.find(user => user.username = req.body.username)
-    if (user == null) {
-        return res.status(400).send("Cannot find user")
-    }
 
-    try {
-        if (await bcrypt.compare(req.body.password, user.password)) {
-            res.send("Success")
-        } else {
-            res.send("Not allowed")
-        }
-        
-    } catch {
-        res.status(500).send()
-    }
-})
-
-app.listen(6900)
+app.listen(PORT)
