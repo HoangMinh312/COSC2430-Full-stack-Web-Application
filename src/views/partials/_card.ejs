@@ -1,0 +1,66 @@
+                <!-- Div contains img and info about products -->
+<div class="flex flex-col m-2 p-2 shadow">
+                <!-- First div contains images of products -->
+    <div class="flex m-1 mb-5">
+        <img class='shadow-sm hover:scale-110' src="/images/hero-image-2.png" alt="hero-image-2">
+    </div>
+                <!-- First div contains images of products -->
+                            <!-- Line break -->
+    <hr>
+                            <!-- Line break -->
+                <!-- Second div contains info of products -->
+    <div class="flex flex-col my-2">
+                <!-- This div contains the name of products -->
+        <div class="my-3 flex flex-row justify-center ">
+            <h2 class='font-mono font-extrabold text-2xl'>
+                <%- locals.productName || "Null" %>
+            </h2>
+        </div>
+                <!-- This div contains the name of products -->
+    <!-- This div contains description of products (ex: brand, usage, ...) -->
+        <div class="my-3 flex flex-row justify-center">
+            <p class="font-normal text-sm">
+                <%- locals.brandName || "Null" %>
+            </p>
+        </div>
+    <!-- This div contains description of products (ex: brand, usage, ...) -->
+            <!-- This div contains the ratings of products -->
+        <div class="flex flex-row justify-center my-2">
+            <img class= 'w-6' src="/svg/yellow-star-fill.svg" alt="yellow-star-fill">
+            <img class= 'w-6' src="/svg/yellow-star-fill.svg" alt="yellow-star-fill">
+            <img class= 'w-6' src="/svg/yellow-star-fill.svg" alt="yellow-star-fill">
+            <img class= 'w-6' src="/svg/yellow-star-fill.svg" alt="yellow-star-fill">
+            <img class= 'w-6' src="/svg/yellow-star-fill.svg" alt="yellow-star-fill">
+        </div>
+            <!-- This div contains the ratings of products -->
+        <!-- This div contains numbers of reviews given by customers -->
+        <div class="flex flex-row justify-center my-2">
+            <p class="text-xs font-semibold">
+                <%- locals.reviewsNumber || "Null" %>
+            </p>
+        </div>
+        <!-- This div contains numbers of reviews given by customers -->
+                <!-- This div contains the price of products -->
+        <div class="my-2"> 
+            <p class="flex flex-row justify-center font-bold">
+                <%- locals.priceValue || "$Null" %>
+            </p>
+        </div>
+                <!-- This div contains the price of products -->
+        <!-- This div contains function (Add to cart, Like and See details) -->
+        <div class="flex flex-row justify-around my-2 items-center">
+            <div class="flex items-center text-white rounded-md m-1 p-1">
+                <button class="bg-cyan-500 text-base text-bold font-mono rounded-md m-2 p-2 hover:bg-gradient-to-r hover:from-cyan-300 hover:via-sky-300 hover:to-blue-300">
+                    Add to cart
+                </button>
+            </div>
+            <div class="flex flex-row justify-center">
+                <img class='hover:scale-105 m-1 w-7 rounded-sm cursor-pointer' src="/svg/red-heart-fill.svg" alt="red-heart-fill">
+                <img class='hover:scale-105 m-1 w-7 rounded-sm cursor-pointer' src="/svg/eye.svg" alt="eye">
+            </div>
+        </div>
+        <!-- This div contains function (Add to cart, Like and See details) -->
+    </div>
+                <!-- Second div contains info of products -->
+</div>
+                <!-- Div contains img and info about products -->
