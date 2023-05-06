@@ -1,8 +1,15 @@
 import express from "express";
 import browserSync from "browser-sync";
-import { config } from "./bs-config.js";
+import { config } from "./src/configs/bs-config.js";
+import mongoose from "mongoose";
+
 const app = express();
 const port = 6900;
+// Database setup
+mongoose.connect("mongodb://localhost/testProductDB")
+const database = mongoose.connection
+database.on("error", (e) => console.error(e))
+database.once("open", () => console.log("Connected to Mongoose"))
 
 //Routers import
 import { indexRouter }  from "./src/routes/index.js";
