@@ -811,6 +811,18 @@ video {
   width: 100%;
 }
 
+.w-5\/6 {
+  width: 83.333333%;
+}
+
+.w-3 {
+  width: 0.75rem;
+}
+
+.w-4\/6 {
+  width: 66.666667%;
+}
+
 .min-w-0 {
   min-width: 0px;
 }
@@ -821,6 +833,10 @@ video {
 
 .flex-shrink-0 {
   flex-shrink: 0;
+}
+
+.flex-grow {
+  flex-grow: 1;
 }
 
 .-rotate-90 {
@@ -1154,6 +1170,11 @@ video {
 .py-\[0\.125rem\] {
   padding-top: 0.125rem;
   padding-bottom: 0.125rem;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 
 .pb-6 {
