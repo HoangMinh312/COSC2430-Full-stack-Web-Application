@@ -4,32 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./../../style.css">
+    <link rel="stylesheet" href="/style.css">
     <title>Home page</title>
 </head>
 <body>
     <header>
         <!-- Navigation bar -->
         <%- include("partials/_navigation_bar"); %>
-        <%- include("partials/_category_bar"); %>
+        <%- include("partials/_category_bar.ejs"); %>
     </header>
     <main>
                 <!-- Hero section here -->
-        <%- include('_hero_section.ejs') %>
+        <%- include('partials/_hero_section.ejs') %>
                 <!-- Hero section here -->
                 <!-- First banner section here -->
-        <%- include('_banner_section_1.ejs') %>
+        <%- include('partials/_banner_section_1.ejs') %>
                 <!-- First banner section here -->
                 <!-- Second banner section here -->
-        <%- include('_banner_section_2.ejs') %>
+        <%- include('partials/_banner_section_2.ejs') %>
                 <!-- Second banner section here -->
             <!-- Top seller items section here -->
-        <%- include('_top_seller_items.ejs') %>
+        <%- include('partials/_top_seller_items.ejs') %>
             <!-- Top seller items section here -->
             <!-- Categories section here -->
-        <%- include('_product_category.ejs') %>
+        <%- include('partials/_product_category.ejs') %>
             <!-- Categories section here -->        
     </main>
-    <%- include("partials/_footer"); %>
+    <%- include("partials/_footer.ejs"); %>
 </body>
 </html>
