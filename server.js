@@ -7,7 +7,7 @@ import session from "express-session";
 
 // Passport config
 import passport from "passport"
-import { initializePassport } from './passport.js'
+import { initializePassport } from './src/configs/passport-config.js'
 initializePassport(passport)
 
 // Mongoose + MongoDB
@@ -21,12 +21,12 @@ mongoose.connect(MONGODB_URI, { useNewURLParser: true})
 //Authentication modules
 import bcrypt from "bcrypt";
 import { router as userRoute } from './src/routes/_users.js';
-import { ensureAuthenticated } from "./auth.js";
+import { ensureAuthenticated } from "./src/middlewares/auth.js";
 
 
 //Browsersync modules
 import browserSync from "browser-sync";
-import { config } from "./bs-config.js";
+import { config } from "./src/configs/bs-config.js";
 const app = express();
 const PORT = process.env.PORT || 6900;
 

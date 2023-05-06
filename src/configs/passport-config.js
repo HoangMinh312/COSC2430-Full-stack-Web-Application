@@ -3,34 +3,11 @@ import mongoose from "mongoose"
 import bcrypt from "bcrypt"
 
 // Load User Models
-import { Customer , Vendor, Shipper } from "./src/models/User.js"
+import { Customer , Vendor, Shipper } from "../models/User.js"
 
 export const initializePassport = (passport) => {
     passport.use(
         new LocalStrategy({ usernameField: "username"}, async (username, password, done) => { 
-            // // Match User
-            // const results = await Promise.all([
-            //     Customer.findOne({ username: username}).exec(),
-            //     Vendor.findOne({ username: username}).exec(),
-            //     Shipper.findOne({ username: username}).exec(),
-            //     ])
-            //     .then(results => {
-            //         const user = results.find(result => result !== null)
-            //         if (!user) {
-            //             return done(null, false, { message: "That username is not registered" })
-            //         }
-            //     })
-            //     .catch(err => console.log(err));
-            
-            //     // Match password
-            //     bcrypt.compare(password, user.password, (err, isMatch) => {
-            //         if (err) throw err;
-            //         if (isMatch) {
-            //             return done(null, user);
-            //         } else {
-            //             return done(null, false, { message: "Username or password is incorrect" })
-            //         }
-            //     })
             try {
                 const results = await Promise.all([
                     Customer.findOne({ username }).exec(),
