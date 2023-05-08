@@ -2,18 +2,18 @@ import express from "express";
 import browserSync from "browser-sync";
 import { config } from "./src/configs/bs-config.js";
 import mongoose from "mongoose";
-
-const app = express();
-const port = 6900;
-// Database setup
-mongoose.connect("mongodb://localhost/testProductDB")
-const database = mongoose.connection
-database.on("error", (e) => console.error(e))
-database.once("open", () => console.log("Connected to Mongoose"))
-
 //Routers import
 import { indexRouter }  from "./src/routes/index.js";
 import { userRouter } from "./src/routes/users.js";
+
+const app = express();
+const port = 6900;
+
+// Database setup
+mongoose.connect("mongodb://localhost/testProductDB", { useNewUrlParser: true, useUnifiedTopology: true })
+const database = mongoose.connection
+database.on("error", (e) => console.error(e))
+database.once("open", () => console.log("Connected to MongoDB"))
 
 // BrowserSync
 const bs = browserSync.create();
