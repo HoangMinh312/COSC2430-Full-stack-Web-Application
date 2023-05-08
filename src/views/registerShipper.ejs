@@ -1,0 +1,29 @@
+<form action="/users/register/shipper" method="post">
+    <h1>Shipper</h1>
+    <%- include ('./partials/messages') %>
+    <!-- Username section required -->
+    <div>
+        <label for="username">Username:</label>
+        <input type="username" name="username" id="username" value="<%= typeof username != 'undefined' ? username : ''%>">
+
+    </div>
+    <!-- Password section required -->
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" value="<%= typeof password != 'undefined' ? password : ''%>">
+    </div>
+    <!-- Profile picture section required -->
+    <!-- Name section required -->
+    <div>
+        <label for="name">Name:</label>
+        <input type="name" name="name" id="name" value="<%= typeof name != 'undefined' ? name : ''%>">
+    </div>
+    <!-- Distribution hub section required -->
+    <div>
+        <label for="dhub">Distribution Hub:</label>
+        <input type="dhub" name="dhub" id="dhub" value="<%= typeof dhub != 'undefined' ? dhub : ''%>">
+    </div>
+    <div>
+        <button type="submit">Register</button>    
+    </div>
+</form>
