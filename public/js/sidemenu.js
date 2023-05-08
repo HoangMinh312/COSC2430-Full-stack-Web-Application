@@ -1,18 +1,25 @@
-const cate_btn = document.querySelector(".cate-btn")
-const cate_sidemenu = document.querySelector(".cate-sidemenu")
-const cate_backdrop = document.createElement('div')
-cate_backdrop.classList.add("offcanvas")
-// cate_backdrop.classList.add("show")
-cate_sidemenu.insertAdjacentElement('afterend', cate_backdrop)
+$(document).ready(() => {
+    const cateSidemenu = $(".cate-sidemenu")
+    const hamburgerMenu = $(".hamburger-menu")
 
-cate_btn.addEventListener("click", () => {
-    cate_sidemenu.classList.toggle("show")
-    cate_backdrop.classList.toggle("show")
+    const offcanvasBackdrop = $("<div>")
+    offcanvasBackdrop.attr('id', 'offcanvas-backdrop')
+    offcanvasBackdrop.fadeOut(0)
+    $("body").append(offcanvasBackdrop)
+
+    $(".cate-btn").on('click', () => {
+        offcanvasBackdrop.fadeIn(300)
+        cateSidemenu.toggleClass("show")
+    })
+
+    $(".navbar-burger").on('click', () => {
+        offcanvasBackdrop.fadeIn(300)
+        hamburgerMenu.toggleClass("show")
+    })
+
+    offcanvasBackdrop.on('click', () => {
+        offcanvasBackdrop.fadeOut(300)
+        cateSidemenu.removeClass("show")
+        hamburgerMenu.removeClass("show")
+    })
 })
-
-cate_backdrop.addEventListener('click', () => {
-    cate_sidemenu.classList.remove("show")
-    cate_backdrop.classList.remove("show")
-    // cate_backdrop.remove()
-})
-

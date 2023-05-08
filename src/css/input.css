@@ -3,8 +3,21 @@
 @tailwind utilities;
 
 @layer components {
-    .border-solid-black {
-        border: 1px solid black;
+    .border-solid-1 {
+        @apply border-solid border-transparent;
+        border-width: 1px
+    }
+    .center-xy {
+        @apply flex justify-center items-center;
+    }
+    .center-y {
+        @apply flex justify-center;
+    }
+    .center-y {
+        @apply flex items-center;
+    }
+    .w-h-full {
+        @apply w-full h-full;
     }
     .transition-300 {
         transition-property: all;
@@ -12,26 +25,24 @@
         transition-duration: 300ms;
     }
     .cate-sidemenu.show {
-        transform: none;
-        z-index: 5;
+        left: 0;
     }
-    .cate-sidemenu+.offcanvas {
+    .hamburger-menu.show {
+        right: 0;
+    }
+    #offcanvas-backdrop {
         content: "";
         position: fixed;
+        display: block;
         top: 0;
         left: 0;
         width: 100%;
         height: 100vh;
-        visibility: hidden;
-        opacity: 0;
+        z-index: 5;
 
         background: rgba(255, 255, 255, 0.11);
         -webkit-backdrop-filter: blur(2.1px);
         backdrop-filter: blur(2.1px);
-        transition: .3s;
-    }
-    .cate-sidemenu+.offcanvas.show {
-        visibility: visible;
-        opacity: 1;
+        /* transition: .3s; */
     }
   }

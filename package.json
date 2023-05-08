@@ -31,7 +31,7 @@
     "mongodb": "^5.4.0",
     "mongoose": "^7.1.0",
     "passport": "^0.6.0",
-    "passport-local": "^1.0.0",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "browser-sync": "^2.29.1",
