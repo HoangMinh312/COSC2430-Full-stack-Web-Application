@@ -13,6 +13,7 @@ const customerSchema = new mongoose.Schema({
   },
   profilePicture: {
     type: Buffer,
+    contentType: String,
   },
   name: {
     type: String,
@@ -42,6 +43,7 @@ const vendorSchema = new mongoose.Schema({
   },
   profilePicture: {
     type: Buffer,
+    contentType: String,
   },
   businessName: {
     type: String,
@@ -72,6 +74,7 @@ const shipperSchema = new mongoose.Schema({
   },
   profilePicture: {
     type: Buffer,
+    contentType: String
   },
   name: {
     type: String,

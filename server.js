@@ -45,10 +45,10 @@ app.use(express.urlencoded({ extended: false }))
 
 // Flash and session middleware
 app.use(session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true,
-}))
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: false
+}));
 app.use(flash())
 
 // Passport middleware
