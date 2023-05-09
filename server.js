@@ -6,10 +6,10 @@ import mongoose from "mongoose";
 const app = express();
 const port = 6900;
 // Database setup
-mongoose.connect("mongodb://localhost/testProductDB")
+/* mongoose.connect("mongodb://localhost/testProductDB")
 const database = mongoose.connection
 database.on("error", (e) => console.error(e))
-database.once("open", () => console.log("Connected to Mongoose"))
+database.once("open", () => console.log("Connected to Mongoose")) */
 
 //Routers import
 import { indexRouter }  from "./src/routes/index.js";

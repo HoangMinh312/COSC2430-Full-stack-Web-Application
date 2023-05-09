@@ -2,7 +2,7 @@
 <div class="flex flex-col m-2 p-2 rounded-lg shadow-xl">
                 <!-- First div contains images of products -->
     <div class="flex m-1 mb-5">
-        <img class='shadow-sm hover:scale-110' src="/images/hero-image-2.png" alt="hero-image-2">
+        <img class='shadow-sm hover:scale-110 hover:duration-300' src="<%- locals.productImage || '/images/hero-image-2.png' %>" alt="">
     </div>
                 <!-- First div contains images of products -->
                             <!-- Line break -->
@@ -55,8 +55,8 @@
                 </button>
             </div>
             <div class="flex flex-row justify-center">
-                <img class='hover:scale-105 m-1 w-7 rounded-sm cursor-pointer' src="/svg/red-heart-fill.svg" alt="red-heart-fill">
-                <img class='hover:scale-105 m-1 w-7 rounded-sm cursor-pointer' src="/svg/eye.svg" alt="eye">
+                <img class='hover:scale-105 hover:duration-300 m-1 w-7 rounded-sm cursor-pointer' src="/svg/red-heart-fill.svg" alt="red-heart-fill">
+                <img class='hover:scale-105 hover:duration-300 m-1 w-7 rounded-sm cursor-pointer' src="/svg/eye.svg" alt="eye">
             </div>
         </div>
         <!-- This div contains function (Add to cart, Like and See details) -->
