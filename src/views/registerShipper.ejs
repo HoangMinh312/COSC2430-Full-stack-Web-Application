@@ -1,4 +1,4 @@
-<form action="/users/register/shipper" method="post">
+<form action="/auth/register/shipper" method="post">
     <h1>Shipper</h1>
     <%- include ('./partials/messages') %>
     <!-- Username section required -->
@@ -13,6 +13,10 @@
         <input type="password" name="password" id="password" value="<%= typeof password != 'undefined' ? password : ''%>">
     </div>
     <!-- Profile picture section required -->
+    <div>
+        <label for="profilePicture">Profile picture:</label>
+        <input type="file" name="profilePicture" id="profilePicture">
+    </div>
     <!-- Name section required -->
     <div>
         <label for="name">Name:</label>
@@ -21,7 +25,11 @@
     <!-- Distribution hub section required -->
     <div>
         <label for="dhub">Distribution Hub:</label>
-        <input type="dhub" name="dhub" id="dhub" value="<%= typeof dhub != 'undefined' ? dhub : ''%>">
+        <select name="distributionHub" id="distributionHub">
+            <option value="District 1 Hub" <%= typeof distributionHub != 'undefined' ? 'selected' : '' %>>District 1 Hub</option>
+            <option value="District 7 Hub" <%= typeof distributionHub != 'undefined' ? 'selected' : '' %>>District 7 Hub</option>
+            <option value="District 2 Hub" <%= typeof distributionHub != 'undefined' ? 'selected' : '' %>>District 2 Hub</option>
+        </select>
     </div>
     <div>
         <button type="submit">Register</button>    

@@ -17,12 +17,24 @@ mongoose.connect(MONGODB_URI, { useNewURLParser: true})
 .then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err))
 
+// Multer configuration
+import multer from "multer"
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads');
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now());
+    }
+});
 
-//Authentication modules
-import bcrypt from "bcrypt";
-import { router as userRoute } from './src/routes/_users.js';
+
+//Authentication modules + route
+import { router as register_loginRoute } from './src/routes/registration-login.js';
 import { ensureAuthenticated } from "./src/middlewares/auth.js";
 
+// User routes 
+import { router as shipperRoutes } from './src/routes/shipper.js';
 
 //Browsersync modules
 import browserSync from "browser-sync";
@@ -41,6 +53,7 @@ bs.init({
 
 // Bodyparser
 app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
 
 
 // Flash and session middleware
@@ -56,7 +69,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 
-// Global Vars
+// Global Vars (For the messages.ejs in partials)
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg')
     res.locals.error_msg = req.flash('error_msg')
@@ -77,7 +90,8 @@ app.get("/", ensureAuthenticated,(req, res) => {
 })
 
 // Routes 
-app.use('/users', userRoute)
+app.use('/auth', register_loginRoute)
+app.use('/shipper', shipperRoutes)
 
 
 app.listen(PORT)

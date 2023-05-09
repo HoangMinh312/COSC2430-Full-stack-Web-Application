@@ -3,5 +3,5 @@ export function ensureAuthenticated(req, res, next) {
         return next();
     }
     req.flash('error.msg', 'Please log in to view this resource')
-    res.redirect('/users/login')
+    res.redirect('/auth/login')
 }

@@ -12,7 +12,7 @@ const customerSchema = new mongoose.Schema({
     required: true,
   },
   profilePicture: {
-    type: Buffer,
+    data: Buffer,
     contentType: String,
   },
   name: {
@@ -42,7 +42,7 @@ const vendorSchema = new mongoose.Schema({
     required: true,
   },
   profilePicture: {
-    type: Buffer,
+    data: Buffer,
     contentType: String,
   },
   businessName: {
@@ -73,7 +73,7 @@ const shipperSchema = new mongoose.Schema({
     required: true,
   },
   profilePicture: {
-    type: Buffer,
+    data: Buffer,
     contentType: String
   },
   name: {
@@ -83,6 +83,7 @@ const shipperSchema = new mongoose.Schema({
   distributionHub: {
     type: String,
     required: true,
+    enum: ["District 1 Hub", "District 7 Hub", "District 2 Hub"]
   },
   date: {
     type: Date,
