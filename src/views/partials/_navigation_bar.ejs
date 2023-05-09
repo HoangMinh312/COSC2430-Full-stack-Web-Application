@@ -1,12 +1,25 @@
 <section id="navigation-bar" class="w-full">
-    <nav class="w-full flex justify-between px-12 py-4">
-        <div class="logo inline-block float-left tracking-wider uppercase font-bold">Alizada</div>
-        <ul class="inline-flex gap-8 items-center">
+    <nav class="w-full flex justify-between px-4 md:px-12 py-4">
+        <!-- Logo -->
+        <div class="logo center-y inline-block float-left tracking-wider uppercase font-bold">Alizada</div>
+
+        <!-- Navigation list -->
+        <ul class="hamburger-menu gap-0 whitespace-nowrap z-10 inline-flex items-center flex-col fixed max-w-full bg-clip-padding -right-full top-0 bottom-0 bg-white [&_li]:w-full [&_li]:text-center [&_a]:py-4 [&_a]:px-12 [&_a]:block [&_a]:w-h-full [&_a:hover]:bg-violet-200 md:gap-8 md:static md:flex-row md:[&_a]:p-0 md:[&_a:hover]:bg-transparent md:[&_li:hover]:text-violet-400 transition-300">
             <li><a href="#">About Us</a></li>
             <li><a href="/users/customer">Shop</a></li>
             <li><a href="#">Pricing</a></li>
             <li><a href="#">Contact</a></li>
-            <li><img class="w-7 cursor-pointer" src="/svg/account.svg" alt="Account"></li>
+            <li class="-order-1 md:order-1 p-4 md:p-0"><img class="w-9 md:w-7 cursor-pointer float-right" src="/svg/account.svg" alt="Account"></li>
         </ul>
+
+        <!-- Hamburger menu -->
+        <div class="center-y md:hidden">
+			<button class="navbar-burger center-y text-violet-600 p-1">
+				<svg class="block h-5 w-5 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+					<title>Mobile menu</title>
+					<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+				</svg>
+			</button>
+		</div>
     </nav>
 </section>
