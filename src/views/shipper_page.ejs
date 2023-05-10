@@ -45,33 +45,16 @@
                             <table class="w-full border-collapse">
                                 <thead>
                                     <tr>
-                                    <th class="text-left font-bold py-2 px-4 border-b-2 border-gray-300">Order ID</th>
-                                    <th class="text-left font-bold py-2 px-4 border-b-2 border-gray-300">Customer Name</th>
-                                    <th class="text-left font-bold py-2 px-4 border-b-2 border-gray-300">Delivery Address</th>
-                                    <th class="text-left font-bold py-2 px-4 border-b-2 border-gray-300">Total Amount</th>
-                                    <th class="text-left font-bold py-2 px-4 border-b-2 border-gray-300">Status</th>
+                                        <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Order ID</th>
+                                        <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Customer Name</th>
+                                        <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Delivery Address</th>
+                                        <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Total Amount</th>
+                                        <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Status</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="py-2 px-4 border-b border-gray-300">#1234</td>
-                                        <td class="py-2 px-4 border-b border-gray-300">John Smith</td>
-                                        <td class="py-2 px-4 border-b border-gray-300">123 Main St, Anytown, USA 12345</td>
-                                        <td class="py-2 px-4 border-b border-gray-300">$39.97</td>
-                                        <td class="py-2 px-4 border-b border-gray-300">
-                                            <%- include('partials/_options_dropdown_shipper.ejs') %>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-2 px-4 border-b border-gray-300">#5678</td>
-                                        <td class="py-2 px-4 border-b border-gray-300">Jane Doe</td>
-                                        <td class="py-2 px-4 border-b border-gray-300">456 Oak St, Anytown, USA 12345</td>
-                                        <td class="py-2 px-4 border-b border-gray-300">$29.99</td>
-                                        <td class="py-2 px-4 border-b border-gray-300">
-                                            <%- include('partials/_options_dropdown_shipper.ejs') %>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                <% for (let i = 0; i < 3; i ++) { %>
+                                    <%- include('partials/_active_order.ejs') %>
+                                <% } %>
                             </table>
                         </div>
                     </div>
@@ -79,6 +62,5 @@
             </div>
         </section>
     <%- include('partials/_footer.ejs') %>
-    <script src="js/dropdown_shipper_page.js"></script>
 </body>
 </html>

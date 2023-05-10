@@ -925,6 +925,10 @@ footer {
   width: 100%;
 }
 
+.w-4\/5 {
+  width: 80%;
+}
+
 .min-w-0 {
   min-width: 0px;
 }
