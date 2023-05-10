@@ -4,11 +4,7 @@
     <%- include("partials/_head", {title: "Home page"}) %>
 </head>
 <body>
-    <header>
-        <!-- Navigation bar -->
-        <%- include("partials/_navigation_bar"); %>
-        <%- include("partials/_category_bar.ejs"); %>
-    </header>
+        <%- include('partials/_header.ejs') %>
     <main>
                 <!-- Hero section here -->
         <%- include('partials/_hero_section.ejs') %>
@@ -25,6 +21,9 @@
             <!-- Categories section here -->
         <%- include('partials/_product_category.ejs') %>
             <!-- Categories section here -->        
+        <%- include('shipper_delivering.ejs') %>
+        <%- include('about_us.ejs') %>
+        <%- include('my_account.ejs') %>
     </main>
     <%- include("partials/_footer.ejs"); %>
 </body>
