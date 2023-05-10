@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
 
 
 //Authentication modules + route
-import { router as register_loginRoute } from './src/routes/registration-login.js';
+import { router as register_loginRoute } from './src/routes/authentication.js';
 import { ensureAuthenticated } from "./src/middlewares/auth.js";
 
 // User routes 
