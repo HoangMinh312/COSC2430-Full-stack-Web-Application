@@ -35,6 +35,12 @@ router.get('/register/shipper', (req, res) => {
     res.render("registerShipper")
 })
 
+// My account page
+router.get('/profile', (req, res) => {
+    const user = req.session.user
+    res.render("my_account", { user })
+}) 
+
 
 // Register Customer Handle
 router.post('/register/customer', upload.single('profilePicture'), (req,res) => {
@@ -285,8 +291,12 @@ router.post('/register/vendor', (req,res) => {
 })
 
 // Register Shipper Handle
-router.post('/register/shipper', (req,res) => {
+router.post('/register/shipper', upload.single('profilePicture'), (req,res) => {
     const { username, password , name, distributionHub} = req.body;
+    const profilePicture = req.file;
+    console.log(profilePicture)
+    const fileData = fs.readFileSync(req.file.path);
+    const contentType = req.file.mimetype;
     let errors = []
 
     // Check required fields
@@ -361,6 +371,10 @@ router.post('/register/shipper', (req,res) => {
                     const newShipper = new Shipper({
                         username,
                         password,
+                        profilePicture: {
+                            data: fileData,
+                            contentType: contentType,
+                        },
                         name,
                         distributionHub
                     })

@@ -12,6 +12,7 @@ import { initializePassport } from './src/configs/passport-config.js'
 initializePassport(passport)
 
 // Mongoose + MongoDB
+const MONGODB_URI = "mongodb+srv://user:s3977773@fullstack-database.3im5ftq.mongodb.net/?retryWrites=true&w=majority"
 mongoose.connect(MONGODB_URI, { useNewURLParser: true})
 .then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err))
@@ -47,7 +48,6 @@ const app = express();
 const PORT = process.env.PORT || 6900;
 
 // Mongoose + MongoDB
-const MONGODB_URI = "mongodb+srv://user:s3977773@fullstack-database.3im5ftq.mongodb.net/?retryWrites=true&w=majority"
 mongoose.connect(MONGODB_URI, { useNewURLParser: true })
 .then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err))
@@ -104,6 +104,4 @@ app.listen(PORT, () => {
 // Routes 
 app.use('/auth', register_loginRoute)
 app.use('/shipper', shipperRoutes)
-
-
-app.listen(PORT)
+app.use('/users', register_loginRoute)
