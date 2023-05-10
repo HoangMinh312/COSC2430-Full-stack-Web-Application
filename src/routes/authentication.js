@@ -35,19 +35,29 @@ router.get('/register/shipper', (req, res) => {
     res.render("registerShipper")
 })
 
+// My account page
+router.get('/profile', (req, res) => {
+    const user = req.session.user
+    res.render("my_account", { user })
+}) 
+
 
 // Register Customer Handle
 router.post('/register/customer', upload.single('profilePicture'), (req,res) => {
     const { username, password , name, address} = req.body;
-    const profilePicture = req.file;
-    console.log(profilePicture)
-    const fileData = fs.readFileSync(req.file.path);
-    const contentType = req.file.mimetype;
     let errors = []
     
     // Check required fields
     if (!username || !password || !name || !address) {
         errors.push({msg: "Please fill in all fields"})
+    }
+
+    // Check profile picture
+    if (req.file != undefined) {
+        const fileData = fs.readFileSync(req.file.path);
+        const contentType = req.file.mimetype;
+    } else {
+        errors.push({msg: "Please upload a profile picture"})
     }
 
     // Check username length
@@ -152,13 +162,22 @@ router.post('/register/customer', upload.single('profilePicture'), (req,res) => 
 })
 
 // Register Vendor Handle
-router.post('/register/vendor', (req,res) => {
+router.post('/register/vendor', upload.single('profilePicture'), (req,res) => {
     const { username, password , name, address} = req.body;
     let errors = []
+    
 
     // Check required fields
-    if (!username || !password || !name || !address) {
+    if (!username || !password || !name || !address || !req.file) {
         errors.push({msg: "Please fill in all fields"})
+    }
+
+    // Check profile picture
+    if (req.file != undefined) {
+        const fileData = fs.readFileSync(req.file.path);
+        const contentType = req.file.mimetype;
+    } else {
+        errors.push({msg: "Please upload a profile picture"})
     }
 
     // Check username length
@@ -285,13 +304,23 @@ router.post('/register/vendor', (req,res) => {
 })
 
 // Register Shipper Handle
-router.post('/register/shipper', (req,res) => {
+router.post('/register/shipper', upload.single('profilePicture'), (req,res) => {
     const { username, password , name, distributionHub} = req.body;
     let errors = []
-
+    let fileData = null
+    let contentType = null
+    
     // Check required fields
     if (!username || !password || !name || !distributionHub) {
         errors.push({msg: "Please fill in all fields"})
+    }
+
+    // Check profile picture
+    if (req.file != undefined) {
+        fileData = fs.readFileSync(req.file.path);
+        contentType = req.file.mimetype;
+    } else {
+        errors.push({msg: "Please upload a profile picture"})
     }
 
     // Check username length
@@ -361,6 +390,10 @@ router.post('/register/shipper', (req,res) => {
                     const newShipper = new Shipper({
                         username,
                         password,
+                        profilePicture: {
+                            data: fileData,
+                            contentType: contentType,
+                        },
                         name,
                         distributionHub
                     })
@@ -423,10 +456,12 @@ router.post('/login', (req, res, next) => {
             return res.redirect('/auth/loggedin'); // Redirect to the vendor dashboard
         } else if (user instanceof Shipper) {
             const userID = user.id
+            console.log("User found")
             return res.redirect(`/shipper/${userID}`); // Redirect to the shipper dashboard
         } else {
             // Handle unrecognized user type
             req.flash('error', 'Unrecognized user type');
+            console.log("Login failed")
             return res.redirect('/auth/login');
         }
     })(req, res, next);
@@ -454,9 +489,3 @@ router.get('/logout', (req, res) => {
     });
     
 })
-
-
-router.get('/logout', (req, res) => {
-    req.logout(); // Log out the user
-    
-  });
