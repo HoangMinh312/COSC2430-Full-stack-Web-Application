@@ -11,12 +11,6 @@ import passport from "passport"
 import { initializePassport } from './src/configs/passport-config.js'
 initializePassport(passport)
 
-// Mongoose + MongoDB
-const MONGODB_URI = "mongodb+srv://user:s3977773@fullstack-database.3im5ftq.mongodb.net/?retryWrites=true&w=majority"
-mongoose.connect(MONGODB_URI, { useNewURLParser: true})
-.then(() => console.log('MongoDB Connected...'))
-.catch(err => console.log(err))
-
 // Multer configuration
 import multer from "multer"
 const storage = multer.diskStorage({
@@ -28,9 +22,8 @@ const storage = multer.diskStorage({
     }
 });
 
-
 //Authentication modules + route
-import { router as register_loginRoute } from './src/routes/registration-login.js';
+import { router as register_loginRoute } from './src/routes/authentication.js';
 import { ensureAuthenticated } from "./src/middlewares/auth.js";
 
 // User routes 
@@ -92,16 +85,9 @@ app.set('views','./src/views');
 app.set("view engine", "ejs");
 
 // Routers
-// app.use("/", ensureAuthenticated,indexRouter);
-app.use("/", indexRouter);
 app.use("/users", userRouter);
-
-app.listen(PORT, () => {
-    console.log("Loaded website")
-  console.log(`App listening on port ${PORT}: http://localhost:${PORT}`)
-})
-
-// Routes 
 app.use('/auth', register_loginRoute)
 app.use('/shipper', shipperRoutes)
-app.use('/users', register_loginRoute)
+app.use("/",indexRouter);
+
+app.listen(PORT)

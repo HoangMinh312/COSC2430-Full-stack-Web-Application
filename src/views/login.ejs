@@ -1,6 +1,6 @@
 <form action="/auth/login" method="post">
     <h1>Login</h1>
-    <%- include ('./partials/messages') %>
+    <%- include ('partials/_messages') %>
     <div>
         <label for="username">Username:</label>
         <input type="username" name="username" id="username" value="<%= typeof username != 'undefined' ? username : ''%>">

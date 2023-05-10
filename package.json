@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "all": "concurrently --kill-others \"npm:devStart\" \"npm:watch-css\"",
-    "devStart": "nodemon server.js",
+    "devStart": "nodemon index.js",
     "watch-css": "tailwindcss -i ./src/css/input.css -o ./public/style.css --watch"
   },
   "repository": {

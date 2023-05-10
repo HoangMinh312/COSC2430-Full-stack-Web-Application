@@ -9,7 +9,8 @@ const productSchema = new mongoose.Schema({
         trim: true
     },
     image: {
-        type: Buffer,
+        data: Buffer,
+        contentType: String
     },
     price: {
         type: Number,
@@ -23,7 +24,7 @@ const productSchema = new mongoose.Schema({
     },
     brand: {
         type: String,
-        required: true
+        default: "no Brand"
     },
     category: {
         type: String,
@@ -31,7 +32,8 @@ const productSchema = new mongoose.Schema({
         enum: category
     },
     tags: {
-        type: [String]
+        type: [String],
+        default: []
     }
 })
 

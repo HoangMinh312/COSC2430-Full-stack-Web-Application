@@ -2,6 +2,7 @@ $(document).ready(() => {
     const cateSidemenu = $(".cate-sidemenu")
     const hamburgerMenu = $(".hamburger-menu")
 
+    // Create a backdrop and hide it
     const offcanvasBackdrop = $("<div>")
     offcanvasBackdrop.attr('id', 'offcanvas-backdrop')
     offcanvasBackdrop.fadeOut(0)
@@ -17,6 +18,7 @@ $(document).ready(() => {
         hamburgerMenu.toggleClass("show")
     })
 
+    // Hide the sidemenu when clicked
     offcanvasBackdrop.on('click', () => {
         offcanvasBackdrop.fadeOut(300)
         cateSidemenu.removeClass("show")
