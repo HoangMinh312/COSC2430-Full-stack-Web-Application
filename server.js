@@ -11,11 +11,6 @@ import passport from "passport"
 import { initializePassport } from './src/configs/passport-config.js'
 initializePassport(passport)
 
-// Mongoose + MongoDB
-mongoose.connect(MONGODB_URI, { useNewURLParser: true})
-.then(() => console.log('MongoDB Connected...'))
-.catch(err => console.log(err))
-
 // Multer configuration
 import multer from "multer"
 const storage = multer.diskStorage({
@@ -26,7 +21,6 @@ const storage = multer.diskStorage({
         cb(null, file.fieldname + '-' + Date.now());
     }
 });
-
 
 //Authentication modules + route
 import { router as register_loginRoute } from './src/routes/authentication.js';
@@ -92,18 +86,11 @@ app.set('views','./src/views');
 app.set("view engine", "ejs");
 
 // Routers
-// app.use("/", ensureAuthenticated,indexRouter);
-app.use("/", indexRouter);
 app.use("/users", userRouter);
-
-app.listen(PORT, () => {
-    console.log("Loaded website")
-  console.log(`App listening on port ${PORT}: http://localhost:${PORT}`)
-})
 
 // Routes 
 app.use('/auth', register_loginRoute)
 app.use('/shipper', shipperRoutes)
-
+app.use("/", ensureAuthenticated,indexRouter);
 
 app.listen(PORT)
