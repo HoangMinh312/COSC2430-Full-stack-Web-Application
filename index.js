@@ -54,14 +54,13 @@ bs.init({
 });
 
 // Bodyparser
-// app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 // Flash and session middleware
 app.use(session({
     secret: 'your-secret-key',
-    resave: false,
-    saveUninitialized: false
+    resave: true,
+    saveUninitialized: true
 }));
 app.use(flash())
 
@@ -90,7 +89,7 @@ app.use("/users", userRouter);
 
 // Routes 
 app.use('/auth', register_loginRoute)
-app.use('/shipper', shipperRoutes)
+app.use('/shipper', ensureAuthenticated, shipperRoutes)
 app.use("/", ensureAuthenticated,indexRouter);
 
 app.listen(PORT)
