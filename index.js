@@ -87,11 +87,8 @@ app.set("view engine", "ejs");
 
 // Routers
 app.use("/users", userRouter);
-app.use("/users", userRoute);
-
-// Routes 
 app.use('/auth', register_loginRoute)
 app.use('/shipper', shipperRoutes)
-app.use("/", ensureAuthenticated,indexRouter);
+app.use("/",indexRouter);
 
 app.listen(PORT)
