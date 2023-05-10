@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("partials/_head", {title: "Vendor add product"}) %>
+</head>
+<body>
+    <header>
+        <!-- Navigation bar -->
+        <%- //include("partials/_navigation_bar"); %>
+        <%- //include("partials/_category_bar.ejs"); %>
+    </header>
+    <main>
+        <div class="flex flex-row justify-around flex-wrap min-w-[240px] [&>div]:w-[90%] sm:[&>div]:w-2/5  md:[&>div]:w-1/5">
+            <%- include("partials/_card"); %>
+        </div>
+    </main>
+    <%- include("partials/_footer.ejs"); %>
+</body>
+</html>

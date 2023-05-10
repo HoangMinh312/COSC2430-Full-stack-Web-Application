@@ -1,13 +1,10 @@
                 <!-- Div contains img and info about products -->
 <div class="flex flex-col m-2 p-2 rounded-lg shadow-xl">
                 <!-- First div contains images of products -->
-    <div class="flex m-1 mb-5">
-        <img class='shadow-sm hover:scale-110' src="/images/hero-image-2.png" alt="hero-image-2">
+    <div class="flex m-1 mb-5 overflow-hidden">
+        <img class='shadow-sm hover:scale-110 object-cover transition-300' src="/images/hero-image-2.png" alt="hero-image-2">
     </div>
                 <!-- First div contains images of products -->
-                            <!-- Line break -->
-    <hr>
-                            <!-- Line break -->
                 <!-- Second div contains info of products -->
     <div class="flex flex-col my-2">
                 <!-- This div contains the name of products -->
@@ -20,7 +17,7 @@
     <!-- This div contains description of products (ex: brand, usage, ...) -->
         <div class="my-3 flex flex-row justify-center">
             <p class="font-normal text-sm">
-                <%- locals.brandName || "Sample brand" %>
+                <%- locals.brand || "Sample brand" %>
             </p>
         </div>
     <!-- This div contains description of products (ex: brand, usage, ...) -->
@@ -43,7 +40,7 @@
                 <!-- This div contains the price of products -->
         <div class="my-2"> 
             <p class="flex flex-row justify-center font-bold">
-                $<%- locals.priceValue || "00.00" %>
+                $<%- locals.price || "00.00" %>
             </p>
         </div>
                 <!-- This div contains the price of products -->

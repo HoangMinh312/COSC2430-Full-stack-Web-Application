@@ -74,6 +74,7 @@ app.set("view engine", "ejs");
 // app.use("/", ensureAuthenticated,indexRouter);
 app.use("/", indexRouter);
 app.use("/users", userRouter);
+app.use("/users", userRoute);
 
 app.listen(PORT, () => {
     console.log("Loaded website")
