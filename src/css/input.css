@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .border-solid-1 {
+        @apply border-solid border-transparent;
+        border-width: 1px
+    }
+    .center-xy {
+        @apply flex justify-center items-center;
+    }
+    .center-y {
+        @apply flex justify-center;
+    }
+    .center-y {
+        @apply flex items-center;
+    }
+    .w-h-full {
+        @apply w-full h-full;
+    }
+    .transition-300 {
+        transition-property: all;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); 
+        transition-duration: 300ms;
+    }
+    .cate-sidemenu.show {
+        left: 0;
+    }
+    .hamburger-menu.show {
+        right: 0;
+    }
+    #offcanvas-backdrop {
+        content: "";
+        position: fixed;
+        display: block;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 5;
+
+        background: rgba(255, 255, 255, 0.11);
+        -webkit-backdrop-filter: blur(2.1px);
+        backdrop-filter: blur(2.1px);
+        /* transition: .3s; */
+    }
+
+    /* width */
+    #scroll::-webkit-scrollbar {
+        width: 1px;
+    }
+
+    /* Track */
+    #scroll::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    #scroll::-webkit-scrollbar-thumb {
+        background: rgb(133, 132, 132);
+    }
+  }

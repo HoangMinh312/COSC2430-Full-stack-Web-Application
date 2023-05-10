@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "all": "concurrently \"npm:devStart\" \"npm:watch-css\"",
+    "all": "concurrently --kill-others \"npm:devStart\" \"npm:watch-css\"",
     "devStart": "nodemon server.js",
     "watch-css": "tailwindcss -i ./src/css/input.css -o ./public/style.css --watch"
   },

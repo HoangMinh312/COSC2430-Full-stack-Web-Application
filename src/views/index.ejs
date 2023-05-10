@@ -1,21 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./../../style.css">
-    <title>Lazada</title>
+    <%- include("partials/_head", {title: "Home page"}) %>
 </head>
 <body>
-    <header>
-        <!-- Navigation bar -->
-        <%- include("_navigation_bar"); %>
-        <%- include("_category_bar"); %>
-    </header>
+        <%- include('partials/_header.ejs') %>
     <main>
-        
+                <!-- Hero section here -->
+        <%- include('partials/_hero_section.ejs') %>
+                <!-- Hero section here -->
+                <!-- First banner section here -->
+        <%- include('partials/_banner_section_1.ejs') %>
+                <!-- First banner section here -->
+                <!-- Second banner section here -->
+        <%- include('partials/_banner_section_2.ejs') %>
+                <!-- Second banner section here -->
+            <!-- Top seller items section here -->
+        <%- include('partials/_top_seller_items.ejs') %>
+            <!-- Top seller items section here -->
+            <!-- Categories section here -->
+        <%- include('partials/_product_category.ejs') %>
+            <!-- Categories section here -->        
+        <%- include('shipper_delivering.ejs') %>
+        <%- include('about_us.ejs') %>
+        <%- include('my_account.ejs') %>
     </main>
-    <%- include("_footer"); %>
+    <%- include("partials/_footer.ejs"); %>
+    <script src="/js/sidemenu.js"></script>
 </body>
 </html>

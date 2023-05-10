@@ -1,0 +1,26 @@
+<section id="category-bar" class="w-full border-solid-1 border-t-gray-300 border-b-gray-300">
+    <nav class="flex px-4 md:px-12 py-4 w-full justify-between">
+        <!-- Category button (for mobile device) -->
+        <div class="cate-btn flex justify-center gap-2 items-center cursor-pointer text-gray-400 hover:text-gray-500 md:hidden">
+            <span class="font-medium text-gray-900">Categories</span>
+            <svg class="h-5 w-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"></path></svg>
+        </div>
+
+        <!-- Category list -->
+        <ul class="cate-sidemenu z-10 inline-flex items-center flex-col fixed max-w-full bg-clip-padding -left-full top-0 bottom-0 bg-white [&_li]:w-full [&_li]:text-center [&_a]:px-12 [&_a]:py-4 [&_a:hover]:bg-violet-200 transition-300 md:static md:flex-row md:[&_a]:p-0 md:gap-6 whitespace-nowrap md:transform-none [&_li:hover]:bg-transparent md:[&_li:hover]:text-violet-400">
+            <li><a class="block" href="">Clothes</a></li>
+            <li><a class="block" href="">Electronic and Appliances</a></li>
+            <li><a class="block" href="">Food and Beverages</a></li>
+        </ul>
+        <!-- Search bar -->
+        <div class="flex gap-4 justify-end w-1/2 md:w-1/3">
+            <form class="inline-flex justify-end w-full" action="/search" method="get">
+                <input class="px-4 py-[0.125rem] w-full border border-solid border-gray-500 rounded-l-2xl focus:outline-none focus:border-black" type="text" name="search-bar" placeholder="Search">
+                <button class="px-4 py-[0.125rem] border border-solid border-gray-500 rounded-r-2xl" type="submit"><img class="w-5" src="./../../svg/search.svg" alt="Search"></button>
+            </form>
+            <a href="#"><img class="w-7" src="/svg/shopping-cart.svg" alt="Shopping cart"></a>
+        </div>
+    </nav>
+</section>
+
+

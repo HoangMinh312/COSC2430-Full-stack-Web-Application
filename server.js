@@ -1,5 +1,6 @@
-// Express modules
+// Modules import
 import express from "express";
+import mongoose from "mongoose";
 
 // Flashing messages and session
 import flash from "connect-flash";
@@ -11,8 +12,6 @@ import { initializePassport } from './src/configs/passport-config.js'
 initializePassport(passport)
 
 // Mongoose + MongoDB
-const MONGODB_URI = "mongodb+srv://user:s3977773@fullstack-database.3im5ftq.mongodb.net/?retryWrites=true&w=majority"
-import mongoose from "mongoose";
 mongoose.connect(MONGODB_URI, { useNewURLParser: true})
 .then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err))
@@ -39,9 +38,19 @@ import { router as shipperRoutes } from './src/routes/shipper.js';
 //Browsersync modules
 import browserSync from "browser-sync";
 import { config } from "./src/configs/bs-config.js";
+
+//Routers import
+import { indexRouter }  from "./src/routes/index.js";
+import { userRouter } from "./src/routes/users.js";
+
 const app = express();
 const PORT = process.env.PORT || 6900;
 
+// Mongoose + MongoDB
+const MONGODB_URI = "mongodb+srv://user:s3977773@fullstack-database.3im5ftq.mongodb.net/?retryWrites=true&w=majority"
+mongoose.connect(MONGODB_URI, { useNewURLParser: true })
+.then(() => console.log('MongoDB Connected...'))
+.catch(err => console.log(err))
 
 // BrowserSync
 const bs = browserSync.create();
@@ -50,11 +59,9 @@ bs.init({
   watch: true
 });
 
-
 // Bodyparser
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
-
 
 // Flash and session middleware
 app.use(session({
@@ -77,16 +84,21 @@ app.use((req, res, next) => {
     next()  
 })
 
-
-
 // Views middleware and setup
 app.use(express.static("./public"))
+app.use(express.urlencoded({ extended: true}));
+
 app.set('views','./src/views');
 app.set("view engine", "ejs");
 
-app.get("/", ensureAuthenticated,(req, res) => {
+// Routers
+// app.use("/", ensureAuthenticated,indexRouter);
+app.use("/", indexRouter);
+app.use("/users", userRouter);
+
+app.listen(PORT, () => {
     console.log("Loaded website")
-    res.render("index")
+  console.log(`App listening on port ${PORT}: http://localhost:${PORT}`)
 })
 
 // Routes 
