@@ -2,11 +2,17 @@ import express from 'express';
 import bcrypt from "bcrypt";
 export const router = express.Router();
 import passport from 'passport';
+
+// Multer + fs(Processing images)
+import fs from "fs"
+import multer from "multer"
+const upload = multer({ dest: 'uploads/' });
+
 // User model
 import { Customer , Vendor, Shipper } from "../models/User.js"
 
 router.get('/', (req, res) => {
-    res.render("users")
+    res.render("auth")
 })
 // Login page
 router.get('/login', (req, res) => {
@@ -31,10 +37,14 @@ router.get('/register/shipper', (req, res) => {
 
 
 // Register Customer Handle
-router.post('/register/customer', (req,res) => {
+router.post('/register/customer', upload.single('profilePicture'), (req,res) => {
     const { username, password , name, address} = req.body;
+    const profilePicture = req.file;
+    console.log(profilePicture)
+    const fileData = fs.readFileSync(req.file.path);
+    const contentType = req.file.mimetype;
     let errors = []
-
+    
     // Check required fields
     if (!username || !password || !name || !address) {
         errors.push({msg: "Please fill in all fields"})
@@ -112,6 +122,10 @@ router.post('/register/customer', (req,res) => {
                     const newCustomer = new Customer({
                         username,
                         password,
+                        profilePicture: {
+                            data: fileData,
+                            contentType: contentType
+                        },
                         name,
                         address
                     })
@@ -126,7 +140,7 @@ router.post('/register/customer', (req,res) => {
                                 .then(user => {
                                     console.log(user);
                                     req.flash('success_msg', 'You are now registered and can log in')
-                                    res.redirect('/users/login')
+                                    res.redirect('/auth/login')
                                 })
                                 .catch(err => console.log(err))
                         })
@@ -255,7 +269,7 @@ router.post('/register/vendor', (req,res) => {
                                                 .then(user => {
                                                 console.log(user)
                                                 req.flash('success_msg', 'You are now registered and can log in')
-                                                res.redirect('/users/login')
+                                                res.redirect('/auth/login')
                                             })
                                                 .catch(err => console.log(err));
                                         })
@@ -272,11 +286,11 @@ router.post('/register/vendor', (req,res) => {
 
 // Register Shipper Handle
 router.post('/register/shipper', (req,res) => {
-    const { username, password , name, dhub} = req.body;
+    const { username, password , name, distributionHub} = req.body;
     let errors = []
 
     // Check required fields
-    if (!username || !password || !name || !dhub) {
+    if (!username || !password || !name || !distributionHub) {
         errors.push({msg: "Please fill in all fields"})
     }
 
@@ -319,12 +333,12 @@ router.post('/register/shipper', (req,res) => {
     }
 
     if (errors.length > 0) {
-        res.render('registerCustomer', {
+        res.render('registerShipper', {
             errors,
             username,
             password,
             name,
-            dhub
+            distributionHub
         })
     } else {
         // Validation passed
@@ -336,19 +350,19 @@ router.post('/register/shipper', (req,res) => {
             .then(([customer, vendor, shipper]) => {
                 if(customer || vendor || shipper) {
                     errors.push({msg : "User already exists with that username"})
-                    res.render('registerCustomer', {
+                    res.render('registerShipper', {
                         errors,
                         username,
                         password,
                         name,
-                        dhub
+                        distributionHub
                     })
                 } else {
                     const newShipper = new Shipper({
                         username,
                         password,
                         name,
-                        distributionHub: dhub
+                        distributionHub
                     })
                     // Hash password
                     bcrypt.genSalt(10, (err, salt) => {
@@ -361,7 +375,7 @@ router.post('/register/shipper', (req,res) => {
                                 .then(user => {
                                     console.log(user);
                                     req.flash('success_msg', 'You are now registered and can log in')
-                                    res.redirect('/users/login')
+                                    res.redirect('/auth/login')
                                 })
                                 .catch(err => console.log(err))
                         })
@@ -386,16 +400,63 @@ router.post('/register/shipper', (req,res) => {
 
 // Login Handle
 router.post('/login', (req, res, next) => {
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/users/login',
-        failureFlash: true
-    })(req, res, next)
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            // Handle error
+            return next(err);
+        }
+        if (!user) {
+            // Authentication failed
+            req.flash('error', 'Invalid username or password');
+            return res.redirect('/auth/login');
+        }
+        
+        // Save user in session
+        req.session.user = user;
+        
+        // Determine the user type
+        if (user instanceof Customer) {
+            const userID = user.id
+            return res.redirect(`/auth/loggedin`); // Redirect to the customer dashboard
+        } else if (user instanceof Vendor) {
+            const userID = user.id
+            return res.redirect('/auth/loggedin'); // Redirect to the vendor dashboard
+        } else if (user instanceof Shipper) {
+            const userID = user.id
+            return res.redirect(`/shipper/${userID}`); // Redirect to the shipper dashboard
+        } else {
+            // Handle unrecognized user type
+            req.flash('error', 'Unrecognized user type');
+            return res.redirect('/auth/login');
+        }
+    })(req, res, next);
+});
+// router.post('/login', (req, res, next) => {
+//     passport.authenticate('local', {
+//         successRedirect: '/',
+//         failureRedirect: '/users/login',
+//         failureFlash: true
+//     })(req, res, next)
+// })
+
+router.get('/loggedin', (req, res) => {
+    const user = req.session.user
+    res.render("loggedin-customer", { user })
 })
 
 // Logout Handle 
-router.post('/logout', (req, res) => {
-    req.logout();
-    req.flash('success_msg', 'You are logged out')
-    res.redirect('/login')
+router.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.log(err);
+        }
+        res.redirect('/auth/login'); // Redirect to the home page or any other page after logout
+    });
+    
 })
+
+
+router.get('/logout', (req, res) => {
+    req.logout(); // Log out the user
+    
+  });
