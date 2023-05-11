@@ -1,7 +1,8 @@
 <div class="py-4 pl-0 pr-0 md:pl-4 grid-col-autofit-250 md:grid-col-autofit-300 gap-4">
     <!-- <img class="object-cover" src="https://static.vecteezy.com/system/resources/previews/007/481/196/original/diagonal-lines-background-straight-stripes-texture-background-simple-seamless-pattern-line-pattern-geometric-background-vector.jpg" alt="sth"> -->
-    <% for (let i = 0; i < 8; i++) { %>        
-        <!-- <div class="bg-blue-500">Smartphones</div> -->
-        <%- include("_card"); %>
+    <% if (locals.products != null) { %>
+        <% products.forEach(product => { %>
+            <p class="bg-slate-500"><%- product.name %></p>
+        <% }); %>
     <% } %>
 </div>

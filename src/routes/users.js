@@ -6,11 +6,7 @@ import { shipperRouter } from "./shipper.js";
 import { customerRouter } from "./customer.js";
 
 // Customer route
-// users/customer
 userRouter.use("/customer", customerRouter)
-userRouter.get("/customer", (req, res) => {
-    res.render("customer_shopping");
-})
 
 // Vendor route
 userRouter.use("/vendor", vendorRouter)
