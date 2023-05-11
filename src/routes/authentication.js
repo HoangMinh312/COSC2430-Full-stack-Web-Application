@@ -104,7 +104,7 @@ router.post('/register/customer', upload.single('profilePicture'), (req,res) => 
     }
 
     if (errors.length > 0) {
-        res.render('registerCustomer', {
+        res.render('register_customer', {
             errors,
             username,
             password,
@@ -121,7 +121,7 @@ router.post('/register/customer', upload.single('profilePicture'), (req,res) => 
             .then(([customer, vendor, shipper]) => {
                 if(customer || vendor || shipper) {
                     errors.push({msg : "User already exists with that username"})
-                    res.render('registerCustomer', {
+                    res.render('register_customer', {
                         errors,
                         username,
                         password,
@@ -224,7 +224,7 @@ router.post('/register/vendor', upload.single('profilePicture'), (req,res) => {
     }
 
     if (errors.length > 0) {
-        res.render('registerVendor', {
+        res.render('register_vendor', {
             errors,
             username,
             password,
@@ -241,7 +241,7 @@ router.post('/register/vendor', upload.single('profilePicture'), (req,res) => {
             .then(([customer, vendor, shipper]) => {
                 if(customer || vendor || shipper) {
                     errors.push({msg : "User already exists with that username"})
-                    res.render('registerVendor', {
+                    res.render('register_vendor', {
                         errors,
                         username,
                         password,
@@ -252,7 +252,7 @@ router.post('/register/vendor', upload.single('profilePicture'), (req,res) => {
                     Vendor.findOne({ businessName: name }).then(userByName => {
                         if (userByName) {
                             errors.push({msg: "A vendor with this name already exists"})
-                            res.render('registerVendor', {
+                            res.render('register_vendor', {
                                 errors,
                                 username,
                                 password,
@@ -263,7 +263,7 @@ router.post('/register/vendor', upload.single('profilePicture'), (req,res) => {
                             Vendor.findOne({ businessAddress: address }).then(userByAddress => {
                                 if (userByAddress) {
                                     errors.push({msg: "A vendor with this address already exists"})
-                                    res.render('registerVendor', {
+                                    res.render('register_vendor', {
                                         errors,
                                         username,
                                         password,
@@ -362,7 +362,7 @@ router.post('/register/shipper', upload.single('profilePicture'), (req,res) => {
     }
 
     if (errors.length > 0) {
-        res.render('registerShipper', {
+        res.render('register_shipper', {
             errors,
             username,
             password,
@@ -379,7 +379,7 @@ router.post('/register/shipper', upload.single('profilePicture'), (req,res) => {
             .then(([customer, vendor, shipper]) => {
                 if(customer || vendor || shipper) {
                     errors.push({msg : "User already exists with that username"})
-                    res.render('registerShipper', {
+                    res.render('register_shipper', {
                         errors,
                         username,
                         password,
