@@ -1,20 +1,47 @@
-<!DOCTYPE html>
+<!DOCTYpE html>
 <html lang="en">
 <head>
     <%- include('partials/_head.ejs', {title: "Order details"}) %>
 </head>
 <body>
     <%- include('partials/_header.ejs') %>
-    <main class="flex justify-center">
-        <div>
-
-        </div>
-        <div>
-            
-        </div>
-        <div>
-            <%- include('partials/_options_dropdown_shipper.ejs') %>
-        </div>
+    <main class="flex flex-col justify-center">
+        <h1 class="text-3xl font-bold font-sans text-center my-4 p-2">
+            Order detail
+        </h1>
+        <section class="border-1 border-solid border-gray-200">
+            <div class="flex flex-col m-2 p-2">
+                <h2 class="text-2xl font-bold italic text-center">
+                    Order
+                </h2>
+                <p class="text-base">Order ID: </p>
+                <p>Date: </p>
+                <p>Total price: </p>
+            </div>
+            <div class="flex flex-col m-2 p-2">
+                <h2 class="text-2xl font-bold italic text-center">
+                    Shipping address
+                </h2>
+                <p>Customer's name: </p>
+                <p>Address: </p>
+            </div>
+            <div class="flex flex-col m-2 p-2">
+                <h2 class="text-2xl font-bold italic text-center">
+                    Item
+                </h2>
+                <ul>
+                    <li>
+                        <p>Item name: </p>
+                        <img class="w-3/5 h-3/5" src="images/furniture.jpg" alt="">
+                        <p>price: </p>
+                        <p>Quantity: </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="">
+                <%- include('partials/_options_dropdown_shipper.ejs') %>
+            </div>
+        </section>
     </main>
     <%- include('partials/_footer.ejs') %>
 </body>
