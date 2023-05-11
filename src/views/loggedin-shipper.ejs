@@ -1,9 +1,0 @@
-<h1>Logged in</h1>
-<p>Welcome Shipper <%=user.name%></p>
-<p>Profile picture</p>
-<% if (user.profilePicture && user.profilePicture.data && user.profilePicture.contentType) { %>
-    <img src="data:<%= user.profilePicture.contentType %>;base64,<%= new Buffer (user.profilePicture.data).toString('base64') %>" alt="">
-<% } else { %>
-    <p>No profile picture available</p>
-<% } %>
-<a href="/auth/logout">Logout</a>
