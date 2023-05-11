@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
-const category = ['Electronic and Appliances', 'Clothes', 'Food and Beverages']
+export const category = ['Electronic and Appliances', 'Clothes', 'Food and Beverages']
+// tags
+const ageTags = ['young adult', 'middle-aged', 'senior']
+const priceRangeTags = ['budget-friendly', 'luxury']
+const genderTags = ['male', 'female']
+export const tags = [].concat(...[ageTags, priceRangeTags, genderTags]) 
 
 const productSchema = new mongoose.Schema({
     name: {
@@ -22,6 +27,11 @@ const productSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    stock: {
+        type: Number,
+        required: true,
+        min: 1
+    },
     brand: {
         type: String,
         default: "no Brand"
@@ -33,6 +43,7 @@ const productSchema = new mongoose.Schema({
     },
     tags: {
         type: [String],
+        enum: tags,
         default: []
     }
 })

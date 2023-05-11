@@ -41,7 +41,6 @@ const app = express();
 const PORT = process.env.PORT || 6900;
 
 // Mongoose + MongoDB
-const MONGODB_URI = "mongodb+srv://user:s3977773@fullstack-database.3im5ftq.mongodb.net/?retryWrites=true&w=majority" 
 mongoose.connect(MONGODB_URI, { useNewURLParser: true })
 .then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err))
@@ -54,7 +53,7 @@ bs.init({
 });
 
 // Bodyparser
-app.use(express.urlencoded({ extended: false }))
+// app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 // Flash and session middleware
