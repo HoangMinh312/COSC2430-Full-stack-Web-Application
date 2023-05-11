@@ -27,7 +27,7 @@ import { router as register_loginRoute } from './src/routes/authentication.js';
 import { ensureAuthenticated } from "./src/middlewares/auth.js";
 
 // User routes 
-import { router as shipperRoutes } from './src/routes/shipper.js';
+// import { router as shipperRoutes } from './src/routes/shipper.js';
 
 //Browsersync modules
 import browserSync from "browser-sync";
@@ -85,9 +85,8 @@ app.set('views','./src/views');
 app.set("view engine", "ejs");
 
 // Routers
-app.use("/users", userRouter);
 app.use('/auth', register_loginRoute)
-app.use('/shipper', shipperRoutes)
+app.use("/users", ensureAuthenticated, userRouter);
 app.use("/", ensureAuthenticated,indexRouter);
 
 app.listen(PORT)

@@ -431,63 +431,21 @@ router.post('/register/shipper', upload.single('profilePicture'), (req,res) => {
 // testingUser("hodfghjkl", "dfghjkl", "sdfghjklkjhg")
 
 
-// Login Handle
-// router.post('/login', (req, res, next) => {
-//     passport.authenticate('local', (err, user, info) => {
-//         if (err) {
-//             // Handle error
-//             return next(err);
-//         }
-//         if (!user) {
-//             // Authentication failed
-//             req.flash('error', 'Invalid username or password');
-//             return res.redirect('/auth/login');
-//         }
-        
-//         // Save user in session
-//         req.session.user = user;
-        
-//         // Determine the user type
-//         if (user instanceof Customer) {
-//             const userID = user.id
-//             return res.redirect(`/auth/loggedin`); // Redirect to the customer dashboard
-//         } else if (user instanceof Vendor) {
-//             const userID = user.id
-//             return res.redirect('/auth/loggedin'); // Redirect to the vendor dashboard
-//         } else if (user instanceof Shipper) {
-//             const userID = user.id
-//             console.log(userID)
-            
-//             return res.redirect(`/shipper/${userID}`); // Redirect to the shipper dashboard
-//         } else {
-//             // Handle unrecognized user type
-//             req.flash('error', 'Unrecognized user type');
-//             console.log("Login failed")
-//             return res.redirect('/auth/login');
-//         }
-//     })(req, res, next);
-// });
 router.post('/login', passport.authenticate('local', { failureRedirect: '/auth/login',failureFlash: true}),
     (req, res) => {
         const user = req.user
         if (user instanceof Customer) {
             const userID = user.id
-            res.redirect(`/users/customer`); // Redirect to the customer dashboard
+            res.redirect(`/users/customer/${userID}`); // Redirect to the customer dashboard
         } else if (user instanceof Vendor) {
             const userID = user.id
-            res.redirect('/vendor/'); // Redirect to the vendor dashboard
+            res.redirect(`/users/vendor/${userID}`); // Redirect to the vendor dashboard
         } else if (user instanceof Shipper) {
             const userID = user.id
             console.log(userID)
-            res.redirect(`/shipper/${userID}`); // Redirect to the shipper dashboard
+            res.redirect(`/users/shipper/${userID}`); // Redirect to the shipper dashboard
         }
     })
-
-
-router.get('/loggedin', (req, res) => {
-    const user = req.session.user
-    res.render("loggedin-customer", { user })
-})
 
 // Logout Handle 
 router.get('/logout', (req, res) => {

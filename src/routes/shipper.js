@@ -1,5 +1,5 @@
 import express from "express"
-export const router = express.Router();
+export const shipperRouter = express.Router();
 
 import { Shipper } from "../models/User.js"
 import { Order } from "../models/Orders.js"
@@ -10,12 +10,14 @@ import { Order } from "../models/Orders.js"
 //     res.render('loggedin-shipper', { user })
 // })
 
-router.get('/:id', (req, res) => {
+shipperRouter.get('/profile', (req, res) => {
+    const user = req.user
+    console.log("Redirecting to my account page")
+    res.render("my_account", { user })
+})
+
+shipperRouter.get('/:id', (req, res) => {
     const user = req.user
     res.render("shipper_page", { user })
 })
 
-router.get('/profile', (req, res) => {
-    const user = req.user
-    res.render("my_account", { user })
-})
