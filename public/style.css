@@ -656,6 +656,10 @@ footer {
   right: 0px;
 }
 
+.left-1\/2 {
+  left: 50%;
+}
+
 .z-0 {
   z-index: 0;
 }
@@ -694,6 +698,10 @@ footer {
 
 .m-4 {
   margin: 1rem;
+}
+
+.m-auto {
+  margin: auto;
 }
 
 .-my-3 {
@@ -985,6 +993,11 @@ footer {
 
 .border-collapse {
   border-collapse: collapse;
+}
+
+.-translate-x-1\/2 {
+  --tw-translate-x: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .-rotate-90 {
