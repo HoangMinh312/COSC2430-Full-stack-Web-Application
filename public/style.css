@@ -1274,12 +1274,6 @@ footer {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
-.from-pink-300 {
-  --tw-gradient-from: #f9a8d4 var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(249 168 212 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
 .from-purple-500 {
   --tw-gradient-from: #a855f7 var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(168 85 247 / 0) var(--tw-gradient-to-position);
@@ -1315,10 +1309,6 @@ footer {
 
 .to-gray-300 {
   --tw-gradient-to: #d1d5db var(--tw-gradient-to-position);
-}
-
-.to-purple-400 {
-  --tw-gradient-to: #c084fc var(--tw-gradient-to-position);
 }
 
 .to-violet-100 {
