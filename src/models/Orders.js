@@ -17,6 +17,10 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    userFullName: {
+        type: String,
+        required: true,
+    },
     userAddress: {
         type: String,
         required: true,

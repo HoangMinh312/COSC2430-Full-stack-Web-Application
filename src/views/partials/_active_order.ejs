@@ -1,8 +1,8 @@
 <tbody>
     <tr>
-        <td class="py-2 px-4 border-b border-gray-300 text-center">#1234</td>
-        <td class="py-2 px-4 border-b border-gray-300 text-center">John Smith</td>
-        <td class="py-2 px-4 border-b border-gray-300 text-center">123 Main St, Anytown, USA 12345</td>
+        <td class="py-2 px-4 border-b border-gray-300 text-center"><%= order.id %></td>
+        <td class="py-2 px-4 border-b border-gray-300 text-center"><%= order.userFullName %></td>
+        <td class="py-2 px-4 border-b border-gray-300 text-center"><%= order.userAddress %></td>
         <td class="py-2 px-4 border-b border-gray-300 text-center">$39.97</td>
         <td class="py-2 px-4 border-b border-gray-300 text-center">
             <%- include('_options_dropdown_shipper.ejs') %>
