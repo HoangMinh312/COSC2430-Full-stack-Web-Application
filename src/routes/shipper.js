@@ -17,6 +17,11 @@ shipperRouter.get('/profile', (req, res) => {
     res.render("my_account", { user })
 })
 
+shipperRouter.get('/active-order', (req, res) => {
+    res.render("_active_order_details")
+})
+
+
 shipperRouter.get('/:id', (req, res) => {
     const user = req.user
 
