@@ -46,6 +46,8 @@ router.get('/profile', (req, res) => {
 router.post('/register/customer', upload.single('profilePicture'), (req,res) => {
     const { username, password , name, address} = req.body;
     let errors = []
+    let fileData = null
+    let contentType = null
     
     // Check required fields
     if (!username || !password || !name || !address) {
@@ -53,9 +55,9 @@ router.post('/register/customer', upload.single('profilePicture'), (req,res) => 
     }
 
     // Check profile picture
-    if (req.file != undefined) {
-        const fileData = fs.readFileSync(req.file.path);
-        const contentType = req.file.mimetype;
+    if (req.file) {
+        fileData = fs.readFileSync(req.file.path);
+        contentType = req.file.mimetype;
     } else {
         errors.push({msg: "Please upload a profile picture"})
     }
@@ -165,17 +167,18 @@ router.post('/register/customer', upload.single('profilePicture'), (req,res) => 
 router.post('/register/vendor', upload.single('profilePicture'), (req,res) => {
     const { username, password , name, address} = req.body;
     let errors = []
-    
+    let fileData = null
+    let contentType = null
 
     // Check required fields
-    if (!username || !password || !name || !address || !req.file) {
+    if (!username || !password || !name || !address) {
         errors.push({msg: "Please fill in all fields"})
     }
 
     // Check profile picture
-    if (req.file != undefined) {
-        const fileData = fs.readFileSync(req.file.path);
-        const contentType = req.file.mimetype;
+    if (req.file) {
+        fileData = fs.readFileSync(req.file.path);
+        contentType = req.file.mimetype;
     } else {
         errors.push({msg: "Please upload a profile picture"})
     }
@@ -316,7 +319,7 @@ router.post('/register/shipper', upload.single('profilePicture'), (req,res) => {
     }
 
     // Check profile picture
-    if (req.file != undefined) {
+    if (req.file) {
         fileData = fs.readFileSync(req.file.path);
         contentType = req.file.mimetype;
     } else {
