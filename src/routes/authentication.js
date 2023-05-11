@@ -12,27 +12,27 @@ const upload = multer({ dest: 'uploads/' });
 import { Customer , Vendor, Shipper } from "../models/User.js"
 
 router.get('/', (req, res) => {
-    res.render("auth")
+    res.render("register_form")
 })
 // Login page
 router.get('/login', (req, res) => {
-    res.render("login")
+    res.render("login_form")
 })
 // Register page
 router.get('/register', (req, res) => {
-    res.render("register")
+    res.render("register_form")
 })
 // Customer register page
 router.get('/register/customer', (req, res) => {
-    res.render("registerCustomer")
+    res.render("register_customer")
 })
 // Vendor register page
 router.get('/register/vendor', (req, res) => {
-    res.render("registerVendor")
+    res.render("register_vendor")
 })
 // Shipper register page
 router.get('/register/shipper', (req, res) => {
-    res.render("registerShipper")
+    res.render("register_shipper")
 })
 
 // My account page
