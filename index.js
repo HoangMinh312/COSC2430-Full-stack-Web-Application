@@ -27,7 +27,7 @@ import { router as register_loginRoute } from './src/routes/authentication.js';
 import { ensureAuthenticated } from "./src/middlewares/auth.js";
 
 // User routes 
-import { router as shipperRoutes } from './src/routes/shipper.js';
+// import { router as shipperRoutes } from './src/routes/shipper.js';
 
 //Browsersync modules
 import browserSync from "browser-sync";
@@ -41,6 +41,7 @@ const app = express();
 const PORT = process.env.PORT || 6900;
 
 // Mongoose + MongoDB
+const MONGODB_URI = "mongodb+srv://user:s3977773@fullstack-database.3im5ftq.mongodb.net/?retryWrites=true&w=majority"
 mongoose.connect(MONGODB_URI, { useNewURLParser: true })
 .then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err))
@@ -53,14 +54,13 @@ bs.init({
 });
 
 // Bodyparser
-// app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 // Flash and session middleware
 app.use(session({
     secret: 'your-secret-key',
-    resave: false,
-    saveUninitialized: false
+    resave: true,
+    saveUninitialized: true
 }));
 app.use(flash())
 
@@ -85,9 +85,8 @@ app.set('views','./src/views');
 app.set("view engine", "ejs");
 
 // Routers
-app.use("/users", userRouter);
 app.use('/auth', register_loginRoute)
-app.use('/shipper', shipperRoutes)
-app.use("/",indexRouter);
+app.use("/users", ensureAuthenticated, userRouter);
+app.use("/", ensureAuthenticated,indexRouter);
 
 app.listen(PORT)

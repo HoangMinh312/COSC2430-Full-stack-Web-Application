@@ -12,27 +12,27 @@ const upload = multer({ dest: 'uploads/' });
 import { Customer , Vendor, Shipper } from "../models/User.js"
 
 router.get('/', (req, res) => {
-    res.render("auth")
+    res.render("register_form")
 })
 // Login page
 router.get('/login', (req, res) => {
-    res.render("login")
+    res.render("login_form")
 })
 // Register page
 router.get('/register', (req, res) => {
-    res.render("register")
+    res.render("register_form")
 })
 // Customer register page
 router.get('/register/customer', (req, res) => {
-    res.render("registerCustomer")
+    res.render("register_customer")
 })
 // Vendor register page
 router.get('/register/vendor', (req, res) => {
-    res.render("registerVendor")
+    res.render("register_vendor")
 })
 // Shipper register page
 router.get('/register/shipper', (req, res) => {
-    res.render("registerShipper")
+    res.render("register_shipper")
 })
 
 // My account page
@@ -104,7 +104,7 @@ router.post('/register/customer', upload.single('profilePicture'), (req,res) => 
     }
 
     if (errors.length > 0) {
-        res.render('registerCustomer', {
+        res.render('register_customer', {
             errors,
             username,
             password,
@@ -121,7 +121,7 @@ router.post('/register/customer', upload.single('profilePicture'), (req,res) => 
             .then(([customer, vendor, shipper]) => {
                 if(customer || vendor || shipper) {
                     errors.push({msg : "User already exists with that username"})
-                    res.render('registerCustomer', {
+                    res.render('register_customer', {
                         errors,
                         username,
                         password,
@@ -224,7 +224,7 @@ router.post('/register/vendor', upload.single('profilePicture'), (req,res) => {
     }
 
     if (errors.length > 0) {
-        res.render('registerVendor', {
+        res.render('register_vendor', {
             errors,
             username,
             password,
@@ -241,7 +241,7 @@ router.post('/register/vendor', upload.single('profilePicture'), (req,res) => {
             .then(([customer, vendor, shipper]) => {
                 if(customer || vendor || shipper) {
                     errors.push({msg : "User already exists with that username"})
-                    res.render('registerVendor', {
+                    res.render('register_vendor', {
                         errors,
                         username,
                         password,
@@ -252,7 +252,7 @@ router.post('/register/vendor', upload.single('profilePicture'), (req,res) => {
                     Vendor.findOne({ businessName: name }).then(userByName => {
                         if (userByName) {
                             errors.push({msg: "A vendor with this name already exists"})
-                            res.render('registerVendor', {
+                            res.render('register_vendor', {
                                 errors,
                                 username,
                                 password,
@@ -263,7 +263,7 @@ router.post('/register/vendor', upload.single('profilePicture'), (req,res) => {
                             Vendor.findOne({ businessAddress: address }).then(userByAddress => {
                                 if (userByAddress) {
                                     errors.push({msg: "A vendor with this address already exists"})
-                                    res.render('registerVendor', {
+                                    res.render('register_vendor', {
                                         errors,
                                         username,
                                         password,
@@ -362,7 +362,7 @@ router.post('/register/shipper', upload.single('profilePicture'), (req,res) => {
     }
 
     if (errors.length > 0) {
-        res.render('registerShipper', {
+        res.render('register_shipper', {
             errors,
             username,
             password,
@@ -379,7 +379,7 @@ router.post('/register/shipper', upload.single('profilePicture'), (req,res) => {
             .then(([customer, vendor, shipper]) => {
                 if(customer || vendor || shipper) {
                     errors.push({msg : "User already exists with that username"})
-                    res.render('registerShipper', {
+                    res.render('register_shipper', {
                         errors,
                         username,
                         password,
@@ -431,61 +431,33 @@ router.post('/register/shipper', upload.single('profilePicture'), (req,res) => {
 // testingUser("hodfghjkl", "dfghjkl", "sdfghjklkjhg")
 
 
-// Login Handle
-router.post('/login', (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
-        if (err) {
-            // Handle error
-            return next(err);
-        }
-        if (!user) {
-            // Authentication failed
-            req.flash('error', 'Invalid username or password');
-            return res.redirect('/auth/login');
-        }
-        
-        // Save user in session
-        req.session.user = user;
-        
-        // Determine the user type
+router.post('/login', passport.authenticate('local', { failureRedirect: '/auth/login',failureFlash: true}),
+    (req, res) => {
+        const user = req.user
         if (user instanceof Customer) {
             const userID = user.id
-            return res.redirect(`/auth/loggedin`); // Redirect to the customer dashboard
+            res.redirect(`/users/customer/${userID}`); // Redirect to the customer dashboard
         } else if (user instanceof Vendor) {
             const userID = user.id
-            return res.redirect('/auth/loggedin'); // Redirect to the vendor dashboard
+            res.redirect(`/users/vendor/${userID}`); // Redirect to the vendor dashboard
         } else if (user instanceof Shipper) {
             const userID = user.id
-            console.log("User found")
-            return res.redirect(`/shipper/${userID}`); // Redirect to the shipper dashboard
-        } else {
-            // Handle unrecognized user type
-            req.flash('error', 'Unrecognized user type');
-            console.log("Login failed")
-            return res.redirect('/auth/login');
+            console.log(userID)
+            res.redirect(`/users/shipper/${userID}`); // Redirect to the shipper dashboard
         }
-    })(req, res, next);
-});
-// router.post('/login', (req, res, next) => {
-//     passport.authenticate('local', {
-//         successRedirect: '/',
-//         failureRedirect: '/users/login',
-//         failureFlash: true
-//     })(req, res, next)
-// })
-
-router.get('/loggedin', (req, res) => {
-    const user = req.session.user
-    res.render("loggedin-customer", { user })
-})
+    })
 
 // Logout Handle 
 router.get('/logout', (req, res) => {
-    req.session.destroy((err) => {
-        if (err) {
-            console.log(err);
-        }
-        res.redirect('/auth/login'); // Redirect to the home page or any other page after logout
-    });
+    // req.session.destroy((err) => {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     res.redirect('/auth/login'); // Redirect to the home page or any other page after logout
+    // });
+    req.logout( e => { 
+        if (e) { return next(e) }
+        res.redirect('/')
+    })
     
 })
