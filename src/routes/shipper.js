@@ -42,7 +42,7 @@ shipperRouter.get('/:id', (req, res) => {
     // })
     // END OF TESTING ORDER
     let orders = []
-    Order.find({distributionHub: distributionHub})
+    Order.find({distributionHub: distributionHub, status: "Active"})
     .then(results => {
         orders = results
         console.log("Active orders in the distribution hub: ", results)
