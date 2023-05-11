@@ -7,8 +7,9 @@
         <% include('partials/_header.ejs') %>
     <main>
         <section class="px-6 py-2 mt-8">
+            <!-- Main category -->
             <div class="pb-6 pt-4 border-b border-gray-300 flex justify-between">
-                <h1 class="capitalize font-bold text-4xl">Electronic devices</h1>
+                <h1 class="capitalize font-bold text-2xl md:text-4xl">Electronic devices</h1>
                 <div class="flex justify-center gap-4 items-center text-gray-400 [&_div:hover]:text-gray-500">
                     <!-- Sort function -->
                     <div class="flex justify-center gap-2 items-center cursor-pointer">
@@ -16,12 +17,21 @@
                         <svg class="h-5 w-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"></path></svg>
                     </div>
                     <!-- Filter function (in case for mobile devices) -->
-                    <div>
+                    <div class="hidden">
                         <svg class="h-5 w-5 cursor-pointer" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 14L4 5V3H20V5L14 14V20L10 22V14Z"></path></svg>
                     </div>
                 </div>
             </div>
-            <%- include("partials/_filter_section.ejs"); %>
+
+            <!-- Product list -->
+            <div class="flex">
+                <div class="hidden md:block md:w-1/5">
+                    <%- include("partials/_filter_section"); %>
+                </div>
+                <div class="w-full md:w-4/5">   
+                    <%- include("partials/_product_container"); %>
+                </div>
+            </div>
         </section>
     </main>
     <%- include("partials/_footer.ejs"); %>
