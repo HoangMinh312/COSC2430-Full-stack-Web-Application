@@ -1,7 +1,7 @@
 import express from "express";
 export const vendorRouter = express.Router();
 import { Product } from "../models/productSchema.js";
-import fs from "fs"
+import fs, { rmSync } from "fs"
 import multer from "multer"
 const upload = multer({ dest: 'uploads/' });
 
@@ -19,51 +19,40 @@ vendorRouter.get("/addproduct", (req, res) => {
 vendorRouter.post("/newproduct", upload.single("image"), async (req, res) => {
     // const {productName, price, description, brand, category} = req.body;
     const productData = req.body;
-    // const imgPicture = req.file;
-    // console.log(imgPicture)
-    const fileData = fs.readFileSync(req.file.path);
-    const contentType = req.file.mimetype;
-    // let errors = []
+
+    if (req.file != undefined) {
+        const fileData = fs.readFileSync(req.file.path);
+        const contentType = req.file.mimetype;
+    }
 
     // error checking
+    let errors = []
 
     // Create new product
     try {
         const newProduct = await Product.create({
             name: productData.productName,
-            image: {
-                data: fileData,
-                contentType: contentType
-            },
+            // image: {
+            //     data: fileData,
+            //     contentType: contentType
+            // },
             price: productData.price,
             description: productData.description,
+            stock: productData.stock,
             brand: productData.brand,
             category: productData.category,
             tags: []
         })
+        res.redirect("/users/vendor")
         // console.log(newProduct);
     } catch (e) {
         console.log(e.message)
+        errors.push({msg: e.message})
         res.render("vendorAddProduct", {
-                productName: productData.productName,
-                image: undefined,
-                price: productData.price,
-                description: productData.description,
-                brand: productData.brand,
-                category: productData.category,
-                tags: [],
-                errors: [{msg: e.message}]
+                productData,
+                errors
             })
     }
-        // if (err) {
-        //     res.render("vendorAddProduct", {
-        //         productData,
-        //         errors: err
-        //     });
-        // } else {
-
-        // }{hasjha: ahsajs, {asgasg: ahsja, sjhdjd: kjaak}}
-
     // res.send(newProduct)
     // res.render("testProductPage", newProduct)
 })
