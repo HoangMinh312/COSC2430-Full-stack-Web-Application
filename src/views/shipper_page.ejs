@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
-    <title>Shipper page</title>
+    <%- include("partials/_head", {title: "Shipper page"}) %>
 </head>
 <body>
     <%- include('partials/_header.ejs') %>
@@ -40,25 +36,28 @@
                 </div>
                 <div class="bg-gray-100 min-h-screen m-2 p-2">
                     <div class="container mx-auto px-4 py-8 m-3">
-                        <h1 class="text-3xl font-bold m-4 p-2">Orders To Deliver</h1>
-                        <div class="bg-white rounded-lg shadow-md p-6">
-                            <table class="w-full border-collapse">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Order ID</th>
-                                        <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Customer Name</th>
-                                        <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Delivery Address</th>
-                                        <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Total Amount</th>
-                                        <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Status</th>
-                                    </tr>
-                                </thead>
+                        <h1 class="text-3xl font-bold m-4 p-2 text-center">Orders To Deliver</h1>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr>
+                                    <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Order ID</th>
+                                    <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Customer Name</th>
+                                    <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Delivery Address</th>
+                                    <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Total Amount</th>
+                                    <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Status</th>
+                                    <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 <% orders.forEach(order => { %>
                                     <%- include('partials/_active_order.ejs', { order: order}) %>
                                 <% }) %>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
-                </div>                  
+                </div>                 
             </div>
         </section>
     <%- include('partials/_footer.ejs') %>
