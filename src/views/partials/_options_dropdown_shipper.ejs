@@ -1,11 +1,13 @@
-<div class="relative inline-flex w-full">
-    <button id="dropdown-button" class="py-2 px-4 bg-yellow-400 hover:bg-yellow-500 text-gray-700 font-semibold rounded-md w-full shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75">
-        Active
-    </button>
-<!--     <ul id="dropdown-menu" class="absolute z-10 hidden bg-white py-2 rounded-md shadow-md w-full">
-        <li><a data-value="Delivered" class="block w-full px-4 py-2 text-gray-700 bg-green-400 ">Delivered</a></li>
-        <li><a data-value="Active" class="block w-full px-4 py-2 text-gray-700 bg-yellow-400">Active</a></li>
-        <li><a data-value="Canceled" class="block w-full px-4 py-2 text-gray-700 bg-red-400">Canceled</a></li>
-    </ul> -->
+<div class="flex flex-row justify-center my-4 p-2">
+    <div class="relative py-2 px-6 flex justify-center">
+        <button id="dropdown-button" class="w-full py-2 px-6 bg-yellow-400 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+            Active
+        </button>
+        <div id="dropdown-menu" class="absolute right-0 w-full py-2 px-1 bg-white rounded-md shadow-lg hidden">
+            <a class="block text-center px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-gray-900 cursor-pointer" data-value="Delivered">Delivered</a>
+            <a class="block text-center px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-gray-900 cursor-pointer" data-value="Active">Active</a>
+            <a class="block text-center px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-gray-900 cursor-pointer" data-value="Cancelled">Cancelled</a>
+        </div>
+    </div>
 </div>
 <script src="/js/dropdown_shipper_page.js"></script>

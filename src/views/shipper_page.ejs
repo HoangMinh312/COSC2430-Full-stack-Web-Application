@@ -36,26 +36,28 @@
                 </div>
                 <div class="bg-gray-100 min-h-screen m-2 p-2">
                     <div class="container mx-auto px-4 py-8 m-3">
-                        <h1 class="text-3xl font-bold m-4 p-2">Orders To Deliver</h1>
-                        <div class="bg-white rounded-lg shadow-md p-6">
-                            <table class="w-full border-collapse">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Order ID</th>
-                                        <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Customer Name</th>
-                                        <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Delivery Address</th>
-                                        <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Total Amount</th>
-                                        <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Status</th>
-                                        <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Details</th>
-                                    </tr>
-                                </thead>
+                        <h1 class="text-3xl font-bold m-4 p-2 text-center">Orders To Deliver</h1>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr>
+                                    <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Order ID</th>
+                                    <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Customer Name</th>
+                                    <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Delivery Address</th>
+                                    <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Total Amount</th>
+                                    <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Status</th>
+                                    <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 <% for (let i = 0; i < 3; i ++) { %>
                                     <%- include('partials/_active_order.ejs') %>
                                 <% } %>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
-                </div>                  
+                </div>                 
             </div>
         </section>
     <%- include('partials/_footer.ejs') %>
