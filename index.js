@@ -22,12 +22,12 @@ const storage = multer.diskStorage({
     }
 });
 
+// User models
+import { Customer , Vendor, Shipper } from "./src/models/User.js"
+
 //Authentication modules + route
 import { router as register_loginRoute } from './src/routes/authentication.js';
 import { ensureAuthenticated } from "./src/middlewares/auth.js";
-
-// User routes 
-// import { router as shipperRoutes } from './src/routes/shipper.js';
 
 //Browsersync modules
 import browserSync from "browser-sync";
@@ -69,11 +69,22 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 
-// Global Vars (For the messages.ejs in partials)
+// Global Variables 
 app.use((req, res, next) => {
+    let userType = ""
+    if (req.user instanceof Customer) {
+        userType = "Customer"
+    } else if (req.user instanceof Vendor) {
+        userType = "Vendor"
+    } else if (req.user instanceof Shipper) {
+        userType = "Shipper"
+    }
+
     res.locals.success_msg = req.flash('success_msg')
     res.locals.error_msg = req.flash('error_msg')
     res.locals.error = req.flash('error')
+    res.locals.user = req.user;
+    res.locals.userType = userType;
     next()  
 })
 
@@ -87,6 +98,6 @@ app.set("view engine", "ejs");
 // Routers
 app.use('/auth', register_loginRoute)
 app.use("/users", ensureAuthenticated, userRouter);
-app.use("/", ensureAuthenticated,indexRouter);
+app.use("/", indexRouter);
 
 app.listen(PORT)

@@ -56,3 +56,8 @@ vendorRouter.post("/newproduct", upload.single("image"), async (req, res) => {
     // res.send(newProduct)
     // res.render("testProductPage", newProduct)
 })
+
+vendorRouter.get('/profile', (req, res) => {
+    console.log("Redirecting to my account page")
+    res.render("my_account")
+})

@@ -23,12 +23,7 @@ customerRouter.get("/", async (req, res) => {
 })
 
 customerRouter.get('/profile', (req, res) => {
-    const user = req.user
     console.log("Redirecting to my account page")
-    res.render("my_account", { user })
+    res.render("my_account")
 })
 
-customerRouter.get('/:id', (req, res) => {
-    const user = req.user
-    res.render("customer_shopping", { user })
-})

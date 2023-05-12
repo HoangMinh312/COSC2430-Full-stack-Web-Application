@@ -74,7 +74,7 @@ const shipperSchema = new mongoose.Schema({
   },
   profilePicture: {
     data: Buffer,
-    contentType: String
+    contentType: String,
   },
   name: {
     type: String,

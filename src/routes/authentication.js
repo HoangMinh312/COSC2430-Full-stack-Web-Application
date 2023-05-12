@@ -277,6 +277,10 @@ router.post('/register/vendor', upload.single('profilePicture'), (req,res) => {
                                     const newVendor = new Vendor({
                                         username: username,
                                         password: password,
+                                        profilePicture: {
+                                            data: fileData,
+                                            contentType: contentType,
+                                        },
                                         businessName: name,
                                         businessAddress: address
                                     })
@@ -438,15 +442,11 @@ router.post('/login', passport.authenticate('local', { failureRedirect: '/auth/l
     (req, res) => {
         const user = req.user
         if (user instanceof Customer) {
-            const userID = user.id
-            res.redirect(`/users/customer/${userID}`); // Redirect to the customer dashboard
+            res.redirect(`/users/customer/`); // Redirect to the customer dashboard
         } else if (user instanceof Vendor) {
-            const userID = user.id
-            res.redirect(`/users/vendor/${userID}`); // Redirect to the vendor dashboard
+            res.redirect(`/users/vendor/`); // Redirect to the vendor dashboard
         } else if (user instanceof Shipper) {
-            const userID = user.id
-            console.log(userID)
-            res.redirect(`/users/shipper/${userID}`); // Redirect to the shipper dashboard
+            res.redirect(`/users/shipper/`); // Redirect to the shipper dashboard
         }
     })
 
