@@ -17,8 +17,17 @@ shipperRouter.get('/profile', (req, res) => {
     res.render("my_account", { user })
 })
 
-shipperRouter.get('/active-order', (req, res) => {
-    res.render("_active_order_details")
+shipperRouter.get('/active-order/:id', (req, res) => {
+    let order = null
+    Order.findOne({ _id: req.params.id })
+    .then(results => {
+        order = results
+        console.log("Active orders to be displayed ", results)
+        res.render("active_order_details", { order })
+    })
+    .catch(err => {
+        console.error(err)
+    })
 })
 
 
@@ -33,7 +42,7 @@ shipperRouter.get('/:id', (req, res) => {
     // const newOrder = new Order({
     //     distributionHub: "District 2 Hub",
     //     products: ["Gaming chair", "Alexa"],
-    //     user: "randomuser3",
+    //     user: "randomuserwithtime",
     //     userFullName: "Hoang Thai Phuc",
     //     userAddress: "123124, District 7, Ho Chi Minh City",
     //     status: "Active"

@@ -29,6 +29,10 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true,
         enum: ["Active", "Delivered", "Canceled"]
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
 })
 
