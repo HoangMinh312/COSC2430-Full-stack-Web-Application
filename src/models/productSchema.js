@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
 export const category = ['Electronic and Appliances', 'Clothes', 'Food and Beverages']
 // tags
@@ -13,9 +13,12 @@ const productSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    image: {
-        data: Buffer,
-        contentType: String
+    coverImage: {
+        type: Buffer
+        // contentType: String
+    },
+    coverImageType: {
+        type: String
     },
     price: {
         type: Number,
@@ -32,6 +35,17 @@ const productSchema = new mongoose.Schema({
         required: true,
         min: 1
     },
+    createdAt: {
+        type: Date,
+        immutable: true,
+        default: () => Date.now()
+    },
+    publisher: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "Vendor",
+        default: "no publisher"
+    },
     brand: {
         type: String,
         default: "no Brand"
@@ -46,6 +60,13 @@ const productSchema = new mongoose.Schema({
         enum: tags,
         default: []
     }
+})
+
+productSchema.virtual('imageCoverData').get(function() {
+    if (this.coverImage != null && this.coverImageType != null) {
+        return `data:${this.coverImageType};charset=utf-8;base64,${this.coverImage.toString('base64')}`
+    }
+    return undefined
 })
 
 // create models for each user type

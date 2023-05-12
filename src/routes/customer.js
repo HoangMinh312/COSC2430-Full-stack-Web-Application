@@ -5,13 +5,19 @@ import { Product } from "../models/productSchema.js";
 // Customer route
 // users/customer
 customerRouter.get("/", async (req, res) => {
-    let searchOption = {}
-    if (req.query.name != null && req.query.name != '') {
-        searchOption.name = new RegExp(req.query.name, 'i')
+    let productQuery = Product.find()
+    if (checkQuery(req.query.name)) {
+        productQuery = productQuery.regex('name', new RegExp(req.query.name, 'i'))
+    }
+    if (checkQuery(req.query.minPrice)) {
+        productQuery = productQuery.gte('price', req.query.minPrice)
+    }
+    if (checkQuery(req.query.maxPrice)) {
+        productQuery = productQuery.lte('price', req.query.maxPrice)
     }
 
     try {
-        const products = await Product.find(searchOption)
+        const products = await productQuery.exec()
         // res.send(products)
         res.render("customer_shopping", {
             products,
@@ -22,8 +28,6 @@ customerRouter.get("/", async (req, res) => {
     }
 })
 
-customerRouter.get('/profile', (req, res) => {
-    console.log("Redirecting to my account page")
-    res.render("my_account")
-})
-
+function checkQuery(query) {
+    return query != null && query != '';
+}
