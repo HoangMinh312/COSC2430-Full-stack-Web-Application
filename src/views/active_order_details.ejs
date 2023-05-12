@@ -17,8 +17,8 @@
                 <h2 class="text-2xl font-bold italic text-center m-1 p-1">
                     Order
                 </h2>
-                <p class="text-base m-1 p-1">Order ID: </p>
-                <p class="m-1 p-1">Date: </p>
+                <p class="text-base m-1 p-1">Order ID: <%- order.id || "123123123" %></p>
+                <p class="m-1 p-1">Date: <%- order.date.toLocaleString() || "123123123" %></p>
                 <p class="m-1 p-1">Total price: </p>
             </div>
                             <!-- First div is a brief introduction of the order -->
@@ -27,8 +27,8 @@
                 <h2 class="text-2xl font-bold italic text-center m-1 p-1">
                     Shipping address
                 </h2>
-                <p class="m-1 p-1">Customer's name: </p>
-                <p class="m-1 p-1">Address: </p>
+                <p class="m-1 p-1">Customer's name: <%- order.userFullName || "No name found" %> </p>
+                <p class="m-1 p-1">Address: <%- order.userAddress || "Unkown" %> </p>
             </div>
                                 <!-- Second div contains customer's info -->
                     <!-- Third div contains item's data (images, names, quantities, ...) -->
