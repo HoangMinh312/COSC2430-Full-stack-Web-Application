@@ -74,7 +74,7 @@ const shipperSchema = new mongoose.Schema({
   },
   profilePicture: {
     data: Buffer,
-    contentType: String
+    contentType: String,
   },
   name: {
     type: String,
@@ -97,4 +97,4 @@ const Customer = mongoose.model('Customer', customerSchema);
 const Vendor = mongoose.model('Vendor', vendorSchema);
 const Shipper = mongoose.model('Shipper', shipperSchema);
 
-export { Customer, Vendor, Shipper}
+export { Customer, Vendor, Shipper }

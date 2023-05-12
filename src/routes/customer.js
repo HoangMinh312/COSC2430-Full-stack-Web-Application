@@ -31,3 +31,8 @@ customerRouter.get("/", async (req, res) => {
 function checkQuery(query) {
     return query != null && query != '';
 }
+customerRouter.get('/profile', (req, res) => {
+    console.log("Redirecting to my account page")
+    res.render("my_account")
+})
+

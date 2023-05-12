@@ -1,16 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shipper page</title>
+    <%- include("partials/_head", {title: "Shipper page"}) %>
 </head>
 <body>
     <%- include('partials/_header.ejs') %>
-    <main>
-    <%- include('partials/_distribution_hub.ejs') %>
-    </main>
+        <section class="m-2 p-1 flex flex-col">
+                                     <!-- Distribution hub info is here -->
+            <div class="flex md:flex-row justify-center m-1 p-1 sm:flex-col"> 
+                <div class="m-2 p-1 md:w-3/5 shadow-lg sm:w-full">
+                    <img class="bg-gradient-to-b" src="<%- locals.distributionHubImage || '/images/distribution-hub-1.jpg' %>" alt="">
+                </div>
+                <div class="m-2 p-2 md:w-2/5 flex flex-col justify-start border-gray-300 border rounded-md sm:w-full">
+                    <div class="font-serif font-bold m-1 p-1">
+                        <h1 class="text-3xl">
+                            Distribution hub: <%- user.distributionHub || "Unknown" %>
+                        </h1>
+                    </div>
+                    <div class="flex flex-col">
+                        <p class="italic font-sans m-1 p-1">
+                            Address: <%- locals.distributionHubLocation || "Unknown" %>
+                        </p>
+                        <br>
+                        <p class="m-1 p-1">
+                            Established in 2023, located in the central district, this distribution hub is one of 
+                            the busiest destination of the city. The first distribution hub of our company in Vietnam. 
+                        </p>
+                    </div>
+                </div>
+            </div>
+                                     <!-- Distribution hub info is here -->
+                                        <!-- Active order is here -->
+            <div class="flex flex-col m-1 p-1">
+                <div class="m-1 p-1 flex flex-row justify-center">
+                    <h1 class="font-sans font-bold text-3xl italic">
+                        Active orders
+                    </h1>
+                </div>
+                <div class="bg-gray-100 min-h-screen m-2 p-2">
+                    <div class="container mx-auto px-4 py-8 m-3">
+                        <h1 class="text-3xl font-bold m-4 p-2 text-center">Orders To Deliver</h1>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr>
+                                    <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Order ID</th>
+                                    <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Customer Name</th>
+                                    <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Delivery Address</th>
+                                    <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Total Amount</th>
+                                    <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Status</th>
+                                    <th class="text-center font-bold py-2 px-4 border-b-2 border-gray-300">Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% orders.forEach(order => { %>
+                                    <%- include('partials/_active_order.ejs', { order: order}) %>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>                 
+            </div>
+                                        <!-- Active order is here -->
+        </section>
     <%- include('partials/_footer.ejs') %>
 </body>
 </html>
