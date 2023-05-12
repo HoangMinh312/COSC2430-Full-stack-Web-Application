@@ -31,7 +31,7 @@ shipperRouter.get('/active-order/:id', (req, res) => {
 })
 
 
-shipperRouter.get('/:id', (req, res) => {
+shipperRouter.get('/', (req, res) => {
     const user = req.user
 
     // Getting the shipper's distribution hub

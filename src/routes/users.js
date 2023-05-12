@@ -11,6 +11,5 @@ userRouter.use("/customer", customerRouter)
 // Vendor route
 userRouter.use("/vendor", vendorRouter)
 
-
 // Shipper route
 userRouter.use("/shipper", shipperRouter)

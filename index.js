@@ -87,6 +87,6 @@ app.set("view engine", "ejs");
 // Routers
 app.use('/auth', register_loginRoute)
 app.use("/users", ensureAuthenticated, userRouter);
-app.use("/", ensureAuthenticated,indexRouter);
+app.use("/",indexRouter);
 
 app.listen(PORT)

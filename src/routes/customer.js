@@ -28,7 +28,3 @@ customerRouter.get('/profile', (req, res) => {
     res.render("my_account", { user })
 })
 
-customerRouter.get('/:id', (req, res) => {
-    const user = req.user
-    res.render("customer_shopping", { user })
-})
