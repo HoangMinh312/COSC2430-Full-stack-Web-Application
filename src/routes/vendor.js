@@ -2,8 +2,7 @@ import express from "express";
 export const vendorRouter = express.Router();
 import { Product } from "../models/productSchema.js";
 import fs, { rmSync } from "fs"
-import multer from "multer"
-const upload = multer({ dest: 'uploads/' });
+const imageMimeTypes = ['image/png', 'image/jpeg']
 
 // Vendor route
 // users/vendor
@@ -16,14 +15,10 @@ vendorRouter.get("/addproduct", (req, res) => {
     res.render("vendorAddProduct");
 })
 
-vendorRouter.post("/newproduct", upload.single("image"), async (req, res) => {
+vendorRouter.post("/newproduct", async (req, res) => {
     // const {productName, price, description, brand, category} = req.body;
     const productData = req.body;
 
-    if (req.file != undefined) {
-        const fileData = fs.readFileSync(req.file.path);
-        const contentType = req.file.mimetype;
-    }
 
     // error checking
     let errors = []
@@ -32,10 +27,6 @@ vendorRouter.post("/newproduct", upload.single("image"), async (req, res) => {
     try {
         const newProduct = await Product.create({
             name: productData.productName,
-            // image: {
-            //     data: fileData,
-            //     contentType: contentType
-            // },
             price: productData.price,
             description: productData.description,
             stock: productData.stock,
@@ -43,6 +34,9 @@ vendorRouter.post("/newproduct", upload.single("image"), async (req, res) => {
             category: productData.category,
             tags: []
         })
+        saveProductCover(newProduct, productData.image)
+        await newProduct.save()
+
         res.redirect("/users/vendor")
         // console.log(newProduct);
     } catch (e) {
@@ -56,3 +50,12 @@ vendorRouter.post("/newproduct", upload.single("image"), async (req, res) => {
     // res.send(newProduct)
     // res.render("testProductPage", newProduct)
 })
+
+function saveProductCover(product, coverEncoded) {
+    if (coverEncoded == null) return
+    const cover = JSON.parse(coverEncoded)
+    if (cover != null && imageMimeTypes.includes(cover.type)) {
+        product.coverImage = new Buffer.from(cover.data, 'base64')
+        product.coverImageType = cover.type
+    }
+}
