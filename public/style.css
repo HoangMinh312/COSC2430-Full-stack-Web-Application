@@ -1097,6 +1097,10 @@ input::-webkit-outer-spin-button,
   align-content: center;
 }
 
+.content-around {
+  align-content: space-around;
+}
+
 .items-start {
   align-items: flex-start;
 }
