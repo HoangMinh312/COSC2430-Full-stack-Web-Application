@@ -30,3 +30,7 @@ statusList.addEventListener("click", function(event) {
   // Hide the dropdown list
   statusList.classList.add("hidden");
 });
+  
+function submitForm() {
+  document.getElementById("myForm").submit();
+}

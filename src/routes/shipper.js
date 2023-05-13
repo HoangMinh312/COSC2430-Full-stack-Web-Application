@@ -16,6 +16,10 @@ shipperRouter.get('/profile', (req, res) => {
     res.render("my_account")
 })
 
+shipperRouter.post('/profile/update-picture', (req, res) => {
+    
+})
+
 shipperRouter.get('/active-order/:id', (req, res) => {
     let order = null
     Order.findOne({ _id: req.params.id })

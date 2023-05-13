@@ -33,7 +33,7 @@ vendorRouter.post("/newproduct", async (req, res) => {
             brand: productData.brand,
             category: productData.category,
             tags: []
-        })
+        })      
         saveProductCover(newProduct, productData.image)
         await newProduct.save()
 
