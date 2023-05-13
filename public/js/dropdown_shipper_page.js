@@ -32,5 +32,5 @@ statusList.addEventListener("click", function(event) {
 });
   
 function submitForm() {
-  document.getElementById("myForm").submit();
+  document.getElementById("updateOrder").submit();
 }
