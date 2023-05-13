@@ -1,8 +1,10 @@
                 <!-- Div contains img and info about products -->
-<div class="flex flex-col m-2 p-2 rounded-lg shadow-xl">
+<div class="flex flex-col m-2 p-2 rounded-lg shadow-xl cursor-pointer [&:hover_img]:scale-110"
+    onclick="location.href='/users/customer/<%= product._id %>'"
+>
                 <!-- First div contains images of products -->
     <div class="flex m-1 mb-5 overflow-hidden">
-        <img class='shadow-sm hover:scale-110 object-cover transition-300' src="/images/hero-image-2.png" alt="hero-image-2">
+        <img class='shadow-sm object-cover transition-300' src="<%= product.imageCoverData || "https://www.wowpatterns.com/assets/files/resource_images/diagonal-lines-vector-pattern.jpg" %>" alt="hero-image-2">
     </div>
                 <!-- First div contains images of products -->
                 <!-- Second div contains info of products -->
@@ -10,37 +12,37 @@
                 <!-- This div contains the name of products -->
         <div class="my-3 flex flex-row justify-center">
             <h2 class='font-mono font-extrabold text-2xl text-center'>
-                <%- locals.productName || "Sample product" %>
+                <%- locals.product ? product.name : "Sample product" %>
             </h2>
         </div>
                 <!-- This div contains the name of products -->
     <!-- This div contains description of products (ex: brand, usage, ...) -->
         <div class="my-3 flex flex-row justify-center">
             <p class="font-normal text-sm">
-                <%- locals.brand || "Sample brand" %>
+                <%- locals.product ? product.brand : "Sample brand" %>
             </p>
         </div>
     <!-- This div contains description of products (ex: brand, usage, ...) -->
             <!-- This div contains the ratings of products -->
-        <div class="flex flex-row justify-center my-2">
+        <!-- <div class="flex flex-row justify-center my-2">
             <img class= 'w-6' src="/svg/yellow-star-fill.svg" alt="yellow-star-fill">
             <img class= 'w-6' src="/svg/yellow-star-fill.svg" alt="yellow-star-fill">
             <img class= 'w-6' src="/svg/yellow-star-fill.svg" alt="yellow-star-fill">
             <img class= 'w-6' src="/svg/yellow-star-fill.svg" alt="yellow-star-fill">
             <img class= 'w-6' src="/svg/yellow-star-fill.svg" alt="yellow-star-fill">
-        </div>
+        </div> -->
             <!-- This div contains the ratings of products -->
         <!-- This div contains numbers of reviews given by customers -->
-        <div class="flex flex-row justify-center my-2">
+        <!-- <div class="flex flex-row justify-center my-2">
             <p class="text-xs font-semibold">
-                <%- locals.reviewsNumber || "0" %>
+                <%- //locals.reviewsNumber || "0" %>
             </p>
-        </div>
+        </div> -->
         <!-- This div contains numbers of reviews given by customers -->
                 <!-- This div contains the price of products -->
         <div class="my-2"> 
             <p class="flex flex-row justify-center font-bold">
-                $<%- locals.price || "00.00" %>
+                $<%- locals.product ? product.price : "00.00" %>
             </p>
         </div>
                 <!-- This div contains the price of products -->

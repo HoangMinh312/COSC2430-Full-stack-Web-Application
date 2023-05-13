@@ -9,6 +9,6 @@ FilePond.parse(document.body)
 const productCover = document.querySelector('.productCover')
 FilePond.create(productCover, {
     maxFileSize: '1MB',
-    imageResizeTargetWidth: 300,
-    imageResizeTargetHeight: 300,
+    imageResizeTargetWidth: 800,
+    imageResizeTargetHeight: 800,
 })

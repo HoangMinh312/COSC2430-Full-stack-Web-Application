@@ -7,5 +7,9 @@
         <li class="cursor-pointer hover:bg-gray-100 px-4 py-2" data-value="Delivered">Delivered</li>
         <li class="cursor-pointer hover:bg-gray-100 px-4 py-2" data-value="Cancelled">Cancelled</li>
     </ul>
+    <form id="statusForm" action="/users/shipper/active-order/<%= order.id %>/update-status" method="post">
+        <input type="hidden" id="statusInput" name="status" value="">
+    </form>
 </div>
+
 <script src="/js/dropdown_shipper_page.js"></script>

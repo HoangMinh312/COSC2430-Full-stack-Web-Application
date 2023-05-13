@@ -33,7 +33,7 @@ vendorRouter.post("/newproduct", async (req, res) => {
             brand: productData.brand,
             category: productData.category,
             tags: []
-        })
+        })      
         saveProductCover(newProduct, productData.image)
         await newProduct.save()
 
@@ -59,3 +59,9 @@ function saveProductCover(product, coverEncoded) {
         product.coverImageType = cover.type
     }
 }
+
+
+vendorRouter.get('/profile', (req, res) => {
+    console.log("Redirecting to my account page")
+    res.render("my_account")
+})

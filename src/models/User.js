@@ -92,9 +92,16 @@ const shipperSchema = new mongoose.Schema({
   // other fields specific to shipper users
 });
 
+// Virtuals 
+// customerSchema.virtual(profilePicture)
+
+
+
 // create models for each user type
 const Customer = mongoose.model('Customer', customerSchema);
 const Vendor = mongoose.model('Vendor', vendorSchema);
 const Shipper = mongoose.model('Shipper', shipperSchema);
+
+
 
 export { Customer, Vendor, Shipper }

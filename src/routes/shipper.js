@@ -16,12 +16,30 @@ shipperRouter.get('/profile', (req, res) => {
     res.render("my_account")
 })
 
+shipperRouter.post('/profile/update-picture', (req, res) => {
+    
+})
+
+shipperRouter.post('/active-order/:id/update-status', (req, res) => {
+    const orderID = req.params.id
+    const newStatus = req.body.status 
+    Order.findByIdAndUpdate(orderID, {status: newStatus}, { new: true })
+    .then(updatedOrder => {
+        console.log(updatedOrder)
+        res.redirect(`/users/shipper/active-order/${orderID}`)
+    })
+    .catch(err => {
+        console.error(err)
+    })
+})
+
 shipperRouter.get('/active-order/:id', (req, res) => {
     let order = null
-    Order.findOne({ _id: req.params.id })
+    const orderID = req.params.id
+    Order.findOne({ _id: orderID })
     .then(results => {
         order = results
-        console.log("Active orders to be displayed ", results)
+        console.log("Active order to be displayed ", results)
         res.render("active_order_details", { order })
     })
     .catch(err => {
@@ -30,7 +48,7 @@ shipperRouter.get('/active-order/:id', (req, res) => {
 })
 
 
-shipperRouter.get('/', (req, res) => {
+shipperRouter.get('/', async (req, res) => {
     const user = req.user
 
     // Getting the shipper's distribution hub
@@ -54,15 +72,21 @@ shipperRouter.get('/', (req, res) => {
     //     console.error(e)
     // })
     // END OF TESTING ORDER
-    let orders = []
-    Order.find({distributionHub: distributionHub, status: "Active"})
-    .then(results => {
-        orders = results
-        console.log("Active orders in the distribution hub: ", results)
-        res.render("shipper_page", { orders })
-    })
-    .catch(err => {
-        console.error(err)
-    })
+
+    try {
+        // let inactiveOrders = []
+        const activeOrders = await Order.find({distributionHub: distributionHub, status: "Active"})
+        const inactiveOrders = await Order.find({distributionHub: distributionHub, status: { $in: ['Cancelled', 'Delivered'] }})
+        // inactiveOrders.push( await Order.find({distributionHub: distributionHub, status: "Cancelled"}))
+
+        // console.log(inactiveOrders);
+        console.log("Active orders in the distribution hub: ", activeOrders)
+        console.log("Inactive orders in the distribution hub: ", inactiveOrders)
+        res.render("shipper_page", { activeOrders, inactiveOrders })
+        
+    } catch (error) {
+        console.log(error)
+    }
+
 })
 

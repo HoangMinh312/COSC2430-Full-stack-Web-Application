@@ -1,7 +1,9 @@
 <section id="navigation-bar" class="w-full">
     <nav class="w-full flex justify-between px-4 md:px-12 py-4">
         <!-- Logo -->
-        <div class="flex gap-2">
+        <div class="flex gap-2 cursor-pointer"
+            onclick="location.href='/'"
+        >
             <img class="w-8" src="/svg/lazada.svg" alt="Alizada logo">
             <div class="logo center-y float-left tracking-wider uppercase font-bold">Alizada</div>
         </div>
@@ -27,7 +29,7 @@
                 <% } %>
             <% } else { %>
                 <!-- Login Link -->
-                <li><a href="/auth/login">Login</a></li>
+                <li><a href="/auth/login"><img class="w-10 md:w-8 cursor-pointer float-right" src="/svg/login-box-line.svg" alt="Login"></a></li>
             <% } %>
             <!-- This section needs to have code that separates My Account and Login -->
         </ul>
