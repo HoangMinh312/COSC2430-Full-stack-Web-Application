@@ -56,10 +56,10 @@
     }
 
     /* Need to be used with md */
-    .grid-col-autofit-300 {
+    /* .grid-col-autofit-300 {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
+    } */
     .grid-col-autofit-250 {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

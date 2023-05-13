@@ -28,6 +28,21 @@ customerRouter.get("/", async (req, res) => {
     }
 })
 
+customerRouter.get("/:id", async (req, res) => {
+    // res.send(`This is a product with id ${req.params.id}`)
+    try {
+        const product = await Product.findById(req.params.id)
+        // res.send(product)
+        res.render('productDetail', {product})
+    } catch (error) {
+        // Send users to the previous page in case sth wrong
+        res.redirect(req.headers.referer).catch(err => {
+            console.error(err);
+            res.redirect('/'); // fallback URL
+        });
+    }
+})
+
 function checkQuery(query) {
     return query != null && query != '';
 }

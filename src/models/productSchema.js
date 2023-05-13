@@ -40,6 +40,14 @@ const productSchema = new mongoose.Schema({
         immutable: true,
         default: () => Date.now()
     },
+    rating: {
+        type: Number,
+        default: () => parseFloat(((Math.random() * 3) + 2).toFixed(2)) // A random rating from 2* to 5*
+    },
+    reviewNumber: {
+        type: Number,
+        default: () => Math.floor((Math.random() * (800 + 1)) + 200)
+    },
     publisher: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
