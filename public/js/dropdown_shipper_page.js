@@ -1,6 +1,7 @@
 // Get the button and the dropdown list
 const statusButton = document.getElementById("statusButton");
 const statusList = document.getElementById("statusList");
+const form = document.getElementById("statusForm")
 
 // Set the default value and background color
 let selectedOption = "active";
@@ -11,6 +12,19 @@ statusButton.addEventListener("click", function() {
   // Toggle the dropdown list
   statusList.classList.toggle("hidden");
 });
+
+const statusItems = document.querySelectorAll("#statusList li")
+statusItems.forEach(item => {
+  item.addEventListener("click", function() {
+    const status = this.getAttribute("data-value")
+
+    // Changing the status value 
+    document.getElementById("statusInput").value = status
+
+    form.submit()
+
+  })
+})
 
 // Listen for clicks on the dropdown list options
 statusList.addEventListener("click", function(event) {
@@ -26,11 +40,7 @@ statusList.addEventListener("click", function(event) {
   } else if (selectedOption === "Cancelled") {
     statusButton.style.backgroundColor = "red";
   }
-  
   // Hide the dropdown list
   statusList.classList.add("hidden");
 });
-  
-function submitForm() {
-  document.getElementById("updateOrder").submit();
-}
+
