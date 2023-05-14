@@ -53,7 +53,6 @@ shipperRouter.get('/', async (req, res) => {
 
     // Getting the shipper's distribution hub
     const distributionHub = user.distributionHub
-    console.log(distributionHub)
 
     // TESTING ORDER (REMEMBER TO COMMENT)
     // const newOrder = new Order({
@@ -80,8 +79,6 @@ shipperRouter.get('/', async (req, res) => {
         // inactiveOrders.push( await Order.find({distributionHub: distributionHub, status: "Cancelled"}))
 
         // console.log(inactiveOrders);
-        console.log("Active orders in the distribution hub: ", activeOrders)
-        console.log("Inactive orders in the distribution hub: ", inactiveOrders)
         res.render("shipper_page", { activeOrders, inactiveOrders })
         
     } catch (error) {

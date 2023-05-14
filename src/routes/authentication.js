@@ -40,23 +40,13 @@ router.get('/profile', (req, res) => {
 
 
 // Register Customer Handle
-router.post('/register/customer', upload.single('profilePicture'), (req,res) => {
-    const { username, password , name, address} = req.body;
+router.post('/register/customer', (req,res) => {
+    const { username, password, password2 , name, address, profilePicture} = req.body;
     let errors = []
-    let fileData = null
-    let contentType = null
     
     // Check required fields
-    if (!username || !password || !name || !address) {
+    if (!username || !password || !password2|| !name || !address || !profilePicture) {
         errors.push({msg: "Please fill in all fields"})
-    }
-
-    // Check profile picture
-    if (req.file) {
-        fileData = fs.readFileSync(req.file.path);
-        contentType = req.file.mimetype;
-    } else {
-        errors.push({msg: "Please upload a profile picture"})
     }
 
     // Check username length
@@ -67,6 +57,11 @@ router.post('/register/customer', upload.single('profilePicture'), (req,res) => 
     // Check password length
     if (password.length < 8 || password.length > 20) {
         errors.push({msg: "Password should be between 8 and 20 characters long"})
+    }
+
+    // Check password 2
+    if (password !== password2) {
+        errors.push({msg: "Passwords do not match"})
     }
 
     // Check name length
@@ -107,6 +102,7 @@ router.post('/register/customer', upload.single('profilePicture'), (req,res) => 
             errors,
             username,
             password,
+            password2,
             name,
             address
         })
@@ -124,6 +120,7 @@ router.post('/register/customer', upload.single('profilePicture'), (req,res) => 
                         errors,
                         username,
                         password,
+                        password2,
                         name,
                         address
                     })
@@ -131,10 +128,6 @@ router.post('/register/customer', upload.single('profilePicture'), (req,res) => 
                     const newCustomer = new Customer({
                         username,
                         password,
-                        profilePicture: {
-                            data: fileData,
-                            contentType: contentType
-                        },
                         name,
                         address
                     })
@@ -144,6 +137,9 @@ router.post('/register/customer', upload.single('profilePicture'), (req,res) => 
                             if (err) throw err
                             // Set the password to be hashed
                             newCustomer.password = hashedPassword
+
+                            // Set the user's profile picture
+                            saveProductCover(newCustomer, profilePicture)
                             // Saving the Customer user
                             newCustomer.save()
                                 .then(user => {
@@ -162,22 +158,13 @@ router.post('/register/customer', upload.single('profilePicture'), (req,res) => 
 
 // Register Vendor Handle
 router.post('/register/vendor', (req,res) => {
-    const { username, password , name, address} = req.body;
+    const { username, password, password2, name, address, profilePicture} = req.body;
     let errors = []
-    let fileData = null
-    let contentType = null
+    console.log(req.body)
 
     // Check required fields
-    if (!username || !password || !name || !address) {
+    if (!username || !password || !name || !address || !profilePicture ) {
         errors.push({msg: "Please fill in all fields"})
-    }
-
-    // Check profile picture
-    if (req.file) {
-        fileData = fs.readFileSync(req.file.path);
-        contentType = req.file.mimetype;
-    } else {
-        errors.push({msg: "Please upload a profile picture"})
     }
 
     // Check username length
@@ -188,6 +175,11 @@ router.post('/register/vendor', (req,res) => {
     // Check password length
     if (password.length < 8 || password.length > 20) {
         errors.push({msg: "Password should be between 8 and 20 characters long"})
+    }
+
+    // Check password 2
+    if (password !== password2) {
+        errors.push({msg: "Passwords do not match"})
     }
 
     // Check name length
@@ -228,6 +220,7 @@ router.post('/register/vendor', (req,res) => {
             errors,
             username,
             password,
+            password2,
             name,
             address
         })
@@ -245,6 +238,7 @@ router.post('/register/vendor', (req,res) => {
                         errors,
                         username,
                         password,
+                        password2,
                         name,
                         address
                     })
@@ -256,6 +250,7 @@ router.post('/register/vendor', (req,res) => {
                                 errors,
                                 username,
                                 password,
+                                password2,
                                 name,
                                 address
                             })
@@ -267,6 +262,7 @@ router.post('/register/vendor', (req,res) => {
                                         errors,
                                         username,
                                         password,
+                                        password2,
                                         name,
                                         address,
                                     })
@@ -283,7 +279,9 @@ router.post('/register/vendor', (req,res) => {
                                             if (err) throw err
                                             // Set the password to be hashed
                                             newVendor.password = hashedPassword
-                                            saveProductCover(newVendor, profilePicture)
+
+                                            // Set the user's profile picture
+                                            saveProductCover(newVendor, req.body.profilePicture)
                                             // Saving the Vendor user
                                             newVendor.save()
                                                 .then(user => {
@@ -305,23 +303,13 @@ router.post('/register/vendor', (req,res) => {
 })
 
 // Register Shipper Handle
-router.post('/register/shipper', upload.single('profilePicture'), (req,res) => {
-    const { username, password , name, distributionHub} = req.body;
+router.post('/register/shipper', (req,res) => {
+    const { username, password , password2, name, distributionHub, profilePicture} = req.body;
     let errors = []
-    let fileData = null
-    let contentType = null
-    
-    // Check required fields
-    if (!username || !password || !name || !distributionHub) {
-        errors.push({msg: "Please fill in all fields"})
-    }
 
-    // Check profile picture
-    if (req.file) {
-        fileData = fs.readFileSync(req.file.path);
-        contentType = req.file.mimetype;
-    } else {
-        errors.push({msg: "Please upload a profile picture"})
+    // Check required fields
+    if (!username || !password || !name || !distributionHub || !profilePicture) {
+        errors.push({msg: "Please fill in all fields"})
     }
 
     // Check username length
@@ -332,6 +320,11 @@ router.post('/register/shipper', upload.single('profilePicture'), (req,res) => {
     // Check password length
     if (password.length < 8 || password.length > 20) {
         errors.push({msg: "Password should be between 8 and 20 characters long"})
+    }
+
+    // Check password 2
+    if (password !== password2) {
+        errors.push({msg: "Passwords do not match"})
     }
 
     // Check name length
@@ -367,6 +360,7 @@ router.post('/register/shipper', upload.single('profilePicture'), (req,res) => {
             errors,
             username,
             password,
+            password2,
             name,
             distributionHub
         })
@@ -384,6 +378,7 @@ router.post('/register/shipper', upload.single('profilePicture'), (req,res) => {
                         errors,
                         username,
                         password,
+                        password2,
                         name,
                         distributionHub
                     })
@@ -391,10 +386,6 @@ router.post('/register/shipper', upload.single('profilePicture'), (req,res) => {
                     const newShipper = new Shipper({
                         username,
                         password,
-                        profilePicture: {
-                            data: fileData,
-                            contentType: contentType,
-                        },
                         name,
                         distributionHub
                     })
@@ -404,6 +395,10 @@ router.post('/register/shipper', upload.single('profilePicture'), (req,res) => {
                             if (err) throw err
                             // Set the password to be hashed
                             newShipper.password = hashedPassword
+
+                            // Set the user's profile picture
+                            saveProductCover(newShipper, profilePicture)
+
                             // Saving the Customer user
                             newShipper.save()
                                 .then(user => {
@@ -461,9 +456,9 @@ router.get('/logout', (req, res) => {
 
 function saveProductCover(user, coverEncoded) {
     if (coverEncoded == null) return
-    const cover = JSON.parse(coverEncoded)
-    if (cover != null && imageMimeTypes.includes(cover.type)) {
-        user.coverImage = new Buffer.from(cover.data, 'base64')
-        user.coverImageType = cover.type
+    const profilePicture = JSON.parse(coverEncoded)
+    if (profilePicture != null && imageMimeTypes.includes(profilePicture.type)) {
+        user.profilePicture = new Buffer.from(profilePicture.data, 'base64')
+        user.profilePictureType = profilePicture.type
     }
 }

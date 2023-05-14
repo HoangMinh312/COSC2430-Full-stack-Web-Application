@@ -105,6 +105,18 @@ customerSchema.virtual('userPicture').get(function() {
   }
   return undefined
 })
+vendorSchema.virtual('userPicture').get(function() {
+  if (this.profilePicture != null && this.profilePictureType != null) {
+    return `data:${this.profilePictureType};charset=utf-8;base64,${this.profilePicture.toString('base64')}`
+  }
+  return undefined
+})
+shipperSchema.virtual('userPicture').get(function() {
+  if (this.profilePicture != null && this.profilePictureType != null) {
+    return `data:${this.profilePictureType};charset=utf-8;base64,${this.profilePicture.toString('base64')}`
+  }
+  return undefined
+})
 
 
 

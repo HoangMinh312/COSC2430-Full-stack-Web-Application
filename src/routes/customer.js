@@ -28,6 +28,11 @@ customerRouter.get("/", async (req, res) => {
     }
 })
 
+customerRouter.get('/profile', (req, res) => {
+    console.log("Redirecting to my account page")
+    res.render("my_account")
+})
+
 customerRouter.get("/:id", async (req, res) => {
     // res.send(`This is a product with id ${req.params.id}`)
     try {
@@ -46,8 +51,5 @@ customerRouter.get("/:id", async (req, res) => {
 function checkQuery(query) {
     return query != null && query != '';
 }
-customerRouter.get('/profile', (req, res) => {
-    console.log("Redirecting to my account page")
-    res.render("my_account")
-})
+
 
