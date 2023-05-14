@@ -1,5 +1,10 @@
-<div class="flex flex-col w-2/5 justify-center m-2 p-2">
-    <label class="text-center text-lg font-bold text-gray-800 my-3 p-1" for="avatar">Profile Picture</label>
-    <img src="<%= user.userPicture %>" alt="">
-    <input type="file" class="filepond" name="filepond" accept="image/png, image/jpeg, image/gif"/>
+<div class="flex flex-col justify-center m-2 p-2 w-2/5">
+    <form action="">
+        <label class="text-center text-lg font-bold text-gray-800 my-3 p-1" for="avatar">Profile Picture</label>
+        <img src="<%= user.userPicture %>" alt="">
+        <input type="file" class="filepond" name="filepond" accept="image/png, image/jpeg, image/gif"/>
+        <button class="flex flex-row justify-center p-2 bg-blue-800 rounded-lg text-white text-xs w-1/4 mx-auto">
+            <a>Update avatar</a>
+        </button>
+    </form>
 </div>
