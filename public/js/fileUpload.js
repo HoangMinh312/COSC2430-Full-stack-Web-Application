@@ -12,3 +12,10 @@ FilePond.create(productCover, {
     imageResizeTargetWidth: 800,
     imageResizeTargetHeight: 800,
 })
+
+const profileCover = document.querySelector('.profileCover')
+FilePond.create(profileCover, {
+    maxFileSize: '1MB',
+    imageResizeTargetWidth: 200,
+    imageResizeTargetHeight: 200,
+})

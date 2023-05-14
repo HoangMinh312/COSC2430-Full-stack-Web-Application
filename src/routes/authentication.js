@@ -3,10 +3,7 @@ import bcrypt from "bcrypt";
 export const router = express.Router();
 import passport from 'passport';
 
-// Multer + fs(Processing images)
-import fs from "fs"
-import multer from "multer"
-const upload = multer({ dest: 'uploads/' });
+const imageMimeTypes = ['image/png', 'image/jpeg']
 
 // User model
 import { Customer , Vendor, Shipper } from "../models/User.js"
@@ -164,7 +161,7 @@ router.post('/register/customer', upload.single('profilePicture'), (req,res) => 
 })
 
 // Register Vendor Handle
-router.post('/register/vendor', upload.single('profilePicture'), (req,res) => {
+router.post('/register/vendor', (req,res) => {
     const { username, password , name, address} = req.body;
     let errors = []
     let fileData = null
@@ -277,10 +274,6 @@ router.post('/register/vendor', upload.single('profilePicture'), (req,res) => {
                                     const newVendor = new Vendor({
                                         username: username,
                                         password: password,
-                                        profilePicture: {
-                                            data: fileData,
-                                            contentType: contentType,
-                                        },
                                         businessName: name,
                                         businessAddress: address
                                     })
@@ -290,6 +283,7 @@ router.post('/register/vendor', upload.single('profilePicture'), (req,res) => {
                                             if (err) throw err
                                             // Set the password to be hashed
                                             newVendor.password = hashedPassword
+                                            saveProductCover(newVendor, profilePicture)
                                             // Saving the Vendor user
                                             newVendor.save()
                                                 .then(user => {
@@ -464,3 +458,12 @@ router.get('/logout', (req, res) => {
     })
     
 })
+
+function saveProductCover(user, coverEncoded) {
+    if (coverEncoded == null) return
+    const cover = JSON.parse(coverEncoded)
+    if (cover != null && imageMimeTypes.includes(cover.type)) {
+        user.coverImage = new Buffer.from(cover.data, 'base64')
+        user.coverImageType = cover.type
+    }
+}

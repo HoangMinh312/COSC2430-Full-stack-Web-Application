@@ -1,7 +1,6 @@
 import express from "express";
 export const vendorRouter = express.Router();
 import { Product } from "../models/productSchema.js";
-import fs, { rmSync } from "fs"
 const imageMimeTypes = ['image/png', 'image/jpeg']
 
 // Vendor route
