@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +6,40 @@
 </head>
 <body>
     <%- include('partials/_header.ejs') %>
-    <main>
-        
+    <main class="flex items-center justify-center h-auto bg-cover bg-center bg-gradient-to-r from-pink-300 to-purple-400">
+        <div class="bg-white block w-screen h-auto mx-5 my-5 shadow-xl">
+            <div class="flex-1 w-full my-4 mx-4">
+                <img src="/images/dao-bao-duy.jpg" class="inline w-16 h-16 overflow-hidden rounded-full">
+                <p class="inline text-xl font-bold">Welcome back, Duy Dao!</p>
+            </div>
+            <table class="flex-1 w-full border">
+                <thead>
+                  <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Product 1</td>
+                    <td>$10.99</td>
+                    <td>A great product for all your needs.</td>
+                  </tr>
+                  <tr>
+                    <td>Product 2</td>
+                    <td>$19.99</td>
+                    <td>Another great product for all your needs.</td>
+                  </tr>
+                  <tr>
+                    <td>Product 3</td>
+                    <td>$29.99</td>
+                    <td>Yet another great product for all your needs.</td>
+                  </tr>
+                </tbody>
+            </table>
+            <a href="/src/views/add_new_product.ejs" class="bg-green-500 hover:bg-green-600 text-white cursor-pointer w-auto py-2 px-4 mx-4 my-4 rounded-md text-center text-base transition duration-300 ease-in-out block">Add new product</a>
+        </div>
     </main>
     <%- include('partials/_footer.ejs') %>
 </body>

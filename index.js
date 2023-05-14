@@ -36,6 +36,7 @@ import { config } from "./src/configs/bs-config.js";
 //Routers import
 import { indexRouter }  from "./src/routes/index.js";
 import { userRouter } from "./src/routes/users.js";
+import { testRouter } from "./src/routes/test.js";
 
 const app = express();
 const PORT = process.env.PORT || 6900;
@@ -97,8 +98,10 @@ app.set('views','./src/views');
 app.set("view engine", "ejs");
 
 // Routers
-app.use('/auth', register_loginRoute)
+app.use('/auth', register_loginRoute);
+app.use('/test', testRouter);
 app.use("/users", ensureAuthenticated, userRouter);
 app.use("/", indexRouter);
+
 
 app.listen(PORT)

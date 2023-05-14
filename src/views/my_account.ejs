@@ -6,40 +6,41 @@
 <body>
     <%- include('partials/_header.ejs') %>
     <main class="m-1 p-1">
-        <div class="m-1 p-1 mt-5 flex flex-row justify-center">
-            <h1 class="font-bold text-4xl italic font-mono">
-                My account
-            </h1>
-        </div>
-        <div class="flex flex-row justify-around m-2 p-4">
-            <div class="flex flex-col w-3/5 justify-center m-2 p-4 text-white bg-gradient-to-br from-purple-500 via-violet-400 to-violet-300 border-solid border-gray-300 border-2 rounded-lg">
-                <p class="flex justify-start m-2 p-1 w-3/4">
-                    Name: <%- user.name || user.businessName || "Nguyen Van A" %>
-                </p>
-                <p class="flex justify-start m-2 p-1 w-3/4">
-                    Username: <%- user.username || "nguyenvana123" %>
-                </p>
-                <p class="flex justify-start m-2 p-1 w-3/4">
-                    Address: <%- user.address|| user.businessAddress ||  "The White House" %>
-                </p>
-                <p class="flex justify-start m-2 p-1 w-3/4">
-                    Phone number: <%- user.phoneNumber || "0123456789" %>
-                </p>
-                <p class="flex justify-start m-2 p-1 w-3/4">
-                    Email: <%- user.email || "nguyenvana@gmail.com" %>
-                </p>
+        <div class="mx-auto w-4/5">
+            <div class="m-1 p-1 mt-5 flex flex-row justify-center">
+                <h1 class="font-extrabold text-4xl font-sans">
+                    My account
+                </h1>
             </div>
-            <div class="flex flex-wrap justify-center w-6/12 sm:w-4/12 px-4 m-2 py-4">
+            <div class="flex flex-row justify-around m-2 p-4">
+                <div class="flex flex-col w-3/5 justify-center m-2 p-4 text-white bg-gradient-to-r from-violet-300 to-violet-200 border-solid border-gray-300 border-2 rounded-lg">
+                    <p class="flex justify-start m-2 p-1 w-3/4">
+                        Name: <%- user.name || user.businessName || "Nguyen Van A" %>
+                    </p>
+                    <p class="flex justify-start m-2 p-1 w-3/4">
+                        Username: <%- user.username || "nguyenvana123" %>
+                    </p>
+                    <p class="flex justify-start m-2 p-1 w-3/4">
+                        Address: <%- user.address|| user.businessAddress ||  "The White House" %>
+                    </p>
+                    <p class="flex justify-start m-2 p-1 w-3/4">
+                        Phone number: <%- user.phoneNumber || "0123456789" %>
+                    </p>
+                    <p class="flex justify-start m-2 p-1 w-3/4">
+                        Email: <%- user.email || "nguyenvana@gmail.com" %>
+                    </p>
+                </div>
                 <img src="<%= user.userPicture %>" alt="">
-                <p class="flex justify-center text-xs text-violet-300 font-serif m-1 p-1"></p>
+                <%- include('partials/_change_avatar.ejs') %>
             </div>
-        </div>
-        <div class="flex flex-row justify-center">
-            <button class="m-3 py-2 px-6 bg-violet-300 text-white shadow-md rounded-2xl hover:opacity-80">
-                <a href="/auth/logout">Log out</a>
-            </button>
+            <div class="flex flex-row justify-center">
+                <button class="m-3 py-2 px-6 bg-violet-300 text-white shadow-md rounded-2xl hover:opacity-80">
+                    <a href="/auth/logout">Log out</a>
+                </button>
+            </div>
         </div>
     </main>
     <%- include('partials/_footer.ejs') %>
+    <script src="js/_change_avatar.js"></script>
 </body>
 </html>
