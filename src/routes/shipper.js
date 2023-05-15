@@ -4,12 +4,9 @@ import mongoose from "mongoose";
 
 import { Shipper } from "../models/User.js"
 import { Order } from "../models/Orders.js"
+const imageMimeTypes = ['image/png', 'image/jpeg']
 
 
-// router.get('/', (req, res) => {
-//     const user = req.user 
-//     res.render('loggedin-shipper', { user })
-// })
 
 shipperRouter.get('/profile', (req, res) => {
     console.log("Redirecting to my account page")
@@ -17,7 +14,26 @@ shipperRouter.get('/profile', (req, res) => {
 })
 
 shipperRouter.post('/profile/update-picture', (req, res) => {
-    
+    const user = req.user
+    const profilePicture = req.body.profilePicture
+
+    if (profilePicture != null) {
+        Shipper.findById(user.id)
+        .then(shipper => {
+            saveUserCover(shipper, profilePicture)
+            const updatedShipper = new Shipper(shipper)
+            return updatedShipper.save()
+        })
+        .then(() => {
+            res.redirect('/users/shipper/profile')
+        })
+        .catch(e => {
+            console.error(e)
+        })
+    } else {
+        res.redirect('/users/shipper/profile')
+    }
+
 })
 
 shipperRouter.post('/active-order/:id/update-status', (req, res) => {
@@ -87,3 +103,12 @@ shipperRouter.get('/', async (req, res) => {
 
 })
 
+
+function saveUserCover(user, coverEncoded) {
+    if (coverEncoded == null) return
+    const profilePicture = JSON.parse(coverEncoded)
+    if (profilePicture != null && imageMimeTypes.includes(profilePicture.type)) {
+        user.profilePicture = new Buffer.from(profilePicture.data, 'base64')
+        user.profilePictureType = profilePicture.type
+    }
+}
