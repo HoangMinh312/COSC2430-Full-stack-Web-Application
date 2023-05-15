@@ -24,7 +24,19 @@
 </div>
 <div>
     <label for="category">Category:</label>
-    <input class="w-64 h-4 p-4 rounded-2xl border-solid-1 border-black" id="category" type="text" name="category" value="<%= locals.productData ? productData.category : "" %>">
+    <!-- <input class="w-64 h-4 p-4 rounded-2xl border-solid-1 border-black" id="category" type="text" name="category" value="<%= locals.productData ? productData.category : "" %>"> -->
+    <select name="category" id="category">
+        <% const selectedCategory = locals.productData ? productData.category : "" %>
+        <% if (locals.categories) { %>
+            <% categories.forEach(category => { %>
+                <% if (category == selectedCategory) { %>
+                    <option selected value="<%= category %>"><%= category %></option>
+                <% } else { %>
+                    <option value="<%= category %>"><%= category %></option>
+                <% } %>
+            <% }); %>
+        <% } %>
+    </select>
 </div>
 <div>
     <label for="tags">Tags:</label>

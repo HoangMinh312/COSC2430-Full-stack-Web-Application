@@ -1,14 +1,17 @@
 FilePond.registerPlugin(
     FilePondPluginImageResize,
     FilePondPluginFileEncode,
-    FilePondPluginImagePreview
+    FilePondPluginImagePreview,
+    FilePondPluginFileValidateSize,
+    FilePondPluginFileValidateType
 )
 
 FilePond.parse(document.body)
 
 const productCover = document.querySelector('.productCover')
 FilePond.create(productCover, {
-    maxFileSize: '1MB',
-    imageResizeTargetWidth: 800,
-    imageResizeTargetHeight: 800,
+    acceptedFileTypes: ['image/png', 'image/jpeg'],
+    maxFileSize: '2MB',
+    imageResizeTargetWidth: 1024,
+    imageResizeTargetHeight: 1024,
 })

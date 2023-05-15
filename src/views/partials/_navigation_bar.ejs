@@ -9,7 +9,7 @@
         </div>
 
         <!-- Navigation list -->
-        <ul class="hamburger-menu whitespace-nowrap offcanvas-r [&_li]:w-full [&_li]:text-center [&_a]:py-4 [&_a]:px-12 [&_a]:block [&_a]:w-h-full [&_a:hover]:bg-violet-200 md:gap-8 md:static md:flex-row md:[&_a]:p-0 md:[&_a:hover]:bg-transparent md:[&_li:hover]:text-violet-400 transition-300">
+        <ul class="hamburger-menu whitespace-nowrap offcanvas-r [&_li]:w-full [&_li]:text-center [&_a]:py-4 [&_a]:px-12 [&_a]:block [&_a]:w-h-full [&_a:hover]:bg-violet-200 md:gap-8 md:static md:flex-row md:[&_a]:p-0 md:[&_a:hover]:bg-transparent md:[&_a:hover]:text-violet-400 transition-300">
             <li><a href="#">About Us</a></li>
             <li><a href="/users/customer">Shop</a></li>
             <li><a href="#">Pricing</a></li>
@@ -19,17 +19,17 @@
             <% if (user) { %>
                 <% if (userType == "Customer") { %>
                     <!-- Customer My Account Link -->
-                    <li class="-order-1 md:order-1 p-4 md:p-0"><a href="/users/customer/profile"><img class="w-10 md:w-8 cursor-pointer float-right" src="/svg/account.svg" alt="Account"></a></li>
+                    <li class="-order-1 md:order-1 p-4 md:p-0"><img class="w-10 md:w-8 cursor-pointer float-right" onclick="window.location.href='/users/customer/profile'" src="/svg/account.svg" alt="Account"></li>
                 <% } else if (userType == "Vendor") { %>
                     <!-- Vendor My Account Link -->
-                    <li class="-order-1 md:order-1 p-4 md:p-0"><a href="/users/vendor/profile"><img class="w-10 md:w-8 cursor-pointer float-right" src="/svg/account.svg" alt="Account"></a></li>
+                    <li class="-order-1 md:order-1 p-4 md:p-0"><img class="w-10 md:w-8 cursor-pointer float-right" onclick="window.location.href='/users/vendor/profile'" src="/svg/account.svg" alt="Account"></li>
                 <% } else if (userType == "Shipper") { %>
                     <!-- Vendor My Account Link -->
-                    <li class="-order-1 md:order-1 p-4 md:p-0"><a href="/users/shipper/profile"><img class="w-10 md:w-8 cursor-pointer float-right" src="/svg/account.svg" alt="Account"></a></li>
+                    <li class="-order-1 md:order-1 p-4 md:p-0"><img class="w-10 md:w-8 cursor-pointer float-right" onclick="window.location.href='/users/shipper/profile'" src="/svg/account.svg" alt="Account"></li>
                 <% } %>
             <% } else { %>
                 <!-- Login Link -->
-                <li><a href="/auth/login"><img class="w-10 md:w-8 cursor-pointer float-right" src="/svg/login-box-line.svg" alt="Login"></a></li>
+                <li class="-order-1 md:order-1 p-4 md:p-0"><img class="w-10 md:w-8 cursor-pointer float-right" onclick="window.location.href='/auth/login'" src="/svg/login-box-line.svg" alt="Login"></li>
             <% } %>
             <!-- This section needs to have code that separates My Account and Login -->
         </ul>

@@ -1,6 +1,6 @@
 import mongoose, { Mongoose } from "mongoose";
 
-export const category = ['Electronic and Appliances', 'Clothes', 'Food and Beverages']
+export const categories = ['Electronic and Appliances', 'Clothes', 'Food and Beverages']
 // tags
 const ageTags = ['young adult', 'middle-aged', 'senior']
 const priceRangeTags = ['budget-friendly', 'luxury']
@@ -61,7 +61,7 @@ const productSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true,
-        enum: category
+        enum: categories
     },
     tags: {
         type: [String],
