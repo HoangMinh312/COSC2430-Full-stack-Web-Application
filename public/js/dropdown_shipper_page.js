@@ -7,16 +7,15 @@ const form = document.getElementById("statusForm")
 // Set the default value and background color
 let selectedOption = status;
 statusButton.textContent = status
-console.log(selectedOption);
+
 let currentColor
 if (selectedOption == "Active") {
   currentColor = "orange"
 } else if (selectedOption == "Delivered") {
   currentColor = "green"
-} else if (selectedOption == "Active") {
+} else if (selectedOption == "Cancelled") {
   currentColor = "red"
 }
-
 statusButton.style.backgroundColor = currentColor;
 
 // Listen for clicks on the button
