@@ -114,8 +114,6 @@ customerRouter.post("/checkout", (req, res) => {
     } else {
         res.redirect("/users/customer")
     }
-    
-
 })
 
 
