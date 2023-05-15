@@ -1,6 +1,8 @@
 import express from "express";
 export const customerRouter = express.Router();
 import { Product } from "../models/productSchema.js";
+import { Customer } from "../models/User.js"
+const imageMimeTypes = ['image/png', 'image/jpeg']
 
 // Customer route
 // users/customer
@@ -33,6 +35,29 @@ customerRouter.get('/profile', (req, res) => {
     res.render("my_account")
 })
 
+customerRouter.post('/profile/update-picture', (req, res) => {
+    const user = req.user
+    const profilePicture = req.body.profilePicture
+
+    if (profilePicture != null) {
+        Customer.findById(user.id)
+        .then(customer => {
+            saveUserCover(customer, profilePicture)
+            const updatedCustomer = new Customer(customer)
+            return updatedCustomer.save()
+        })
+        .then(() => {
+            res.redirect('/users/customer/profile')
+        })
+        .catch(e => {
+            console.error(e)
+        })
+    } else {
+        res.redirect('/users/customer/profile')
+    }
+
+})
+
 customerRouter.get("/:id", async (req, res) => {
     // res.send(`This is a product with id ${req.params.id}`)
     try {
@@ -53,3 +78,11 @@ function checkQuery(query) {
 }
 
 
+function saveUserCover(user, coverEncoded) {
+    if (coverEncoded == null) return
+    const profilePicture = JSON.parse(coverEncoded)
+    if (profilePicture != null && imageMimeTypes.includes(profilePicture.type)) {
+        user.profilePicture = new Buffer.from(profilePicture.data, 'base64')
+        user.profilePictureType = profilePicture.type
+    }
+}
