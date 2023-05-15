@@ -5,6 +5,7 @@ import { Customer } from "../models/User.js"
 import { Order } from "../models/Orders.js"
 const imageMimeTypes = ['image/png', 'image/jpeg']
 
+
 // Customer route
 // users/customer
 customerRouter.get("/", async (req, res) => {
@@ -83,12 +84,13 @@ customerRouter.post('/profile/update-picture', (req, res) => {
 
 // Add product to cart
 customerRouter.get("/:id/add", (req, res) => {
+    // Getting productQuantity from query
     const productQuantity = req.query.productQuantity
+    // Getting shopping cart from session
     req.session.cart = req.session.cart || []
     // Adds the product to cart with quantity first then the product ID
     let productWithQuantity = [productQuantity, req.params.id]
     req.session.cart.push(productWithQuantity)
-    console.log(req.session.cart)
     res.redirect("/users/customer")
 })
 
@@ -102,15 +104,55 @@ customerRouter.get("/:id/remove", (req, res) => {
     if (itemIndex !== -1) {
         req.session.cart.splice(itemIndex, 1)
     }
-    console.log(req.session.cart)
     res.redirect("/users/customer/shopping-cart")
 })
 
 // Checkout shopping cart
-customerRouter.post("/checkout", (req, res) => {
+customerRouter.post("/checkout", async (req, res) => {
+    // Getting user and order information
+    const user = req.user
     const checkoutSummary = req.body 
+    const productIds = checkoutSummary.productId
+    const productQuantity = checkoutSummary.productQuantity
+
+    // Creating a new order
     if (Object.keys(checkoutSummary).length !== 0) {
-        res.send(req.body)
+        let products = []
+        console.log(productIds)
+        console.log(Array.isArray(productIds));
+        console.log(productQuantity)
+        // Iterating over the products in the checkout form
+        for (let i = 0; i <productIds.length; i++) {
+            const productId = productIds[i]
+            const quantity = productQuantity[i]
+
+            console.log("Product Id: " + productId);
+            console.log("Product Quantity: " + quantity);
+            // Finding the product by id
+            // const product = await Product.findById(productId)
+            // console.log(product);
+
+            // Copying the products details to the order
+            // const productObject = {
+            //     name: product.name,
+            //     brand: product.brand,
+            //     quantity: quantity,
+            //     price: product.price,
+            // }
+
+            // Adding the product to the products list
+            // products.push(productObject)
+        }
+        // const newOrder = await Order.create({
+        //     user: user.username,
+        //     userFullName: user.name,
+        //     userAddress: user.address,
+        //     status: "Active",
+        //     products: products,
+        // })
+        req.session.cart = []
+        res.redirect("/users/customer/shopping-cart")
+        
     } else {
         res.redirect("/users/customer")
     }
