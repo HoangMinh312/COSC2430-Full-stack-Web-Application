@@ -8,6 +8,9 @@ const imageMimeTypes = ['image/png', 'image/jpeg']
 // users/customer
 customerRouter.get("/", async (req, res) => {
     let productQuery = Product.find()
+    if (checkQuery(req.query.category)) {
+        productQuery = productQuery.regex('category', new RegExp(req.query.category, 'i'))
+    }
     if (checkQuery(req.query.name)) {
         productQuery = productQuery.regex('name', new RegExp(req.query.name, 'i'))
     }
@@ -23,7 +26,8 @@ customerRouter.get("/", async (req, res) => {
         // res.send(products)
         res.render("customer_shopping", {
             products,
-            searchOption: req.query
+            searchOption: req.query,
+            category: req.query.category
         })
     } catch (error) {
         res.redirect("/")
