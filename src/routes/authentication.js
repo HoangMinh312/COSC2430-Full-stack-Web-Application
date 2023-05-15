@@ -139,7 +139,7 @@ router.post('/register/customer', (req,res) => {
                             newCustomer.password = hashedPassword
 
                             // Set the user's profile picture
-                            saveProductCover(newCustomer, profilePicture)
+                            saveUserCover(newCustomer, profilePicture)
                             // Saving the Customer user
                             newCustomer.save()
                                 .then(user => {
@@ -281,7 +281,7 @@ router.post('/register/vendor', (req,res) => {
                                             newVendor.password = hashedPassword
 
                                             // Set the user's profile picture
-                                            saveProductCover(newVendor, req.body.profilePicture)
+                                            saveUserCover(newVendor, req.body.profilePicture)
                                             // Saving the Vendor user
                                             newVendor.save()
                                                 .then(user => {
@@ -397,7 +397,7 @@ router.post('/register/shipper', (req,res) => {
                             newShipper.password = hashedPassword
 
                             // Set the user's profile picture
-                            saveProductCover(newShipper, profilePicture)
+                            saveUserCover(newShipper, profilePicture)
 
                             // Saving the Customer user
                             newShipper.save()
@@ -454,7 +454,7 @@ router.get('/logout', (req, res) => {
     
 })
 
-function saveProductCover(user, coverEncoded) {
+function saveUserCover(user, coverEncoded) {
     if (coverEncoded == null) return
     const profilePicture = JSON.parse(coverEncoded)
     if (profilePicture != null && imageMimeTypes.includes(profilePicture.type)) {
