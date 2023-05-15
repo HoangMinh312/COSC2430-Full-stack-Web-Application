@@ -2,6 +2,7 @@ import express from "express";
 export const customerRouter = express.Router();
 import { Product } from "../models/productSchema.js";
 import { Customer } from "../models/User.js"
+import { Order } from "../models/Orders.js"
 const imageMimeTypes = ['image/png', 'image/jpeg']
 
 // Customer route
@@ -34,6 +35,24 @@ customerRouter.get("/", async (req, res) => {
     }
 })
 
+customerRouter.get('/shopping-cart', async (req, res) => {
+    try {
+        const shoppingCart = req.session.cart || []
+        let cartItems = []    
+
+        for (const item of shoppingCart) {
+            const productId = item[1]
+            const product = await Product.findById(productId)
+            cartItems.push([item[0], product])
+        }
+
+        res.render("shopping_cart", { cartItems })
+    } catch (error) {
+        console.error(error)
+    }
+})
+
+
 customerRouter.get('/profile', (req, res) => {
     console.log("Redirecting to my account page")
     res.render("my_account")
@@ -62,6 +81,44 @@ customerRouter.post('/profile/update-picture', (req, res) => {
 
 })
 
+// Add product to cart
+customerRouter.get("/:id/add", (req, res) => {
+    const productQuantity = req.query.productQuantity
+    req.session.cart = req.session.cart || []
+    // Adds the product to cart with quantity first then the product ID
+    let productWithQuantity = [productQuantity, req.params.id]
+    req.session.cart.push(productWithQuantity)
+    console.log(req.session.cart)
+    res.redirect("/users/customer")
+})
+
+// Remove product from cart 
+customerRouter.get("/:id/remove", (req, res) => {
+    req.session.cart = req.session.cart || []
+    const productId = req.params.id
+
+    const itemIndex = req.session.cart.findIndex(item => item[1] === productId)
+
+    if (itemIndex !== -1) {
+        req.session.cart.splice(itemIndex, 1)
+    }
+    console.log(req.session.cart)
+    res.redirect("/users/customer/shopping-cart")
+})
+
+// Checkout shopping cart
+customerRouter.post("/checkout", (req, res) => {
+    const checkoutSummary = req.body 
+    if (Object.keys(checkoutSummary).length !== 0) {
+        res.send(req.body)
+    } else {
+        res.redirect("/users/customer")
+    }
+    
+
+})
+
+
 customerRouter.get("/:id", async (req, res) => {
     // res.send(`This is a product with id ${req.params.id}`)
     try {
@@ -70,10 +127,12 @@ customerRouter.get("/:id", async (req, res) => {
         res.render('productDetail', {product})
     } catch (error) {
         // Send users to the previous page in case sth wrong
-        res.redirect(req.headers.referer).catch(err => {
-            console.error(err);
-            res.redirect('/'); // fallback URL
-        });
+        try {
+            res.redirect(req.headers.referer)
+        } catch (error) {
+            console.error(error);
+            res.redirect('/');
+        }
     }
 })
 

@@ -1,7 +1,21 @@
 import mongoose from "mongoose"
-import { Customer } from "../models/User.js"
 
 const distributionHubs = ["District 1 Hub", "District 2 Hub", "District 7 Hub"]
+
+const productSchema = new mongoose.Schema({
+    name: {
+        type: String,
+    }, 
+    brand: {
+        type: String,
+    },
+    quantity: {
+        type: Number,
+    },
+    price: {
+        type: Number,
+    }
+})
 
 const orderSchema = new mongoose.Schema({
     distributionHub: {
@@ -10,7 +24,7 @@ const orderSchema = new mongoose.Schema({
         enum: distributionHubs
     },
     products: {
-        type: Array,
+        type: productSchema,
         required: true,
     },
     user: {
