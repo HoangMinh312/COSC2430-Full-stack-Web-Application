@@ -1,5 +1,5 @@
-<aside>
-    <form id="filterForm" class="queryForm" action="/users/customer" method="get">
+<aside class="w-full p-4">
+    <form id="filterForm" class="queryForm flex flex-col" action="/users/customer" method="get">
         <h3 class="sr-only">Categories</h3>
         <div>
 
@@ -22,12 +22,12 @@
               <div class="center-xy">
                 <div class="relative">
                   <label class="absolute left-2 top-1/2 text-gray-500 -translate-y-1/2" for="minPrice">$</label>
-                  <input class="w-h-full px-1 py-[6px] text-right appearance-none border-solid-1 border-black rounded-lg" type="number" id="minPrice" name="minPrice" min="0">
+                  <input class="w-h-full px-1 py-[6px] text-right appearance-none border-solid-1 border-black rounded-lg" type="number" id="minPrice" name="minPrice" min="0" value="<%= minMaxPrice[0] || '' %>">
                 </div>
                 <div class="text-xl px-2">-</div>
                 <div class="relative">
                   <label class="absolute left-2 top-1/2 text-gray-500 -translate-y-1/2" for="maxPrice">$</label>
-                  <input class="w-h-full px-1 py-[6px] text-right appearance-none border-solid-1 border-black rounded-lg" type="number" id="maxPrice" name="maxPrice" min="0">
+                  <input class="w-h-full px-1 py-[6px] text-right appearance-none border-solid-1 border-black rounded-lg" type="number" id="maxPrice" name="maxPrice" min="0" value="<%= minMaxPrice[1] || '' %>">
                 </div>
               </div>
 
@@ -42,15 +42,18 @@
             <div class="filter-subpanel pt-6 hidden" id="filter-section-mobile-0">
               <div class="space-y-6">
 
-                <div class="flex items-center">
-                  <input id="filter-mobile-color-0" name="color[]" value="white" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                  <label for="filter-mobile-color-0" class="ml-3 min-w-0 flex-1 text-gray-500">White</label>
-                </div>
+                <% locals.tags.forEach(tag => { %>
+                  <div class="flex items-center">
+                    <input id="filter-mobile-color-0" name="tags" value="<%= tag %>" type="checkbox"
+                      class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                    <label for="filter-mobile-color-0" class="ml-3 min-w-0 flex-1 text-gray-500"><%= tag %></label>
+                  </div>
+                <% }); %>
 
-                <div class="flex items-center">
+                <!-- <div class="flex items-center">
                   <input id="filter-mobile-color-0" name="color[]" value="white" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                   <label for="filter-mobile-color-0" class="ml-3 min-w-0 flex-1 text-gray-500">White</label>
-                </div>
+                </div>  -->
 
               </div>
             </div>
@@ -58,5 +61,3 @@
         <button type="submit">Test submit</button>
     </form>
 </aside>
-
-<script src="/js/filter_panel.js"></script>
