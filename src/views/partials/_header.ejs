@@ -1,4 +1,8 @@
 <header>
     <%- include("_navigation_bar.ejs"); %>
-    <%- include("_category_bar.ejs"); %>
+    <% if (user) { %>
+        <% if (userType === "Customer") { %>
+            <%- include("_category_bar.ejs"); %>
+        <% } %>
+    <% } %>
 </header>
