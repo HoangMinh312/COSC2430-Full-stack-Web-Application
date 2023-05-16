@@ -1102,6 +1102,10 @@ input::-webkit-outer-spin-button,
   width: 100vw;
 }
 
+.w-11\/12 {
+  width: 91.666667%;
+}
+
 .min-w-0 {
   min-width: 0px;
 }
