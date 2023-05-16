@@ -635,6 +635,22 @@ input::-webkit-outer-spin-button,
   left: -100%;
 }
 
+.page-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  max-width: 36px;
+  border-radius: 4px;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+
 /* Need to be used with md */
 
 /* .grid-col-autofit-300 {
@@ -913,6 +929,10 @@ input::-webkit-outer-spin-button,
   height: 1.25rem;
 }
 
+.h-8 {
+  height: 2rem;
+}
+
 .h-full {
   height: 100%;
 }
@@ -987,10 +1007,6 @@ input::-webkit-outer-spin-button,
 
 .w-8 {
   width: 2rem;
-}
-
-.w-9 {
-  width: 2.25rem;
 }
 
 .w-\[40vw\] {
@@ -1188,10 +1204,6 @@ input::-webkit-outer-spin-button,
 
 .rounded-2xl {
   border-radius: 1rem;
-}
-
-.rounded-\[4px\] {
-  border-radius: 4px;
 }
 
 .rounded-lg {

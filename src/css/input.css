@@ -54,6 +54,9 @@
     .offcanvas-l {
         @apply offcanvas -left-full;
     }
+    .page-link {
+        @apply center-xy max-w-[36px] text-gray-500 rounded-[4px] px-3 py-1 font-semibold aspect-square;
+    }
 
     /* Need to be used with md */
     /* .grid-col-autofit-300 {
