@@ -35,7 +35,7 @@ customerRouter.get("/", pagination, async (req, res) => {
 
     try {
         const products = await productQuery.exec()
-        const numberOfProducts = products.length;
+        const numberOfProducts = await Product.countDocuments({})
         const totalPage = countPages(numberOfProducts, pageSize)
         res.render("customer_shopping", {
             products,
