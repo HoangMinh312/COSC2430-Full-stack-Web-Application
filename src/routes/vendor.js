@@ -13,14 +13,14 @@ vendorRouter.get("/", async (req, res) => {
     const user = req.user
     try {
         const products = await Product.find({publisher: user})
-        res.send(products)
+        res.render("vendor_page", { products })
     } catch (error) {
     }
 })
 
 // users/vendor/addproduct
 vendorRouter.get("/addproduct", (req, res) => {
-    res.render("vendorAddProduct", {categories, tags});
+    res.render("add_new_product", {categories, tags});
 })
 
 vendorRouter.post("/newproduct", async (req, res) => {
