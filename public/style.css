@@ -2297,10 +2297,6 @@ input::-webkit-outer-spin-button,
     display: none;
   }
 
-  .sm\:w-1\/2 {
-    width: 50%;
-  }
-
   .sm\:w-2\/5 {
     width: 40%;
   }
@@ -2311,6 +2307,10 @@ input::-webkit-outer-spin-button,
 
   .sm\:w-full {
     width: 100%;
+  }
+
+  .sm\:w-1\/2 {
+    width: 50%;
   }
 
   .sm\:grid-cols-2 {
