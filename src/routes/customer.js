@@ -34,12 +34,15 @@ customerRouter.get("/", pagination, async (req, res) => {
             productQuery = productQuery.sort('-price')
         }
     }
+    // const testQuery = productQuery
+    // const numberOfProducts = (async (query) => {return (await query.countDocuments())})(testQuery)
 
-    productQuery = productQuery.skip(skip).limit(pageSize)
+    // productQuery.skip(skip).limit(pageSize)
 
     try {
-        const products = await productQuery.exec()
-        const numberOfProducts = await Product.countDocuments({})
+        // const numberOfProducts = await productQuery.countDocuments()
+        const products = await productQuery.skip(skip).limit(pageSize).exec()
+        const numberOfProducts = 12
         const totalPage = countPages(numberOfProducts, pageSize)
         res.render("customer_shopping", {
             products,

@@ -74,7 +74,7 @@ productSchema.virtual('imageCoverData').get(function() {
     if (this.coverImage != null && this.coverImageType != null) {
         return `data:${this.coverImageType};charset=utf-8;base64,${this.coverImage.toString('base64')}`
     }
-    return undefined
+    return "https://www.wowpatterns.com/assets/files/resource_images/diagonal-lines-vector-pattern.jpg"
 })
 
 // create models for each user type
