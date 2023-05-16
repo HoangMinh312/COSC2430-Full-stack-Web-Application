@@ -1,18 +1,37 @@
 import mongoose from "mongoose"
-import { Customer } from "../models/User.js"
 
 const distributionHubs = ["District 1 Hub", "District 2 Hub", "District 7 Hub"]
+
+const productSchema = new mongoose.Schema({
+    name: {
+        type: String,
+    }, 
+    brand: {
+        type: String,
+    },
+    quantity: {
+        type: Number,
+    },
+    price: {
+        type: Number,
+    }
+})
 
 const orderSchema = new mongoose.Schema({
     distributionHub: {
         type: String,
         required: true,
-        enum: distributionHubs
+        enum: distributionHubs,
+        default: () => {
+            // Randomizing the distribution hub for orders
+            const randomIndex = Math.floor(Math.random() * distributionHubs.length)
+            return distributionHubs[randomIndex]
+        }
     },
-    products: {
-        type: Array,
+    products: [{
+        type: productSchema,
         required: true,
-    },
+    }],
     user: {
         type: String,
         required: true,
@@ -32,7 +51,7 @@ const orderSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        default: Date.now
+        default: Date.now()
     }
 })
 

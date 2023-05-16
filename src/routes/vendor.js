@@ -1,8 +1,9 @@
 import express from "express";
 export const vendorRouter = express.Router();
 import { Product } from "../models/productSchema.js";
-const imageMimeTypes = ['image/png', 'image/jpeg']
 import { categories, tags } from "../models/productSchema.js";
+import { Vendor } from "../models/User.js"
+const imageMimeTypes = ['image/png', 'image/jpeg']
 
 // Variables
 
@@ -95,3 +96,36 @@ vendorRouter.get('/profile', (req, res) => {
     console.log("Redirecting to my account page")
     res.render("my_account")
 })
+
+vendorRouter.post('/profile/update-picture', (req, res) => {
+    const user = req.user
+    const profilePicture = req.body.profilePicture
+
+    if (profilePicture != null) {
+        Vendor.findById(user.id)
+        .then(vendor => {
+            saveUserCover(vendor, profilePicture)
+            const updatedVendor = new Vendor(vendor)
+            return updatedVendor.save()
+        })
+        .then(() => {
+            res.redirect('/users/vendor/profile')
+        })
+        .catch(e => {
+            console.error(e)
+        })
+    } else {
+        res.redirect('/users/vendor/profile')
+    }
+
+})
+
+
+function saveUserCover(user, coverEncoded) {
+    if (coverEncoded == null) return
+    const profilePicture = JSON.parse(coverEncoded)
+    if (profilePicture != null && imageMimeTypes.includes(profilePicture.type)) {
+        user.profilePicture = new Buffer.from(profilePicture.data, 'base64')
+        user.profilePictureType = profilePicture.type
+    }
+}

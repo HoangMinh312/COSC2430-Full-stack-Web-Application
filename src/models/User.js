@@ -12,8 +12,10 @@ const customerSchema = new mongoose.Schema({
     required: true,
   },
   profilePicture: {
-    data: Buffer,
-    contentType: String,
+    type: Buffer,
+  },
+  profilePictureType: {
+    type: String,
   },
   name: {
     type: String,
@@ -42,8 +44,10 @@ const vendorSchema = new mongoose.Schema({
     required: true,
   },
   profilePicture: {
-    data: Buffer,
-    contentType: String,
+    type: Buffer,
+  },
+  profilePictureType: {
+    type: String,
   },
   businessName: {
     type: String,
@@ -73,8 +77,10 @@ const shipperSchema = new mongoose.Schema({
     required: true,
   },
   profilePicture: {
-    data: Buffer,
-    contentType: String,
+    type: Buffer,
+  },
+  profilePictureType: {
+    type: String,
   },
   name: {
     type: String,
@@ -93,7 +99,24 @@ const shipperSchema = new mongoose.Schema({
 });
 
 // Virtuals 
-// customerSchema.virtual(profilePicture)
+customerSchema.virtual('userPicture').get(function() {
+  if (this.profilePicture != null && this.profilePictureType != null) {
+    return `data:${this.profilePictureType};charset=utf-8;base64,${this.profilePicture.toString('base64')}`
+  }
+  return undefined
+})
+vendorSchema.virtual('userPicture').get(function() {
+  if (this.profilePicture != null && this.profilePictureType != null) {
+    return `data:${this.profilePictureType};charset=utf-8;base64,${this.profilePicture.toString('base64')}`
+  }
+  return undefined
+})
+shipperSchema.virtual('userPicture').get(function() {
+  if (this.profilePicture != null && this.profilePictureType != null) {
+    return `data:${this.profilePictureType};charset=utf-8;base64,${this.profilePicture.toString('base64')}`
+  }
+  return undefined
+})
 
 
 

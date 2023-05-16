@@ -12,15 +12,15 @@ import { initializePassport } from './src/configs/passport-config.js'
 initializePassport(passport)
 
 // Multer configuration
-import multer from "multer"
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads');
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now());
-    }
-});
+// import multer from "multer"
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, 'uploads');
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, file.fieldname + '-' + Date.now());
+//     }
+// });
 
 // User models
 import { Customer , Vendor, Shipper } from "./src/models/User.js"
@@ -36,6 +36,7 @@ import { config } from "./src/configs/bs-config.js";
 //Routers import
 import { indexRouter }  from "./src/routes/index.js";
 import { userRouter } from "./src/routes/users.js";
+import { testRouter } from "./src/routes/test.js";
 
 const app = express();
 const PORT = process.env.PORT || 6900;
@@ -90,14 +91,17 @@ app.use((req, res, next) => {
 
 // Views middleware and setup
 app.use(express.static("./public"))
-app.use(express.urlencoded({ extended: true}));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({  limit: '10mb' , extended: true}));
 
 app.set('views','./src/views');
 app.set("view engine", "ejs");
 
 // Routers
-app.use('/auth', register_loginRoute)
-app.use("/users", userRouter);
+app.use('/auth', register_loginRoute);
+app.use('/test', testRouter);
+app.use("/users", ensureAuthenticated, userRouter);
 app.use("/", indexRouter);
+
 
 app.listen(PORT)

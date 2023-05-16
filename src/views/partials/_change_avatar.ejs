@@ -1,0 +1,18 @@
+<div class="flex flex-col justify-center m-2 p-2 w-2/5">
+    <% if (userType == "Customer") { %>
+        <form action="/users/customer/profile/update-picture" method="post">
+    <% } else if (userType == "Vendor") { %>
+        <form action="/users/vendor/profile/update-picture" method="post">
+    <% } else if (userType == "Shipper") { %>
+        <form action="/users/shipper/profile/update-picture" method="post">
+    <% } else { %>
+        <form action="">
+    <% } %>
+        <label class="text-center text-lg font-bold text-gray-800 my-3 p-1" for="avatar">Profile Picture</label>
+        <img src="<%= user.userPicture %>" alt="User Profile Picture">
+        <input type="file" class="profileCover" name="profilePicture" accept="image/png, image/jpeg, image/gif"/>
+        <button class="flex flex-row justify-center p-2 bg-blue-800 rounded-lg text-white text-xs w-1/4 mx-auto">
+            <a>Update Profile Picture</a>
+        </button>
+    </form>
+</div>
