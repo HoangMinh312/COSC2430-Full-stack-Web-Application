@@ -91,7 +91,7 @@ customerRouter.get("/:id/add", (req, res) => {
     // Adds the product to cart with quantity first then the product ID
     let productWithQuantity = [productQuantity, req.params.id]
     req.session.cart.push(productWithQuantity)
-    res.redirect("/users/customer")
+    res.redirect(`/users/customer/${req.params.id}`)
 })
 
 // Remove product from cart 

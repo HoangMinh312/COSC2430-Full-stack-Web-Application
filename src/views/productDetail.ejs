@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <%- include("partials/_head", {title: "Vendor add product"}) %>
-    <script src="/js/rating.js"></script>
+    <script defer src="/js/rating.js"></script>
+    <script defer src="/js/quantityControl.js"></script>
 </head>
 <body>
     <header>
@@ -43,7 +44,8 @@
                     </div>
                     <!-- Description -->
                     <p class="mt-4 text-gray-400"><%- product.description %></p>
-                    
+
+                    <!-- Quantity -->
                     <div class="mt-auto flex flex-col">
                         <div class="center-xy gap-3 my-2 mr-auto">
                             <p class="text-lg">Quantity: </p>
@@ -80,47 +82,12 @@
 
 <script>
     $(document).ready(function () {
-        const editableQuantity = $("#editableQuantity")
-        const quantityDecrease = $("#quantityDecrease")
-        const quantityIncrease = $("#quantityIncrease")
         const addToCart = $("#addToCart")
         const addToCartForm = $("#addProduct")
-        const productQuantity = $("#productQuantity")
-        // Prevent the field from getting non-numeric value
-        editableQuantity.keypress(e => {
-            if (isNaN(String.fromCharCode(e.which))) e.preventDefault();
-        });
-
-        editableQuantity.on('input', function () {
-            if (parseInt($(this).text()) >= 999) {
-                $(this).text($(this).text().slice(0, -1))
-            }
-            productQuantity.val($(this).text())
-        })
-
-        // Incase the user leave the field empty, default it to 1
-        editableQuantity.on('blur', function() {
-            if ($(this).is(':empty')) {
-                $(this).text(1)
-                productQuantity.val(1)
-            }
-        })
-
-        quantityDecrease.on('click', () => {
-            let currentValue = parseInt(editableQuantity.text())
-            if (currentValue <= 1) return
-            editableQuantity.text(currentValue - 1)
-            productQuantity.val(currentValue - 1)
-        })
-
-        quantityIncrease.on('click', () => {
-            let currentValue = parseInt(editableQuantity.text())
-            if (currentValue >= 999) return
-            editableQuantity.text(currentValue + 1)
-            productQuantity.val(currentValue + 1)
-        })
+        const productQuantity = $('#productQuantity')
 
         addToCart.on('click', () => {
+            productQuantity.val(parseInt($('#editableQuantity').text()))
             addToCartForm.submit()
         })
     })
