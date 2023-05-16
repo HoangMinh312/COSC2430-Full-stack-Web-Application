@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("partials/_head", {title: "Vendor update product"}) %>
+    <script defer src="/js/fileUpload.js"></script>
+</head>
+<body>
+    <header>
+        <!-- Navigation bar -->
+        <%- //include("partials/_navigation_bar"); %>
+        <%- //include("partials/_category_bar.ejs"); %>
+    </header>
+    <main>
+        <Form class="p-6" action="/users/vendor/<%= productData.id %>/update" method="post">
+            <%- include ('partials/_addProduct_form') %>
+
+            <%- include ('partials/_messages') %>
+            <div>
+                <button class="px-2 py-1 rounded-2xl border-solid-1 border-black" type="reset">Reset</button>
+                <button class="px-2 py-1 rounded-2xl border-solid-1 border-black" type="submit">Update product</button>
+            </div>
+        </Form>
+    </main>
+    <%- include("partials/_footer.ejs"); %>
+</body>
+</html>

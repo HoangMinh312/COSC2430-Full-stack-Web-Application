@@ -9,8 +9,15 @@ const imageMimeTypes = ['image/png', 'image/jpeg']
 
 // Vendor route
 // users/vendor
-vendorRouter.get("/", (req, res) => {
-    res.send('This is vendor page')
+vendorRouter.get("/", async (req, res) => {
+    const user = req.user
+    try {
+        const products = await Product.find({publisher: user})
+        console.log(products)
+        res.send(products)
+    } catch (error) {
+        console.error(error)
+    }
 })
 
 // users/vendor/addproduct
@@ -27,7 +34,7 @@ vendorRouter.post("/newproduct", async (req, res) => {
     // error checking
     let errors = []
 
-    if (!productData.productName) {
+    if (!productData.name) {
         errors.push({ msg: "Product name cant be empty" })
     }
 
@@ -57,7 +64,7 @@ vendorRouter.post("/newproduct", async (req, res) => {
     try {
         if (errors.length > 0) throw new Error("Failed creating new product")
         const newProduct = await Product.create({
-            name: productData.productName,
+            name: productData.name,
             price: productData.price,
             description: productData.description,
             stock: productData.stock,
@@ -92,6 +99,74 @@ function saveProductCover(product, coverEncoded) {
     }
 }
 
+
+
+
+
+// Update and Delete Product
+vendorRouter.post("/:id/update", async (req, res) => {
+    // const {productName, price, description, brand, category} = req.body;
+    const productData = req.body;
+    // error checking
+    let errors = []
+
+    if (!productData.name) {
+        errors.push({ msg: "Product name cant be empty" })
+    }
+
+    if (!productData.price) {
+        errors.push({ msg: "Price cant be empty" })
+    }
+
+    if (productData.price < 0) {
+        errors.push({ msg: "Price cant be a negative number" })
+    }
+
+    if (!productData.description) {
+        errors.push({ msg: "Description cant be empty" })
+    }
+
+    if (!productData.stock) {
+        errors.push({ msg: "Stock cant be empty" })
+    }
+
+    if (productData.stock < 1) {
+        errors.push({ msg: "There must be at least 1 item in stock" })
+    }
+
+    // Create new product
+    try {
+        if (errors.length > 0) throw new Error("Failed updating product")
+        const product = await Product.findById(req.params.id)
+        
+        
+        
+        // Update the product
+        product.name = productData.name
+        product.price = productData.price
+        product.description = productData.description
+        product.stock = productData.stock
+        product.brand = productData.brand
+        product.category = productData.category
+        saveProductCover(product, productData.image)
+        await product.save()
+
+        res.redirect(`/users/vendor/${req.params.id}`)
+        // console.log(newProduct);
+    } catch (e) {
+        // console.log(e.message)
+        errors.splice(0, 0, { msg: e.message })
+        res.render("vendorUpdateProduct", {
+            productData,
+            categories,
+            tags,
+            errors
+        })
+    }
+})
+
+
+
 vendorRouter.get('/profile', (req, res) => {
     console.log("Redirecting to my account page")
     res.render("my_account")
@@ -118,6 +193,18 @@ vendorRouter.post('/profile/update-picture', (req, res) => {
         res.redirect('/users/vendor/profile')
     }
 
+})
+
+
+// Vendor Accessing their products page
+vendorRouter.get("/:id", async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id)
+
+        res.render("vendorUpdateProduct", { productData: product , categories })
+    } catch (error) {
+        console.error(error)
+    }
 })
 
 
