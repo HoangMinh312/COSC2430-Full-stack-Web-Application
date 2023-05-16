@@ -55,7 +55,7 @@ bs.init({
 });
 
 // Bodyparser
-app.use(express.json())
+// app.use(express.json())
 
 // Flash and session middleware
 app.use(session({

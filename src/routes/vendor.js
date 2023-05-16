@@ -13,10 +13,8 @@ vendorRouter.get("/", async (req, res) => {
     const user = req.user
     try {
         const products = await Product.find({publisher: user})
-        console.log(products)
         res.send(products)
     } catch (error) {
-        console.error(error)
     }
 })
 
@@ -26,10 +24,8 @@ vendorRouter.get("/addproduct", (req, res) => {
 })
 
 vendorRouter.post("/newproduct", async (req, res) => {
-    // const {productName, price, description, brand, category} = req.body;
     const productData = req.body;
     const publisher = req.user;
-    // console.log(publisher)
 
     // error checking
     let errors = []
@@ -58,8 +54,6 @@ vendorRouter.post("/newproduct", async (req, res) => {
         errors.push({ msg: "There must be at least 1 item in stock" })
     }
 
-    // console.log(publisher);
-
     // Create new product
     try {
         if (errors.length > 0) throw new Error("Failed creating new product")
@@ -77,9 +71,7 @@ vendorRouter.post("/newproduct", async (req, res) => {
         await newProduct.save()
 
         res.redirect("/users/vendor")
-        // console.log(newProduct);
     } catch (e) {
-        // console.log(e.message)
         errors.splice(0, 0, { msg: e.message })
         res.render("vendorAddProduct", {
             productData,
@@ -105,8 +97,10 @@ function saveProductCover(product, coverEncoded) {
 
 // Update and Delete Product
 vendorRouter.post("/:id/update", async (req, res) => {
-    // const {productName, price, description, brand, category} = req.body;
     const productData = req.body;
+    const productId = req.params.id;
+    const publisher = req.user;
+
     // error checking
     let errors = []
 
@@ -134,13 +128,17 @@ vendorRouter.post("/:id/update", async (req, res) => {
         errors.push({ msg: "There must be at least 1 item in stock" })
     }
 
-    // Create new product
     try {
         if (errors.length > 0) throw new Error("Failed updating product")
-        const product = await Product.findById(req.params.id)
+        
+        const product = await Product.findById(productId)
         
         
-        
+        if (!product) {
+            errors.push({ msg: "Product not found" })
+            throw new Error("Failed updating product")
+        }
+
         // Update the product
         product.name = productData.name
         product.price = productData.price
@@ -148,13 +146,15 @@ vendorRouter.post("/:id/update", async (req, res) => {
         product.stock = productData.stock
         product.brand = productData.brand
         product.category = productData.category
-        saveProductCover(product, productData.image)
+        product.publisher = publisher
+
+        if (productData.image) {
+            saveProductCover(product, productData.image)
+        }
         await product.save()
 
-        res.redirect(`/users/vendor/${req.params.id}`)
-        // console.log(newProduct);
+        res.redirect(`/users/vendor/${productId}`)
     } catch (e) {
-        // console.log(e.message)
         errors.splice(0, 0, { msg: e.message })
         res.render("vendorUpdateProduct", {
             productData,
@@ -165,10 +165,23 @@ vendorRouter.post("/:id/update", async (req, res) => {
     }
 })
 
-
+vendorRouter.get("/:id/delete", async (req, res) => {
+    const productId = req.params.id;
+  
+    try {
+      const product = await Product.findOneAndDelete({ _id: productId });
+  
+      if (!product) {
+        throw new Error("Product not found");
+      }
+  
+      res.redirect("/users/vendor");
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  });
 
 vendorRouter.get('/profile', (req, res) => {
-    console.log("Redirecting to my account page")
     res.render("my_account")
 })
 
@@ -187,7 +200,6 @@ vendorRouter.post('/profile/update-picture', (req, res) => {
             res.redirect('/users/vendor/profile')
         })
         .catch(e => {
-            console.error(e)
         })
     } else {
         res.redirect('/users/vendor/profile')
@@ -201,9 +213,9 @@ vendorRouter.get("/:id", async (req, res) => {
     try {
         const product = await Product.findById(req.params.id)
 
-        res.render("vendorUpdateProduct", { productData: product , categories })
+        res.render("vendorProductDetail", { productData: product , categories })
     } catch (error) {
-        console.error(error)
+        res.send(error.message)
     }
 })
 

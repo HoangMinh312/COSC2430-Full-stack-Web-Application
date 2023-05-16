@@ -11,15 +11,16 @@
         <%- //include("partials/_category_bar.ejs"); %>
     </header>
     <main>
-        <Form class="p-6" action="/users/vendor/<%= productData.id %>/update" method="post">
+        <Form class="p-6" action="/users/vendor/<%= productData.id %>/update" method="post" content-type="application/json">
             <%- include ('partials/_addProduct_form') %>
 
             <%- include ('partials/_messages') %>
             <div>
                 <button class="px-2 py-1 rounded-2xl border-solid-1 border-black" type="reset">Reset</button>
-                <button class="px-2 py-1 rounded-2xl border-solid-1 border-black" type="submit">Update product</button>
+                <button class="px-2 py-1 rounded-2xl border-solid-1 border-black" type="submit">Update Product</button>
             </div>
         </Form>
+        <button><a href="/users/vendor/<%= productData.id %>/delete">Delete Product</a></button>
     </main>
     <%- include("partials/_footer.ejs"); %>
 </body>
