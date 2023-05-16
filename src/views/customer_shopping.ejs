@@ -51,9 +51,9 @@
                     <span class="page-link cursor-pointer" data-page-number="<%= pageInfo.totalPage %>"><%= pageInfo.totalPage %></span>
                 <% } %>
             </div>
-            <div class="center-xy text-gray-500 my-2">
-                Displaying: <%= ((pageInfo.currentPage - 1) * pageInfo.pageSize) + 1 %> - <%= (pageInfo.currentPage * pageInfo.pageSize) > pageInfo.numberOfProducts ? pageInfo.numberOfProducts : (pageInfo.currentPage * pageInfo.pageSize) %> of <%= pageInfo.numberOfProducts %>
-            </div>
+            <!-- <div class="center-xy text-gray-500 my-2">
+                Displaying: <%= //((pageInfo.currentPage - 1) * pageInfo.pageSize) + 1 %> - <%= //(pageInfo.currentPage * pageInfo.pageSize) > pageInfo.numberOfProducts ? pageInfo.numberOfProducts : (pageInfo.currentPage * pageInfo.pageSize) %> of <%= //pageInfo.numberOfProducts %>
+            </div> -->
         </section>
     </main>
     <%- include("partials/_footer.ejs"); %>

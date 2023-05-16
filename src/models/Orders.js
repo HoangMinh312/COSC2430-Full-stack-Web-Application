@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 
 const distributionHubs = ["District 1 Hub", "District 2 Hub", "District 7 Hub"]
 
-const productSchema = new mongoose.Schema({
+const orderProductSchema = new mongoose.Schema({
     name: {
         type: String,
     }, 
@@ -29,8 +29,15 @@ const orderSchema = new mongoose.Schema({
         }
     },
     products: [{
-        type: productSchema,
-        required: true,
+        product: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: "Product",
+        },
+        quantity: {
+            type: Number,
+            required: true
+        }
     }],
     user: {
         type: String,
