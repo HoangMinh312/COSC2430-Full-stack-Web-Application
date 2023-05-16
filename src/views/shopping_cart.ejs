@@ -140,9 +140,25 @@
         })
     })
 
-    for (let i = 1; i <= cartLength; i++) {
-        $(`quantityIncrease-${i}`).on("click", function () {
-            // $(`editableQuantity-${i}`).text('<%=// item[i] %>')
+    for (let id = 1; id <= cartLength; id++) {
+        console.log($(`quantityDecrease-1`));
+        $(`quantityDecrease-${id}`).on("click", function () {
+            const currentQuantity = $(`editableQuantity-${id}`).text()
+            if (currentQuantity <= 1) return
+
+            // Change value on increase
+            $(`editableQuantity-${id}`).text(currentQuantity -= 1)
+        })
+    }
+
+    for (let id = 1; id <= cartLength; id++) {
+        $(`quantityIncrease-${id}`).on("click", function () {
+            const currentQuantity = $(`editableQuantity-${id}`).text()
+            if (currentQuantity >= 999) return
+
+            console.log('Object changed');
+            // Change value on increase
+            $(`editableQuantity-${id}`).text(currentQuantity += 1)
         })
     }
 </script>

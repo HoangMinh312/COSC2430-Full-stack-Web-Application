@@ -1,5 +1,6 @@
 const searchForm = document.getElementById('searchForm')
 // const filterForm = document.getElementById('filterForm')
+const pageLinks = document.querySelectorAll('.page-link')
 
 document.querySelectorAll(".queryForm").forEach(form => {
   form.addEventListener('submit', (event) => {
@@ -18,7 +19,7 @@ document.querySelectorAll(".queryForm").forEach(form => {
     const url = `${window.location.pathname}?${params.toString()}`;
     window.location.href = url;
 
-    console.log(formData)
+    // console.log(formData)
     // searchForm.submit()          
   })
 })
@@ -43,7 +44,22 @@ searchForm.addEventListener('submit', (event) => {
   window.location.href = url;
 })
 
+pageLinks.forEach((pageLink) => {
+  pageLink.addEventListener('click', () => {
+    goTo(pageLink.getAttribute('data-page-number'))
+  })
+})
+
+function goTo(pageQuery) {
+  const params = new URLSearchParams(window.location.search)
+
+  params.set('page', pageQuery);
+
+  const url = `${window.location.pathname}?${params.toString()}`;
+  window.location.href = url;
+}
+
 function saveParam(oldUrlPrams, newUrlParams, key) {
   const keyParam = oldUrlPrams.get(key)
-  newUrlParams.set(key, keyParam)
+  newUrlParams.set(key, keyParam || '')
 }

@@ -1,6 +1,7 @@
 import express from "express";
 export const customerRouter = express.Router();
-import { Product } from "../models/productSchema.js";
+import { Product, tags } from "../models/productSchema.js";
+import pagination from "../middlewares/pagination.js"
 import { Customer } from "../models/User.js"
 import { Order } from "../models/Orders.js"
 const imageMimeTypes = ['image/png', 'image/jpeg']
@@ -8,31 +9,50 @@ const imageMimeTypes = ['image/png', 'image/jpeg']
 
 // Customer route
 // users/customer
-customerRouter.get("/", async (req, res) => {
+customerRouter.get("/", pagination, async (req, res) => {
     let productQuery = Product.find()
+    const minPrice = req.query.minPrice || 0;
+    const { page: currentPage, limit: pageSize, skip } = req.pagination
+
     if (checkQuery(req.query.category)) {
         productQuery = productQuery.regex('category', new RegExp(req.query.category, 'i'))
     }
+
     if (checkQuery(req.query.name)) {
         productQuery = productQuery.regex('name', new RegExp(req.query.name, 'i'))
     }
-    if (checkQuery(req.query.minPrice)) {
-        productQuery = productQuery.gte('price', req.query.minPrice)
-    }
+
+    productQuery = productQuery.where('price').gte(minPrice)
     if (checkQuery(req.query.maxPrice)) {
         productQuery = productQuery.lte('price', req.query.maxPrice)
     }
 
+    if (checkQuery(req.query.sort)) {
+        if (req.query.sort == 'priceAsc') {
+            productQuery = productQuery.sort('price')
+        } else if (req.query.sort == 'priceDesc') {
+            productQuery = productQuery.sort('-price')
+        }
+    }
+
+    productQuery = productQuery.skip(skip).limit(pageSize)
+
     try {
         const products = await productQuery.exec()
-        // res.send(products)
+        const numberOfProducts = await Product.countDocuments({})
+        const totalPage = countPages(numberOfProducts, pageSize)
         res.render("customer_shopping", {
             products,
+            tags,
+            pageInfo: {currentPage, totalPage, pageSize, numberOfProducts},
             searchOption: req.query,
-            category: req.query.category
+            category: req.query.category,
+            minMaxPrice: [req.query.minPrice, req.query.maxPrice]
         })
     } catch (error) {
-        res.redirect("/")
+        res.status(500).json({ error: 'An error occurred while retrieving products.'});
+        console.log(error);
+        // res.redirect("/")
     }
 })
 
@@ -176,10 +196,14 @@ customerRouter.get("/:id", async (req, res) => {
     }
 })
 
+
 function checkQuery(query) {
     return query != null && query != '';
 }
 
+function countPages(numberOfDatas, limit) {
+    return Math.ceil(numberOfDatas / limit);
+}
 
 function saveUserCover(user, coverEncoded) {
     if (coverEncoded == null) return
