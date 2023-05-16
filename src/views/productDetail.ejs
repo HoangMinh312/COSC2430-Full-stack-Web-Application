@@ -16,13 +16,13 @@
             <!-- This could be breadcrumb (to be added) -->
             <div></div>
             <!-- Product preview -->
-            <div class="center-x">
+            <div class="center-x flex flex-col sm:flex-row">
                 <!-- Image -->
-                <div class="aspect-square w-2/5">
+                <div class="aspect-square w-full sm:w-2/5 mb-4 sm:mb-0">
                     <img class='shadow-sm w-h-full object-contain transition-300' src="<%= product.imageCoverData || "https://www.wowpatterns.com/assets/files/resource_images/diagonal-lines-vector-pattern.jpg" %>" alt="hero-image-2">
                 </div>
                 <!-- Information -->
-                <div class="flex-auto flex flex-col w-3/5 px-5 py-2">
+                <div class="flex flex-col w-full sm:w-3/5">
                     <!-- Brand -->
                     <h2 class="text-lg uppercase tracking-wider text-gray-400"><%- product.brand %></h2>
                     <!-- Name -->
@@ -67,10 +67,10 @@
             </div>
 
             <!-- Policies -->
-            <div class="center-y justify-between w-full px-2 py-4 my-2">
-                <p class="center-xy gap-4 text-gray-500"><img class="w-5" src="/svg/double-check.svg" alt="double-check">Change of mind Applicable</p>
-                <p class="center-xy gap-4 text-gray-500"><img class="w-5" src="/svg/truck.svg" alt="Shipping-truck">Enjoy free shipping promotion with minimum 3 items</p>
-                <p class="center-xy gap-4 text-gray-500"><img class="w-5" src="/svg/shield-check.svg" alt="Shield-check"> Warranty available on all items</p>
+            <div class="center-y justify-between flex-wrap w-full px-2 py-4 my-2">
+                <p class="center-xy gap-4 text-gray-500 mb-2 sm:mb-0"><img class="w-5" src="/svg/double-check.svg" alt="double-check">Change of mind Applicable</p>
+                <p class="center-xy gap-4 text-gray-500 mb-2 sm:mb-0"><img class="w-5" src="/svg/truck.svg" alt="Shipping-truck">Enjoy free shipping promotion with minimum 3 items</p>
+                <p class="center-xy gap-4 text-gray-500 mb-2 sm:mb-0"><img class="w-5" src="/svg/shield-check.svg" alt="Shield-check"> Warranty available on all items</p>
             </div>
         </section>
     </main>
