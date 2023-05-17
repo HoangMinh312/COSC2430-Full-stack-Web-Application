@@ -133,47 +133,45 @@ customerRouter.post("/checkout", async (req, res) => {
     // Getting user and order information
     const user = req.user
     const checkoutSummary = req.body 
+    const productQuantities = checkoutSummary.productQuantity
     const productIds = checkoutSummary.productId
-    const productQuantity = checkoutSummary.productQuantity
+
+    console.log(productQuantities);
+    console.log(productIds)
 
     // Creating a new order
-    if (Object.keys(checkoutSummary).length !== 0) {
+    if (productIds.length !== 0) {
         let products = []
-        console.log(productIds)
-        console.log(Array.isArray(productIds));
-        console.log(productQuantity)
+        // console.log(productIds)
+        // console.log(Array.isArray(productIds));
+        // console.log(productQuantities)
         // Iterating over the products in the checkout form
-        for (let i = 0; i <productIds.length; i++) {
+        for (let i = 0; i < productQuantities.length; i++) {
             const productId = productIds[i]
-            const quantity = productQuantity[i]
+            const quantity = parseInt(productQuantities[i])
 
-            console.log("Product Id: " + productId);
-            console.log("Product Quantity: " + quantity);
             // Finding the product by id
-            // const product = await Product.findById(productId)
-            // console.log(product);
+            const product = await Product.findById(productId)
 
             // Copying the products details to the order
-            // const productObject = {
-            //     name: product.name,
-            //     brand: product.brand,
-            //     quantity: quantity,
-            //     price: product.price,
-            // }
+            const productObject = {
+                product: product,
+                quantity: quantity
+            }
 
             // Adding the product to the products list
-            // products.push(productObject)
+            products.push(productObject)
         }
-        // const newOrder = await Order.create({
-        //     user: user.username,
-        //     userFullName: user.name,
-        //     userAddress: user.address,
-        //     status: "Active",
-        //     products: products,
-        // })
+        const newOrder = await Order.create({
+            user: user.username,
+            userFullName: user.name,
+            userAddress: user.address,
+            status: "Active",
+            products: products,
+        })
         req.session.cart = []
+        // res.send({productQuantities, productIds})
         res.redirect("/users/customer/shopping-cart")
-        
     } else {
         res.redirect("/users/customer")
     }

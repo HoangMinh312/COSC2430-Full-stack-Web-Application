@@ -8,7 +8,7 @@
 <body>
     <% %>
     <%- include('partials/_header.ejs') %>
-        <div class="container mx-auto mt-10">
+        <div class="container mx-auto -mt-10">
             <form action="/users/customer/checkout" method="post">
                 <div class="flex shadow-md my-10">
                     <div class="w-3/4 bg-white px-10 py-10">
@@ -65,7 +65,6 @@
                                                 class="px-2 py-2 focus:outline-none">
                                                 <%= item[0] %>
                                             </div>
-                                            <input type="hidden" name="productQuantity-<%= count %>" value="<%= item[0] %>">
                                             <!-- Increase value -->
                                             <button id="quantityIncrease-<%= count %>" class="no-submit px-2 py-2"><svg class="w-4"
                                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -82,8 +81,12 @@
                                     <% //total=(item[1].price * item[0]) + total %>
                                     <!-- <span class="text-center w-1/5 font-semibold text-sm">$<%= //total %></span> -->
                                 </div>
+                                <!-- req.body data -->
+                                <input id="productQuantity-<%= count %>" type="hidden" name="productQuantity" value="<%= item[0] %>">
+                                <input id="productId-<%= count %>" type="hidden" name="productId" value="<%= item[1]._id %>">
+
                                 <% count += 1 %>
-                            <% }) %>
+                                <% }) %>
                         <% } %>
 
 
@@ -157,8 +160,9 @@
             const quantityAfter = currentQuantity - 1
             const itemPrice = parseInt($(`#itemPrice-${id}`).data('item-price'))
             // Change value on increase
-            $(`#quantityValue-${id}`).text(quantityAfter)
-            $(`#totalItemPrice-${id}`).text('$' + quantityAfter * itemPrice)
+            // $(`#quantityValue-${id}`).text(quantityAfter)
+            // $(`#totalItemPrice-${id}`).text('$' + quantityAfter * itemPrice)
+            quantityUpdate(id, quantityAfter, itemPrice)
             updateTotal()
         })
 
@@ -169,8 +173,9 @@
             const quantityAfter = currentQuantity + 1
             const itemPrice = parseInt($(`#itemPrice-${id}`).data('item-price'))
             // Change value on increase
-            $(`#quantityValue-${id}`).text(quantityAfter)
-            $(`#totalItemPrice-${id}`).text('$' + quantityAfter * itemPrice)
+            // $(`#quantityValue-${id}`).text(quantityAfter)
+            // $(`#totalItemPrice-${id}`).text('$' + quantityAfter * itemPrice)
+            quantityUpdate(id, quantityAfter, itemPrice)
             updateTotal()
         })
 
@@ -192,6 +197,12 @@
         discount = 1
         updateTotal()
     })
+
+    function quantityUpdate(id, quantityAfter, itemPrice) {
+        $(`#quantityValue-${id}`).text(quantityAfter)
+        $(`#totalItemPrice-${id}`).text('$' + quantityAfter * itemPrice)
+        $(`#productQuantity-${id}`).val(quantityAfter)
+    }
 
     function updateTotal() {
         let totalPrices = 0;
