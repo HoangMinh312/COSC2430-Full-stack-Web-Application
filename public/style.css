@@ -792,6 +792,11 @@ input::-webkit-outer-spin-button,
   margin-right: 1rem;
 }
 
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+
 .mx-6 {
   margin-left: 1.5rem;
   margin-right: 1.5rem;
@@ -940,10 +945,6 @@ input::-webkit-outer-spin-button,
 
 .mt-auto {
   margin-top: auto;
-}
-
-.-mt-5 {
-  margin-top: -1.25rem;
 }
 
 .-mt-10 {
