@@ -80,12 +80,13 @@ app.use((req, res, next) => {
     } else if (req.user instanceof Shipper) {
         userType = "Shipper"
     }
-
+    
+    res.session.cart = []
     res.locals.success_msg = req.flash('success_msg')
     res.locals.error_msg = req.flash('error_msg')
     res.locals.error = req.flash('error')
-    res.locals.user = req.user;
-    res.locals.userType = userType;
+    res.locals.user = req.user
+    res.locals.userType = userType
     next()  
 })
 

@@ -16,7 +16,7 @@
             <!-- This could be breadcrumb (to be added) -->
             <div></div>
             <!-- Product preview -->
-            <div class="center-x flex flex-col sm:flex-row">
+            <div class="center-x flex flex-col sm:flex-row sm:gap-4">
                 <!-- Image -->
                 <div class="aspect-square w-full sm:w-2/5 mb-4 sm:mb-0">
                     <img class='shadow-sm w-h-full object-contain transition-300' src="<%= product.imageCoverData%>" alt="hero-image-2">
@@ -35,11 +35,11 @@
                         data-review-number="<%= product.reviewNumber %>"
                     ></div>
                     <!-- Tags -->
-                    <% let tags = ['Throwable', 'Edible', 'Cookable'] %>
+                    <% //let tags = ['Throwable', 'Edible', 'Cookable'] %>
                     <div class="my-2">
                         <p class="text-sm inline">Tags:</p>
-                        <% tags.forEach(tag => { %>
-                            <a class="px-2 py-[1.5px] text-xs rounded-2xl bg-violet-100" href="#"><%- tag %></a>
+                        <% product.tags.forEach(tag => { %>
+                            <a class="tag" href="#"><%- tag %></a>
                         <% }); %>
                     </div>
                     <!-- Description -->
