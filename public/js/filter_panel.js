@@ -1,10 +1,19 @@
-const panel_filter = document.getElementsByClassName("filter-panel")
-const subpanel_filter = document.getElementsByClassName("filter-subpanel")
-const show_icon = document.getElementsByClassName("show-icon")
-const hide_icon = document.getElementsByClassName("hide-icon")
+$(document).ready(() => {
+    const panel_filter = $(".filter-panel")
+    const subpanel_filter = $(".filter-subpanel")
+    const show_icon = $(".show-icon")
+    const hide_icon = $(".hide-icon")
 
-panel_filter[0].addEventListener("click", () => {
-    subpanel_filter[0].classList.toggle('hidden')
-    show_icon[0].classList.toggle('hidden')
-    hide_icon[0].classList.toggle('hidden')
+    for (let i = 0; i < panel_filter.length; i++) {
+        panel_filter.eq(i).on('click', () => {
+            subpanel_filter.eq(i).toggleClass('hidden')
+            show_icon.eq(i).toggleClass('hidden')
+            hide_icon.eq(i).toggleClass('hidden')
+        })
+    }
+
+    $('.sort').on('click', () => {
+        console.log('hell')
+        $('.drop-down-container').toggle()
+    })
 })
