@@ -996,6 +996,10 @@ input::-webkit-outer-spin-button,
   display: table;
 }
 
+.table-row-group {
+  display: table-row-group;
+}
+
 .flow-root {
   display: flow-root;
 }
@@ -1152,6 +1156,14 @@ input::-webkit-outer-spin-button,
   width: 100vw;
 }
 
+.w-4\/5 {
+  width: 80%;
+}
+
+.w-11 {
+  width: 2.75rem;
+}
+
 .min-w-0 {
   min-width: 0px;
 }
@@ -1207,6 +1219,10 @@ input::-webkit-outer-spin-button,
 
 .resize-none {
   resize: none;
+}
+
+.list-disc {
+  list-style-type: disc;
 }
 
 .appearance-none {
@@ -1361,6 +1377,10 @@ input::-webkit-outer-spin-button,
   white-space: nowrap;
 }
 
+.break-words {
+  overflow-wrap: break-word;
+}
+
 .rounded {
   border-radius: 0.25rem;
 }
@@ -1415,6 +1435,27 @@ input::-webkit-outer-spin-button,
   border-top-right-radius: 1rem;
 }
 
+.rounded-b-lg {
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.rounded-br-lg {
+  border-bottom-right-radius: 0.5rem;
+}
+
+.rounded-bl-lg {
+  border-bottom-left-radius: 0.5rem;
+}
+
+.rounded-tl-lg {
+  border-top-left-radius: 0.5rem;
+}
+
+.rounded-tr-lg {
+  border-top-right-radius: 0.5rem;
+}
+
 .border {
   border-width: 1px;
 }
@@ -1462,6 +1503,16 @@ input::-webkit-outer-spin-button,
 .border-gray-500 {
   --tw-border-opacity: 1;
   border-color: rgb(107 114 128 / var(--tw-border-opacity));
+}
+
+.border-gray-700 {
+  --tw-border-opacity: 1;
+  border-color: rgb(55 65 81 / var(--tw-border-opacity));
+}
+
+.border-gray-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
 
 .border-b-gray-300 {
@@ -1547,6 +1598,16 @@ input::-webkit-outer-spin-button,
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.bg-gray-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
+}
+
+.bg-gray-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-50 {
@@ -2481,6 +2542,10 @@ input::-webkit-outer-spin-button,
 
   .md\:block {
     display: block;
+  }
+
+  .md\:table-row-group {
+    display: table-row-group;
   }
 
   .md\:hidden {
