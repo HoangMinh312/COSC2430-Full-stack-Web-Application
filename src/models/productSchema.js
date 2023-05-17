@@ -1,6 +1,6 @@
 import mongoose, { Mongoose } from "mongoose";
 
-export const categories = ['Electronic and Appliances', 'Clothes', 'Food and Beverages']
+export const categories = ['Electronic and Appliances', 'Clothes', 'Food and Beverages', 'Toys']
 // tags
 const ageTags = ['young adult', 'middle-aged', 'senior']
 const priceRangeTags = ['budget-friendly', 'luxury']
