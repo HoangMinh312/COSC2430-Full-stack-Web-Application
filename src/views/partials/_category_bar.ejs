@@ -19,7 +19,14 @@
                 <input class="px-4 py-[0.125rem] w-full border border-solid border-gray-500 rounded-l-2xl focus:outline-none focus:border-black" type="text" name="name" placeholder="Search" value="<%= locals.searchOption ?  searchOption.name : '' %>">
                 <button class="px-4 py-[0.125rem] border border-solid border-gray-500 rounded-r-2xl" type="submit"><img class="w-5" src="./../../svg/search.svg" alt="Search"></button>
             </form>
-            <a href="/users/customer/shopping-cart"><img class="w-7" src="/svg/shopping-cart.svg" alt="Shopping cart"></a>
+            <a class="relative center-xy" href="/users/customer/shopping-cart">
+                <img class="w-7" src="/svg/shopping-cart.svg" alt="Shopping cart">
+                <% if (cart.length !== 0) { %>
+                    <span class="noti-circle inline-flex rounded-full border-solid border-2 border-white absolute -top-[3px] -right-[6.8px] center-xy text-white text-center aspect-square font-semibold w-[18px] h-[18px] bg-violet-500">
+                        <span class="-translate-y-[0.4px]" ><%= cart.length %></span>
+                    </span>
+                <% } %>
+            </a>
         </div>
     </nav>
 </section>

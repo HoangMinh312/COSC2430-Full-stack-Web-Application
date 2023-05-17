@@ -80,6 +80,8 @@ app.use((req, res, next) => {
     } else if (req.user instanceof Shipper) {
         userType = "Shipper"
     }
+    
+    res.locals.cart = req.session.cart || [];
     res.locals.success_msg = req.flash('success_msg')
     res.locals.error_msg = req.flash('error_msg')
     res.locals.error = req.flash('error')

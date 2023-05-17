@@ -79,6 +79,10 @@
 }
 
 /* No @layer css style */
+.noti-circle {
+    font-size: 10px;
+}
+
 #cate-sidemenu.show {
     left: 0;
 }

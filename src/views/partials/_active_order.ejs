@@ -4,10 +4,10 @@
     <td class="py-2 px-4 border-b border-gray-300 text-center"><%= order.userAddress %></td>
     <td class="py-2 px-4 border-b border-gray-300 text-center">
         <% let total = 0 %>
-        <% order.products.forEach(item => { %>
-            <% total += item.product.price * item.quantity %>
-        <% }) %>
-        $<%= total %>
+            <% order.products.forEach(item => { %>
+                <% total += item.product.price * item.quantity %>
+            <% }) %>
+            $<%= total %>
     </td>
     <td class="py-2 px-4 border-b border-gray-300 text-center"><button><%= order.status %></button></td>
     <td class="py-2 px-4 border-b border-gray-300 text-center">

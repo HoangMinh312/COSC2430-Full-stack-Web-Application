@@ -1,0 +1,34 @@
+<div class="p-4">
+    <h1 class="text-2xl font-bold mb-4">Order Details</h1>
+    <div class="bg-gray-300 rounded-md shadow-md p-4">
+        <div class="flex flex-col mb-4">
+            <span class="text-gray-600 font-bold">Order ID:</span>
+            <span class="text-gray-800"><%= order.id %></span>
+        </div>
+        <div class="flex flex-col mb-4">
+            <span class="text-gray-600 font-bold">Customer Name:</span>
+            <span class="text-gray-800"><%= order.userFullName %></span>
+        </div>
+        <div class="flex flex-col mb-4">
+            <span class="text-gray-600 font-bold">Delivery Address:</span>
+            <span class="text-gray-800"><%= order.userAddress %></span>
+        </div>
+        <div class="flex flex-col mb-4">
+            <span class="text-gray-600 font-bold">Total Amount:</span>
+            <span class="text-gray-800">
+                <% let total = 0 %>
+                <% order.products.forEach(item => { %>
+                    <% total += item.product.price * item.quantity %>
+                <% }) %>
+                $<%= total %>
+            </span>
+        </div>
+        <div class="flex flex-col mb-4">
+            <span class="text-gray-600 font-bold">Status</span>
+            <span class="text-gray-800"><button><%= order.status %></button></span>
+        </div>
+        <div class="flex flex-col mb-4">
+            <button class="py-2 px-4 bg-violet-300 rounded-md hover:bg-violet-400 transition"><a href="<%= "/users/shipper/active-order/" + order.id %>">Click here</a></button>
+        </div>
+    </div> 
+</div>
