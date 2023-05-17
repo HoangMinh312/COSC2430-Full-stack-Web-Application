@@ -52,7 +52,7 @@ shipperRouter.post('/active-order/:id/update-status', (req, res) => {
 shipperRouter.get('/active-order/:id', (req, res) => {
     let order = null
     const orderID = req.params.id
-    Order.findOne({ _id: orderID })
+    Order.findOne({ _id: orderID }).populate('products.product')
     .then(results => {
         order = results
         console.log("Active order to be displayed ", results)
@@ -90,8 +90,8 @@ shipperRouter.get('/', async (req, res) => {
 
     try {
         // let inactiveOrders = []
-        const activeOrders = await Order.find({distributionHub: distributionHub, status: "Active"})
-        const inactiveOrders = await Order.find({distributionHub: distributionHub, status: { $in: ['Cancelled', 'Delivered'] }})
+        const activeOrders = await Order.find({distributionHub: distributionHub, status: "Active"}).populate('products.product').exec()
+        const inactiveOrders = await Order.find({distributionHub: distributionHub, status: { $in: ['Cancelled', 'Delivered'] }}).populate('products.product').exec()
         // inactiveOrders.push( await Order.find({distributionHub: distributionHub, status: "Cancelled"}))
 
         // console.log(inactiveOrders);

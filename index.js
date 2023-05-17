@@ -80,7 +80,10 @@ app.use((req, res, next) => {
     } else if (req.user instanceof Shipper) {
         userType = "Shipper"
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 75122b8e3387dab124e927ce3f9518338aa287a3
     res.locals.success_msg = req.flash('success_msg')
     res.locals.error_msg = req.flash('error_msg')
     res.locals.error = req.flash('error')
