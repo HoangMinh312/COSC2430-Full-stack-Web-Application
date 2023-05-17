@@ -40,12 +40,33 @@
                   </label>
                   <input class="border rounded-lg px-3 py-1 w-full" id="brand" type="text" name="brand" value="<%= locals.productData ? productData.brand : "" %>">
               </div>
-              <div class="mb-4">
+              <div class="relative mb-4">
                   <label class="block text-gray-700 mb-2" for="tags">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 inline" viewBox="0 0 24 24"><path d="M10.9042 2.1001L20.8037 3.51431L22.2179 13.4138L13.0255 22.6062C12.635 22.9967 12.0019 22.9967 11.6113 22.6062L1.71184 12.7067C1.32131 12.3162 1.32131 11.683 1.71184 11.2925L10.9042 2.1001ZM11.6113 4.22142L3.83316 11.9996L12.3184 20.4849L20.0966 12.7067L19.036 5.28208L11.6113 4.22142ZM13.7327 10.5854C12.9516 9.80433 12.9516 8.538 13.7327 7.75695C14.5137 6.9759 15.78 6.9759 16.5611 7.75695C17.3421 8.538 17.3421 9.80433 16.5611 10.5854C15.78 11.3664 14.5137 11.3664 13.7327 10.5854Z"></path></svg>
                     Tags:
                   </label>
-                  <input class="border rounded-lg px-3 py-1 w-full" id="tags" type="text" name="tags" value="<%= locals.productData ? productData.tags : "" %>">
+                  <!-- <input class="border rounded-lg px-3 py-1 w-full" id="tags" type="text" name="tags" value="<%= //locals.productData ? productData.tags : "" %>"> -->
+                  <div id="tag-selector" class="center-y border rounded-lg px-3 py-1 w-full cursor-pointer svg-parent">
+                    <span class="text-gray-500">Select tags</span>
+                    <svg class="h-5 w-5 ml-auto svg-color" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"></path></svg>
+                  </div>
+                  <div id="tag-options" class="flex w-full flex-wrap gap-y-1 gap-x-2 border rounded-lg px-3 py-1 absolute mt-2 bg-white shadow-lg">
+                    <% tags.forEach(tag => { %>
+                      <% const selectedTags = locals.productData !== undefined ? productData.tags : [] %>
+                      <div class="flex items-center flex-1">
+
+                        <% if (selectedTags.includes(tag)) { %>
+                          <input id="filter-mobile-color-0" checked name="tags" value="<%= tag %>" type="checkbox"
+                          class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                        <% } else { %>
+                          <input id="filter-mobile-color-0" name="tags" value="<%= tag %>" type="checkbox"
+                          class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                        <% } %>
+
+                        <label for="filter-mobile-color-0" class="ml-3 min-w-0 flex-1 whitespace-nowrap select-none text-gray-500"><%= tag %></label>
+                      </div>
+                    <% }) %>
+                  </div>
               </div>
               <div class="mb-4">
                   <label class="block text-gray-700 mb-2" for="description">
@@ -94,4 +115,11 @@
     </main>
     <%- include('partials/_footer.ejs') %>
 </body>
+<Script>
+  // Hide show tags
+  $('#tag-options').hide()
+  $('#tag-selector').on('click', () => {
+    $('#tag-options').toggle()
+  })
+</Script>
 </html>

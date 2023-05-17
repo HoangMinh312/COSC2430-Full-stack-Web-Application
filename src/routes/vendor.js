@@ -26,6 +26,8 @@ vendorRouter.get("/addproduct", (req, res) => {
 vendorRouter.post("/newproduct", async (req, res) => {
     const productData = req.body;
     const publisher = req.user;
+    // console.log('hello')
+    console.log(productData.tags);
 
     // error checking
     let errors = []
@@ -65,7 +67,7 @@ vendorRouter.post("/newproduct", async (req, res) => {
             publisher: publisher,
             brand: productData.brand,
             category: productData.category,
-            tags: []
+            tags: productData.tags,
         })
         saveProductCover(newProduct, productData.image)
         await newProduct.save()
@@ -147,6 +149,7 @@ vendorRouter.post("/:id/update", async (req, res) => {
         product.brand = productData.brand
         product.category = productData.category
         product.publisher = publisher
+        product.tags = productData.tags
 
         if (productData.image) {
             saveProductCover(product, productData.image)
@@ -213,7 +216,7 @@ vendorRouter.get("/:id", async (req, res) => {
     try {
         const product = await Product.findById(req.params.id)
 
-        res.render("vendorProductDetail", { productData: product , categories })
+        res.render("vendorProductDetail", { productData: product , categories, tags })
     } catch (error) {
         res.send(error.message)
     }
