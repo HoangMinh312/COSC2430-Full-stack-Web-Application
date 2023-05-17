@@ -1018,6 +1018,10 @@ input::-webkit-outer-spin-button,
   width: 2.5rem;
 }
 
+.w-11\/12 {
+  width: 91.666667%;
+}
+
 .w-16 {
   width: 4rem;
 }
@@ -1100,10 +1104,6 @@ input::-webkit-outer-spin-button,
 
 .w-screen {
   width: 100vw;
-}
-
-.w-11\/12 {
-  width: 91.666667%;
 }
 
 .min-w-0 {
@@ -1862,6 +1862,11 @@ input::-webkit-outer-spin-button,
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-7xl {
+  font-size: 4.5rem;
+  line-height: 1;
 }
 
 .font-bold {
