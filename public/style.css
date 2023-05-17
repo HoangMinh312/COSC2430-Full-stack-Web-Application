@@ -2213,6 +2213,11 @@ input::-webkit-outer-spin-button,
   background-color: rgb(22 163 74 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-green-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(21 128 61 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-indigo-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(79 70 229 / var(--tw-bg-opacity));
@@ -2226,6 +2231,11 @@ input::-webkit-outer-spin-button,
 .hover\:bg-red-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-red-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-violet-400:hover {
@@ -2452,14 +2462,14 @@ input::-webkit-outer-spin-button,
     grid-column: span 3 / span 3;
   }
 
+  .md\:mx-40 {
+    margin-left: 10rem;
+    margin-right: 10rem;
+  }
+
   .md\:mx-5 {
     margin-left: 1.25rem;
     margin-right: 1.25rem;
-  }
-
-  .md\:mx-60 {
-    margin-left: 15rem;
-    margin-right: 15rem;
   }
 
   .md\:my-5 {
@@ -2677,6 +2687,11 @@ input::-webkit-outer-spin-button,
 
   .lg\:col-span-3 {
     grid-column: span 3 / span 3;
+  }
+
+  .lg\:mx-60 {
+    margin-left: 15rem;
+    margin-right: 15rem;
   }
 
   .lg\:h-full {
