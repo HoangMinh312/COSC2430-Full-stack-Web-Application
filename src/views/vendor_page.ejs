@@ -3,98 +3,53 @@
 <html lang="en">
 <head>
     <%- include("partials/_head", {title: "Vendor page"}) %>
+    <link rel="stylesheet" href="/vendor_page.css">
 </head>
 <body>
     <%- include('partials/_header.ejs') %>
     <main class="flex items-center justify-center h-auto bg-cover bg-center bg-gradient-to-r from-pink-300 to-purple-400">
-        <div class="bg-white block w-screen h-auto mx-5 my-5 shadow-xl rounded">
+        <div class="bg-white block w-screen h-auto md:mx-5 md:my-5 shadow-xl rounded sm:my-0 sm:mx-0">
             <div class="flex-1 w-full my-4 mx-4">
                 <img src="<%= user.userPicture %>" alt="User Profile Picture" class="inline w-16 h-16 overflow-hidden rounded-full">
                 <p class="inline text-xl font-bold ml-2">Welcome back, <%= user.businessName %>!</p>
             </div>
             <div class="container mx-auto py-8">
-              <h1 class="text-2xl font-bold mb-4">My Products</h1>
+              <h1 class="text-2xl font-bold mb-4 text-center md:text-left md:ml-4">My Products</h1>
             
               <div class="bg-white shadow overflow-x-auto sm:rounded-lg ">
-                <table class="min-w-full divide-y divide-gray-200">
+                <table class="table">
                   <thead class="bg-gray-50">
                     <tr>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Product Name
-                      </th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Price
-                      </th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Stock
-                      </th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
-                        Actions
-                      </th>
-                      <!-- Add more table headers for additional product information if needed -->
+                     <th class="md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product Name</th>
+                     <th class="md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                     <th class="md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
+                     <th class="md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
                   </thead>
-                  <tbody class="bg-white divide-y divide-gray-200">
-                    <!-- Loop over the products and generate table rows dynamically -->
-                    <!-- Example of a product row -->
+                  <tbody>
                     <% products.forEach(product => { %>
                       <tr>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          <div class="text-sm text-gray-900"><%= product.name %></div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          <div class="text-sm text-gray-900">$<%= product.price %></div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          <div class="text-sm text-gray-900"><%= product.stock %> </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap flex justify-evenly space-x-0.5">
-                          <div class="text-sm text-gray-900">
+                        <td data-label="Product Name"><%= product.name %></td>
+                        <td data-label="Price">$<%= product.price %></td>
+                        <td data-label="Stock"><%= product.stock %></td>
+                        <td data-label="Actions" id="action-div" class="flex justify-evenly flex-row">
+                          <div>
                             <a href="/users/vendor/<%= product.id %>">
                               <svg class="w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.41421 15.89L16.5563 5.74786L15.1421 4.33365L5 14.4758V15.89H6.41421ZM7.24264 17.89H3V13.6474L14.435 2.21233C14.8256 1.8218 15.4587 1.8218 15.8492 2.21233L18.6777 5.04075C19.0682 5.43128 19.0682 6.06444 18.6777 6.45497L7.24264 17.89ZM3 19.89H21V21.89H3V19.89Z" fill="rgba(139,92,246,1)"></path></svg>
                             </a>
                           </div>
-                          <div class="text-sm text-gray-900"> 
+                          <div> 
                             <a href="/users/vendor/<%= product.id %>/delete">
                               <svg class="w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z" fill="rgba(255,0,0,1)"></path></svg>
                             </a>
                           </div>
                         </td>
-                        <!-- Add more table cells for additional product information if needed -->
                       </tr>
                     <% }) %>
-                    <!-- Add more product rows dynamically based on the number of products -->
                   </tbody>
                 </table>
               </div>
             </div>
-            
-            <!-- <table class="flex-1 w-full border">
-                <thead>
-                  <tr>
-                    <th>Product Name</th>
-                    <th>Price</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Product 1</td>
-                    <td>$10.99</td>
-                    <td>A great product for all your needs.</td>
-                  </tr>
-                  <tr>
-                    <td>Product 2</td>
-                    <td>$19.99</td>
-                    <td>Another great product for all your needs.</td>
-                  </tr>
-                  <tr>
-                    <td>Product 3</td>
-                    <td>$29.99</td>
-                    <td>Yet another great product for all your needs.</td>
-                  </tr>
-                </tbody>
-            </table> -->
             <a href="/users/vendor/addproduct" class="bg-green-500 hover:bg-green-600 text-white cursor-pointer w-auto py-2 px-4 mx-4 my-4 rounded-md text-center text-base transition duration-300 ease-in-out block">Add new product</a>
         </div>
     </main>
