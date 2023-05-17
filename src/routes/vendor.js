@@ -20,7 +20,14 @@ vendorRouter.get("/", async (req, res) => {
 
 // users/vendor/addproduct
 vendorRouter.get("/addproduct", (req, res) => {
-    res.render("add_new_product", {categories, tags});
+    const actionUrl = `/users/vendor/newproduct`
+    const formAction = 'Create!'
+    res.render("vendorProductDetail", {categories, tags,
+        actions: {
+            actionUrl,
+            formAction
+        }
+    });
 })
 
 vendorRouter.post("/newproduct", async (req, res) => {
@@ -99,9 +106,9 @@ function saveProductCover(product, coverEncoded) {
 
 // Update and Delete Product
 vendorRouter.post("/:id/update", async (req, res) => {
-    const productData = req.body;
-    const productId = req.params.id;
-    const publisher = req.user;
+    const productData = req.body
+    const productId = req.params.id
+    const publisher = req.user
 
     // error checking
     let errors = []
@@ -213,10 +220,17 @@ vendorRouter.post('/profile/update-picture', (req, res) => {
 
 // Vendor Accessing their products page
 vendorRouter.get("/:id", async (req, res) => {
+    const actionUrl = `/users/vendor/${req.params.id}/update`
+    const formAction = 'Update!'
     try {
         const product = await Product.findById(req.params.id)
 
-        res.render("vendorProductDetail", { productData: product , categories, tags })
+        res.render("vendorProductDetail", { productData: product , categories, tags,
+            actions: {
+                actionUrl,
+                formAction
+            }
+        })
     } catch (error) {
         res.send(error.message)
     }
