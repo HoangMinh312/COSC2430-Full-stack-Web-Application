@@ -2347,14 +2347,14 @@ input::-webkit-outer-spin-button,
     grid-column: span 2 / span 2;
   }
 
-  .sm\:my-0 {
-    margin-top: 0px;
-    margin-bottom: 0px;
-  }
-
   .sm\:mx-0 {
     margin-left: 0px;
     margin-right: 0px;
+  }
+
+  .sm\:my-0 {
+    margin-top: 0px;
+    margin-bottom: 0px;
   }
 
   .sm\:mb-0 {
@@ -2410,10 +2410,6 @@ input::-webkit-outer-spin-button,
     padding-right: 1.5rem;
   }
 
-  .sm\:text-center {
-    text-align: center;
-  }
-
   .sm\:text-3xl {
     font-size: 1.875rem;
     line-height: 2.25rem;
@@ -2445,14 +2441,14 @@ input::-webkit-outer-spin-button,
     grid-column: span 3 / span 3;
   }
 
-  .md\:my-5 {
-    margin-top: 1.25rem;
-    margin-bottom: 1.25rem;
-  }
-
   .md\:mx-5 {
     margin-left: 1.25rem;
     margin-right: 1.25rem;
+  }
+
+  .md\:my-5 {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
   }
 
   .md\:mt-0 {
