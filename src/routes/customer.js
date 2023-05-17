@@ -40,9 +40,8 @@ customerRouter.get("/", pagination, async (req, res) => {
     // productQuery.skip(skip).limit(pageSize)
 
     try {
-        // const numberOfProducts = await productQuery.countDocuments()
+        const numberOfProducts = await Product.count(productQuery)
         const products = await productQuery.skip(skip).limit(pageSize).exec()
-        const numberOfProducts = 12
         const totalPage = countPages(numberOfProducts, pageSize)
         res.render("customer_shopping", {
             products,
@@ -55,7 +54,6 @@ customerRouter.get("/", pagination, async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while retrieving products.'});
         console.log(error);
-        // res.redirect("/")
     }
 })
 

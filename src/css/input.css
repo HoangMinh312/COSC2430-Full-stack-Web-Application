@@ -57,6 +57,15 @@
     .page-link {
         @apply center-xy max-w-[36px] text-gray-500 rounded-[4px] px-3 py-1 font-semibold aspect-square;
     }
+    .tag {
+        @apply px-2 py-[1.5px] text-xs rounded-2xl bg-violet-100;
+    }
+    .svg-color {
+        fill: rgb(107 114 128);
+    }
+    .svg-parent:hover .svg-color {
+        fill: rgb(75 85 99);
+    }
 
     /* Need to be used with md */
     /* .grid-col-autofit-300 {
