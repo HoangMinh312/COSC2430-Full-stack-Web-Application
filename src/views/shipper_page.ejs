@@ -49,8 +49,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <% activeOrders.forEach(order => { %>
+                                <% inactiveOrders.forEach(order => { %>
                                     <%- include('partials/_active_order.ejs', { order: order}) %>
+                                <% }) %>
+                            </tbody>
+                            <tbody>
+                                <% activeOrders.forEach(order => { %>
+                                    <%- include('partials/_mobile_active_order.ejs', { order: order}) %>
                                 <% }) %>
                             </tbody>
                         </table>
@@ -75,6 +80,12 @@
                                     <%- include('partials/_active_order.ejs', { order: order}) %>
                                 <% }) %>
                             </tbody>
+                            <tbody>
+                                <% inactiveOrders.forEach(order => { %>
+                                    <%- include('partials/_mobile_active_order.ejs', { order: order}) %>
+                                <% }) %>
+                            </tbody>
+                            
                         </table>
                     </div>
                 </div>            
