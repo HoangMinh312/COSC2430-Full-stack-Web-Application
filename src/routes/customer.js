@@ -1,3 +1,11 @@
+// RMIT University Vietnam
+// Course: COSC2430 Web Programming
+// Semester: 2023A
+// Assessment: Assignment 2
+// Author: Hoang Thai Phuc, Nguyen Hoang Minh, Tran Nguyen Anh Minh, Tran Luu Quang Tung, Dao Bao Duy
+// ID: s3978081, s3977773, s3979367, s3978481, s3978826
+// Acknowledgement: W3School, TailwindCss, ChatGPT, Passport documentation, RemixIcons, Freepik, Web Dev Simplified
+
 import express from "express";
 export const customerRouter = express.Router();
 import { Product, tags } from "../models/productSchema.js";
@@ -15,23 +23,28 @@ customerRouter.get("/", pagination, async (req, res) => {
     let sortValue = req.query.sort || 'Sort'
     const { page: currentPage, limit: pageSize, skip } = req.pagination
 
+    // Filter on category
     if (checkQuery(req.query.category)) {
         productQuery = productQuery.regex('category', new RegExp(req.query.category, 'i'))
     }
 
+    // Filter on user search
     if (checkQuery(req.query.name)) {
         productQuery = productQuery.regex('name', new RegExp(req.query.name, 'i'))
     }
 
+    // Filter on tags
     if (checkQuery(req.query.tags) && req.query.tags.length !== 0) {
         productQuery = productQuery.find({ tags: { $in: req.query.tags } })
     }
 
+    // Filter on price range
     productQuery = productQuery.where('price').gte(minPrice)
     if (checkQuery(req.query.maxPrice)) {
         productQuery = productQuery.lte('price', req.query.maxPrice)
     }
 
+    // Sort the products
     if (checkQuery(req.query.sort)) {
         if (req.query.sort == 'priceAsc') {
             productQuery = productQuery.sort('price')
@@ -147,10 +160,6 @@ customerRouter.post("/checkout", async (req, res) => {
     // Creating a new order
     if (productIds.length !== 0) {
         let products = []
-        // console.log(productIds)
-        // console.log(Array.isArray(productIds));
-        // console.log(productQuantities)
-        // Iterating over the products in the checkout form
         for (let i = 0; i < productQuantities.length; i++) {
             const productId = productIds[i]
             const quantity = parseInt(productQuantities[i])
@@ -184,10 +193,8 @@ customerRouter.post("/checkout", async (req, res) => {
 
 
 customerRouter.get("/:id", async (req, res) => {
-    // res.send(`This is a product with id ${req.params.id}`)
     try {
-        const product = await Product.findById(req.params.id)
-        // res.send(product)
+        const product = await Product.findById(req.params.id).populate('publisher', 'businessName')
         res.render('productDetail', {product})
     } catch (error) {
         // Send users to the previous page in case sth wrong
@@ -206,7 +213,6 @@ function convertToArray(value) {
     }
     return value; // Return the value if it already is an array
 }
-
 
 function checkQuery(query) {
     return query != null && query != '';

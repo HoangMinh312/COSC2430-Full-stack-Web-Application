@@ -1,3 +1,11 @@
+// RMIT University Vietnam
+// Course: COSC2430 Web Programming
+// Semester: 2023A
+// Assessment: Assignment 2
+// Author: Hoang Thai Phuc, Nguyen Hoang Minh, Tran Nguyen Anh Minh, Tran Luu Quang Tung, Dao Bao Duy
+// ID: s3978081, s3977773, s3979367, s3978481, s3978826
+// Acknowledgement: W3School, TailwindCss, ChatGPT, Passport documentation, RemixIcons, Freepik, Web Dev Simplified
+
 const searchForm = document.getElementById('searchForm')
 const pageLinks = document.querySelectorAll('.page-link')
 const sortForm = document.querySelector('.sortForm')
@@ -13,11 +21,7 @@ document.querySelectorAll(".queryForm").forEach(form => {
     const params = new URLSearchParams(window.location.search)
     params.delete('tags')
 
-    // In case if its from the sort form
-    const clickedButton = document.querySelector('button[type="submit"]:focus');
-
     const formData = new URLSearchParams(new FormData(form)).toString();
-    const tags = (new URLSearchParams(formData)).getAll('tags')
     console.log(new URLSearchParams(formData));
 
     const newParams = new URLSearchParams(formData);
@@ -29,9 +33,6 @@ document.querySelectorAll(".queryForm").forEach(form => {
 
     const url = `${window.location.pathname}?${params.toString()}`;
     window.location.href = url;
-
-    // console.log(formData)
-    // searchForm.submit()          
   })
 })
 
@@ -43,15 +44,11 @@ sortForm.addEventListener('submit', (event) => {
 
   const clickedButton = document.querySelector('button[type="submit"]:focus');
   const sortValue = clickedButton.getAttribute('value');
-  // console.log(sortValue);
 
   params.set('sort', sortValue)
 
   const url = `${window.location.pathname}?${params.toString()}`;
   window.location.href = url;
-
-  // console.log(formData)
-  // searchForm.submit()          
 })
 
 searchForm.addEventListener('submit', (event) => {
