@@ -41,10 +41,6 @@ customerRouter.get("/", pagination, async (req, res) => {
             sortValue = 'Price descending'
         }
     }
-    // const testQuery = productQuery
-    // const numberOfProducts = (async (query) => {return (await query.countDocuments())})(testQuery)
-
-    // productQuery.skip(skip).limit(pageSize)
 
     try {
         const numberOfProducts = await Product.count(productQuery)
@@ -142,8 +138,8 @@ customerRouter.post("/checkout", async (req, res) => {
     // Getting user and order information
     const user = req.user
     const checkoutSummary = req.body 
-    const productQuantities = checkoutSummary.productQuantity
-    const productIds = checkoutSummary.productId
+    const productQuantities = convertToArray(checkoutSummary.productQuantity) 
+    const productIds = convertToArray(checkoutSummary.productId)
 
     console.log(productQuantities);
     console.log(productIds)
@@ -203,6 +199,13 @@ customerRouter.get("/:id", async (req, res) => {
         }
     }
 })
+
+function convertToArray(value) {
+    if (!Array.isArray(value)) {
+      return [value]; // return value in array
+    }
+    return value; // Return the value if it already is an array
+}
 
 
 function checkQuery(query) {
