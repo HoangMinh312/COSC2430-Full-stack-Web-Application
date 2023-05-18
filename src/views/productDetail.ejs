@@ -1,3 +1,11 @@
+<!-- RMIT University Vietnam -->
+<!-- Course: COSC2430 Web Programming -->
+<!-- Semester: 2023A -->
+<!-- Assessment: Assignment 2 -->
+<!-- Author: Hoang Thai Phuc, Nguyen Hoang Minh, Tran Nguyen Anh Minh, Tran Luu Quang Tung, Dao Bao Duy -->
+<!-- ID: s3978081, s3977773, s3979367, s3978481, s3978826 -->
+<!-- Acknowledgement: W3School, TailwindCss, ChatGPT, Passport documentation, RemixIcons, Freepik, Web Dev Simplified -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +41,7 @@
                     <!-- Brand -->
                     <h2 class="text-lg uppercase tracking-wider text-gray-400"><%- product.brand %></h2>
                     <!-- Name -->
-                    <h1 class="text-3xl font-semibold"><%- product.name %></h1>
+                    <h1 class="text-3xl ellipsis-2 font-semibold"><%- product.name %></h1>
                     <!-- Price -->
                     <p class="text-2xl mt-2 font-semibold">$<%- product.price %></p>
                     <!-- Rating -->
@@ -42,9 +50,12 @@
                         data-rating="<%= product.rating %>" 
                         data-review-number="<%= product.reviewNumber %>"
                     ></div>
+                    <!-- Publisher -->
+                    <div class="mt-2">
+                        <p class="text-sm inline">Publisher: <span class="text-gray-400"><%= product.publisher.businessName %></span></p>
+                    </div>
                     <!-- Tags -->
-                    <% //let tags = ['Throwable', 'Edible', 'Cookable'] %>
-                    <div class="my-2">
+                    <div class="flex flex-wrap gap-x-2">
                         <p class="text-sm inline">Tags:</p>
                         <% product.tags.forEach(tag => { %>
                             <a class="tag" href="#"><%- tag %></a>
@@ -65,6 +76,7 @@
                                 <!-- Increase value -->
                                 <button id="quantityIncrease" class="px-2 py-2"><svg class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 12L10 18V6L16 12Z"></path></svg></button>
                             </div>
+                            <p id="stock" data-stock="<%= product.stock %>" class="text-gray-400"><%- product.stock %> item(s) available</p>
                         </div>
                         <div class="center-xy gap-3 mt-2">
                             <button id="addToCart" class="px-4 py-2 rounded-md bg-violet-500 text-white w-2/3">Add to cart</button>
