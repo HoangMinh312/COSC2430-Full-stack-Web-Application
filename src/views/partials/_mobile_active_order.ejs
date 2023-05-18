@@ -32,10 +32,10 @@
         <!-- <span class="text-gray-600 font-bold">Total Amount:</span> -->
         <span class="text-gray-800 text-lg font-semibold">
             <% let total=0 %>
-                <% order.products.forEach(item=> { %>
-                    <% total +=item.product.price * item.quantity %>
-                        <% }) %>
-                            $<%= total %>
+            <% order.products.forEach(item=> { %>
+                <% total +=item.product.price * item.quantity %>
+            <% }) %>
+            $<%= total %>
         </span>
     </div>
     <div class="flex flex-col">

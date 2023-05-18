@@ -1,4 +1,5 @@
 import { Strategy as LocalStrategy } from "passport-local"
+import mongoose from "mongoose"
 import bcrypt from "bcrypt"
 
 // Load User Models
