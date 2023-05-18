@@ -1,6 +1,9 @@
 const searchForm = document.getElementById('searchForm')
-// const filterForm = document.getElementById('filterForm')
 const pageLinks = document.querySelectorAll('.page-link')
+const sortForm = document.querySelector('.sortForm')
+const defaultSort = document.getElementById('default')
+const priceAscSort = document.getElementById('priceAsc')
+const priceDescSort = document.getElementById('priceDesc')
 
 document.querySelectorAll(".queryForm").forEach(form => {
   form.addEventListener('submit', (event) => {
@@ -8,12 +11,20 @@ document.querySelectorAll(".queryForm").forEach(form => {
     event.preventDefault()
 
     const params = new URLSearchParams(window.location.search)
+    params.delete('tags')
+
+    // In case if its from the sort form
+    const clickedButton = document.querySelector('button[type="submit"]:focus');
 
     const formData = new URLSearchParams(new FormData(form)).toString();
+    const tags = (new URLSearchParams(formData)).getAll('tags')
+    console.log(new URLSearchParams(formData));
 
     const newParams = new URLSearchParams(formData);
     newParams.forEach((value, key) => {
-      params.set(key, value);
+      if (key == 'tags') {
+        params.append(key, value)
+      } else params.set(key, value)
     });
 
     const url = `${window.location.pathname}?${params.toString()}`;
@@ -22,6 +33,25 @@ document.querySelectorAll(".queryForm").forEach(form => {
     // console.log(formData)
     // searchForm.submit()          
   })
+})
+
+sortForm.addEventListener('submit', (event) => {
+  // Prevent default submission
+  event.preventDefault()
+
+  const params = new URLSearchParams(window.location.search)
+
+  const clickedButton = document.querySelector('button[type="submit"]:focus');
+  const sortValue = clickedButton.getAttribute('value');
+  // console.log(sortValue);
+
+  params.set('sort', sortValue)
+
+  const url = `${window.location.pathname}?${params.toString()}`;
+  window.location.href = url;
+
+  // console.log(formData)
+  // searchForm.submit()          
 })
 
 searchForm.addEventListener('submit', (event) => {
@@ -43,6 +73,8 @@ searchForm.addEventListener('submit', (event) => {
   const url = `${window.location.pathname}?${newUrlParams.toString()}`;
   window.location.href = url;
 })
+
+
 
 pageLinks.forEach((pageLink) => {
   pageLink.addEventListener('click', () => {

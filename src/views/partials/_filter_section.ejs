@@ -1,16 +1,6 @@
 <aside class="w-full p-4">
     <form id="filterForm" class="queryForm flex flex-col" action="/users/customer" method="get">
         <h3 class="sr-only">Categories</h3>
-        <div>
-
-        </div>
-        <ul role="list" class=" py-3 font-medium text-gray-900">
-            <% for (let i = 0; i < 2; i++) { %>
-                <li>
-                    <a href="#" class="block py-3 text-ellipsis">Smartphones</a>
-                </li>
-            <% } %>
-        </ul>
         <!-- Filter -->
         <!-- Price filter -->
         <div class="border-t border-gray-300 py-6">
@@ -44,9 +34,14 @@
 
                 <% locals.tags.forEach(tag => { %>
                   <div class="flex items-center">
-                    <input id="filter-mobile-color-0" name="tags" value="<%= tag %>" type="checkbox"
+                    <% if (selectedTags.includes(tag)) { %>
+                      <input checked id="<%= tag %>" name="tags" value="<%= tag %>" type="checkbox"
                       class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                    <label for="filter-mobile-color-0" class="ml-3 min-w-0 flex-1 text-gray-500"><%= tag %></label>
+                    <% } else { %>
+                      <input id="<%= tag %>" name="tags" value="<%= tag %>" type="checkbox"
+                        class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                    <% } %>
+                    <label for="<%= tag %>" class="ml-3 min-w-0 flex-1 select-none text-gray-500"><%= tag %></label>
                   </div>
                 <% }); %>
 
@@ -58,6 +53,6 @@
               </div>
             </div>
         </div>
-        <button type="submit">Test submit</button>
+        <button class="w-full py-1 rounded-md border-solid-1 border-gray-300" type="submit">Filter</button>
     </form>
 </aside>

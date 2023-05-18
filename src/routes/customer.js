@@ -12,6 +12,7 @@ const imageMimeTypes = ['image/png', 'image/jpeg']
 customerRouter.get("/", pagination, async (req, res) => {
     let productQuery = Product.find()
     const minPrice = req.query.minPrice || 0;
+    let sortValue = req.query.sort || 'Sort'
     const { page: currentPage, limit: pageSize, skip } = req.pagination
 
     if (checkQuery(req.query.category)) {
@@ -22,6 +23,10 @@ customerRouter.get("/", pagination, async (req, res) => {
         productQuery = productQuery.regex('name', new RegExp(req.query.name, 'i'))
     }
 
+    if (checkQuery(req.query.tags) && req.query.tags.length !== 0) {
+        productQuery = productQuery.find({ tags: { $in: req.query.tags } })
+    }
+
     productQuery = productQuery.where('price').gte(minPrice)
     if (checkQuery(req.query.maxPrice)) {
         productQuery = productQuery.lte('price', req.query.maxPrice)
@@ -30,14 +35,12 @@ customerRouter.get("/", pagination, async (req, res) => {
     if (checkQuery(req.query.sort)) {
         if (req.query.sort == 'priceAsc') {
             productQuery = productQuery.sort('price')
+            sortValue = 'Price ascending'
         } else if (req.query.sort == 'priceDesc') {
             productQuery = productQuery.sort('-price')
+            sortValue = 'Price descending'
         }
     }
-    // const testQuery = productQuery
-    // const numberOfProducts = (async (query) => {return (await query.countDocuments())})(testQuery)
-
-    // productQuery.skip(skip).limit(pageSize)
 
     try {
         const numberOfProducts = await Product.count(productQuery)
@@ -49,7 +52,9 @@ customerRouter.get("/", pagination, async (req, res) => {
             pageInfo: {currentPage, totalPage, pageSize, numberOfProducts},
             searchOption: req.query,
             category: req.query.category,
-            minMaxPrice: [req.query.minPrice, req.query.maxPrice]
+            minMaxPrice: [req.query.minPrice, req.query.maxPrice],
+            selectedTags: req.query.tags || [],
+            sortValue
         })
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while retrieving products.'});
@@ -133,8 +138,8 @@ customerRouter.post("/checkout", async (req, res) => {
     // Getting user and order information
     const user = req.user
     const checkoutSummary = req.body 
-    const productQuantities = checkoutSummary.productQuantity
-    const productIds = checkoutSummary.productId
+    const productQuantities = convertToArray(checkoutSummary.productQuantity) 
+    const productIds = convertToArray(checkoutSummary.productId)
 
     console.log(productQuantities);
     console.log(productIds)
@@ -194,6 +199,13 @@ customerRouter.get("/:id", async (req, res) => {
         }
     }
 })
+
+function convertToArray(value) {
+    if (!Array.isArray(value)) {
+      return [value]; // return value in array
+    }
+    return value; // Return the value if it already is an array
+}
 
 
 function checkQuery(query) {
