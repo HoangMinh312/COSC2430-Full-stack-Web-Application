@@ -116,6 +116,8 @@ router.post('/register/customer', (req,res) => {
         })
     } else {
         // Validation passed
+
+        // Finding matching username 
         Promise.all([
             Customer.findOne({ username: username}).exec(),
             Vendor.findOne({ username: username}).exec(),
@@ -133,6 +135,7 @@ router.post('/register/customer', (req,res) => {
                         address
                     })
                 } else {
+                    // Creating new user object
                     const newCustomer = new Customer({
                         username,
                         password,
@@ -234,6 +237,9 @@ router.post('/register/vendor', (req,res) => {
         })
     } else {
         // Validation passed
+        
+        
+        // Finding matching username 
         Promise.all([
             Customer.findOne({ username: username}).exec(),
             Vendor.findOne({ username: username}).exec(),
@@ -251,6 +257,8 @@ router.post('/register/vendor', (req,res) => {
                         address
                     })
                 } else {
+
+                    // Finding a user with matching vendor name
                     Vendor.findOne({ businessName: name }).then(userByName => {
                         if (userByName) {
                             errors.push({msg: "A vendor with this name already exists"})
@@ -263,6 +271,8 @@ router.post('/register/vendor', (req,res) => {
                                 address
                             })
                         } else {
+
+                            // Finding a user with matching vendor address 
                             Vendor.findOne({ businessAddress: address }).then(userByAddress => {
                                 if (userByAddress) {
                                     errors.push({msg: "A vendor with this address already exists"})
@@ -275,6 +285,7 @@ router.post('/register/vendor', (req,res) => {
                                         address,
                                     })
                                 } else {
+                                    // Creating new user object
                                     const newVendor = new Vendor({
                                         username: username,
                                         password: password,
@@ -374,6 +385,9 @@ router.post('/register/shipper', (req,res) => {
         })
     } else {
         // Validation passed
+
+
+        // Finding matching username 
         Promise.all([
             Customer.findOne({ username: username}).exec(),
             Vendor.findOne({ username: username}).exec(),
@@ -391,6 +405,7 @@ router.post('/register/shipper', (req,res) => {
                         distributionHub
                     })
                 } else {
+                    // Creating new user object 
                     const newShipper = new Shipper({
                         username,
                         password,
@@ -423,18 +438,7 @@ router.post('/register/shipper', (req,res) => {
 
 })
 
-// const testingUser = function(username, name, address) {
-//     const newVendor = new Vendor({
-//         username: username,
-//         password: "DĂDAWFBUIUB",
-//         businessName: name,
-//         businessAddress: address
-//     })
-//     newVendor.save().then(data => console.log(data)).catch(err => console.log(err));
-// }
-// testingUser("hodfghjkl", "dfghjkl", "sdfghjklkjhg")
-
-
+// Login Handle 
 router.post('/login', passport.authenticate('local', { failureRedirect: '/auth/login',failureFlash: true}),
     (req, res) => {
         const user = req.user
@@ -449,19 +453,15 @@ router.post('/login', passport.authenticate('local', { failureRedirect: '/auth/l
 
 // Logout Handle 
 router.get('/logout', (req, res) => {
-    // req.session.destroy((err) => {
-    //     if (err) {
-    //         console.log(err);
-    //     }
-    //     res.redirect('/auth/login'); // Redirect to the home page or any other page after logout
-    // });
+    // Function provided by passport to logout the user
     req.logout( e => { 
         if (e) { return next(e) }
         res.redirect('/')
     })
-    
 })
 
+
+// Function to save the user's picture as buffer 
 function saveUserCover(user, coverEncoded) {
     if (coverEncoded == null) return
     const profilePicture = JSON.parse(coverEncoded)
