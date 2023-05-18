@@ -29,3 +29,4 @@ Website starting procedures:
 5. Run command "npm run devStart"
 6. Open any browser
 7. Enter "localhost:6900" in the URL bar
+8. Start using the website
