@@ -22,10 +22,10 @@ Existing accounts to test:
               password: M!nh1234
 
 Website starting procedures:
-    1. Clone the repository
-    2. Access or cd into the repository directory
-    3. Open the terminal
-    4. Run command "npm install"
-    5. Run command "npm run devStart"
-    6. Open any browser
-    7. Enter "localhost:6900" in the URL bar
+1. Clone the repository
+2. Access or cd into the repository directory
+3. Open the terminal
+4. Run command "npm install"
+5. Run command "npm run devStart"
+6. Open any browser
+7. Enter "localhost:6900" in the URL bar
