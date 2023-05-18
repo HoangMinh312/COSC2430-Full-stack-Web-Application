@@ -113,8 +113,11 @@
                             <span class="block p-2 text-gray-600 w-full text-sm">
                                 Standard shipping <span class="float-right">$10.00</span>
                             </span>
-                            <span class="promo20 hidden p-2 text-gray-600 w-full text-sm">
-                                Promotion code <span class="float-right">-20%</span>
+                            <span class="promo20 hidden p-2 text-gray-600 w-full text-sm hover:[&_.remove]:inline">
+                                Promotion code 
+                                <span class="float-right">-20% 
+                                    <span class="hidden remove text-white rounded-full bg-gray-600">-</span>
+                                </span> 
                             </span>
                         </div>
                         <div class="py-10">
@@ -122,8 +125,8 @@
                                 Code</label>
                             <input class="border rounded-lg px-3 py-1 w-full" type="text" id="promo" placeholder="Enter your code" class="p-2 text-sm w-full">
                         </div>
-                        <button
-                            class="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase">Apply</button>
+                        <button id="apply-promo"
+                            class="no-submit bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase">Apply</button>
                         <!-- Checkout  -->
                         <div class="border-t mt-8">
                             <div class="flex font-semibold justify-between py-6 text-sm uppercase">
@@ -151,17 +154,12 @@
     })
 
     for (let id = 1; id <= cartLength; id++) {
-        // console.log('HAHAHA');
-        // console.log($(`#quantityValue-1`).text());
         $(`#quantityDecrease-${id}`).on("click", function () {
             let currentQuantity = parseInt($(`#quantityValue-${id}`).text())
             if (currentQuantity <= 1) return
 
             const quantityAfter = currentQuantity - 1
             const itemPrice = parseInt($(`#itemPrice-${id}`).data('item-price'))
-            // Change value on increase
-            // $(`#quantityValue-${id}`).text(quantityAfter)
-            // $(`#totalItemPrice-${id}`).text('$' + quantityAfter * itemPrice)
             quantityUpdate(id, quantityAfter, itemPrice)
             updateTotal()
         })
@@ -172,9 +170,6 @@
 
             const quantityAfter = currentQuantity + 1
             const itemPrice = parseInt($(`#itemPrice-${id}`).data('item-price'))
-            // Change value on increase
-            // $(`#quantityValue-${id}`).text(quantityAfter)
-            // $(`#totalItemPrice-${id}`).text('$' + quantityAfter * itemPrice)
             quantityUpdate(id, quantityAfter, itemPrice)
             updateTotal()
         })
@@ -186,6 +181,14 @@
     $('#promo').on('keypress', function(e) {
         if (event.which !== 13) return
         if ($(this).val().toUpperCase() == 'ILOVETOM') {
+            $('.promo20').show()
+            discount = 0.8
+            updateTotal()
+        }
+    })
+
+    $('#apply-promo').on('click', () => {
+        if ($('#promo').val().toUpperCase() == 'ILOVETOM') {
             $('.promo20').show()
             discount = 0.8
             updateTotal()

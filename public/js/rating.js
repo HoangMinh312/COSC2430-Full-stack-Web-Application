@@ -1,22 +1,37 @@
 $(document).ready(function () {
-    const fullStar = $('<img class="w-6" src="/svg/yellow-star-fill.svg" alt="yellow-star-fill">')
-    const halfStar = $('<img class="w-6" src="/svg/yellow-half-star-fill.svg" alt="yellow-star-fill">')
-    const emptyStar = $('<img class="w-6" src="/svg/no-star-fill.svg" alt="yellow-star-fill">')
+    const fullStar = $('<img src="/svg/yellow-star-fill.svg" alt="yellow-star-fill">')
+    const halfStar = $('<img src="/svg/yellow-half-star-fill.svg" alt="yellow-star-fill">')
+    const emptyStar = $('<img src="/svg/no-star-fill.svg" alt="yellow-star-fill">')
     const rating = $('.rating')
-    const ratingValue = rating.data('rating')
-    const reviewNumber = rating.data('review-number')
-    const devider = $('<span>|</span>').css('color', 'rgb(209 213 219)')
-    const ratingInfo = $(`<p>${ratingValue} ${devider[0].outerHTML} ${reviewNumber} Review${checkPlural(reviewNumber)}</p>`)
-    let roundedRatingValue = roundToHalf(ratingValue)
+    rating.each(function(idx, ele) {
+        const size = $(this).data('size')
+        const isCard = $(this).data('card')
+        const ratingValue = $(this).data('rating')
+        const reviewNumber = $(this).data('review-number')
+        const devider = $('<span>|</span>').css('color', 'rgb(209 213 219)')
+        const ratingInfo = $(`<p>${ratingValue} ${devider[0].outerHTML} ${reviewNumber} Review${checkPlural(reviewNumber)}</p>`)
+        const simplifiedRatingInfo = $(`<p style="font-size: 14px" >(${reviewNumber})</p>`)
+        let roundedRatingValue = roundToHalf(ratingValue)
 
-    checkRating(emptyStar, halfStar, fullStar, roundedRatingValue).forEach(starValue => {
-        // console.log(starValue)
-        let starClone = starValue.clone()
-        rating.append(starClone)
+        const starArr = [fullStar, halfStar, emptyStar]
+
+        starArr.forEach(star => {
+            star.css('width', size)
+        })
+
+        checkRating(emptyStar, halfStar, fullStar, roundedRatingValue).forEach(starValue => {
+            // console.log(starValue)
+            let starClone = starValue.clone()
+            $(this).append(starClone)
+        })
+
+        ratingInfo.css('margin-left', '8px')
+        if (isCard != '') {
+            $(this).append(simplifiedRatingInfo)
+        } else {
+            $(this).append(ratingInfo)
+        }
     })
-
-    ratingInfo.css('margin-left', '8px')
-    rating.append(ratingInfo)
 })
 
 function checkRating(empty, half, full, rating) {
