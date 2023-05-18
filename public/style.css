@@ -804,6 +804,10 @@ input::-webkit-outer-spin-button,
   margin: 1rem;
 }
 
+.m-5 {
+  margin: 1.25rem;
+}
+
 .-mx-8 {
   margin-left: -2rem;
   margin-right: -2rem;
@@ -832,6 +836,11 @@ input::-webkit-outer-spin-button,
 .mx-2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+}
+
+.mx-20 {
+  margin-left: 5rem;
+  margin-right: 5rem;
 }
 
 .mx-4 {
@@ -892,6 +901,11 @@ input::-webkit-outer-spin-button,
 .my-8 {
   margin-top: 2rem;
   margin-bottom: 2rem;
+}
+
+.mx-60 {
+  margin-left: 15rem;
+  margin-right: 15rem;
 }
 
 .-mt-10 {
@@ -1110,6 +1124,10 @@ input::-webkit-outer-spin-button,
   height: 100vh;
 }
 
+.h-96 {
+  height: 24rem;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -1186,6 +1204,10 @@ input::-webkit-outer-spin-button,
   width: 2rem;
 }
 
+.w-96 {
+  width: 24rem;
+}
+
 .w-\[18px\] {
   width: 18px;
 }
@@ -1208,6 +1230,11 @@ input::-webkit-outer-spin-button,
 
 .w-screen {
   width: 100vw;
+}
+
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .min-w-0 {
