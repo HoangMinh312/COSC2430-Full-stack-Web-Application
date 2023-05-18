@@ -1,3 +1,11 @@
+// RMIT University Vietnam
+// Course: COSC2430 Web Programming
+// Semester: 2023A
+// Assessment: Assignment 2
+// Author: Hoang Thai Phuc, Nguyen Hoang Minh, Tran Nguyen Anh Minh, Tran Luu Quang Tung, Dao Bao Duy
+// ID: s3978081, s3977773, s3979367, s3978481, s3978826
+// Acknowledgement: W3School, TailwindCss, ChatGPT, Passport documentation, RemixIcons, Freepik, Web Dev Simplified
+
 import express from "express"
 export const shipperRouter = express.Router();
 import mongoose from "mongoose";
@@ -92,11 +100,8 @@ shipperRouter.get('/', async (req, res) => {
         // let inactiveOrders = []
         const activeOrders = await Order.find({distributionHub: distributionHub, status: "Active"}).populate('products.product').exec()
         const inactiveOrders = await Order.find({distributionHub: distributionHub, status: { $in: ['Cancelled', 'Delivered'] }}).populate('products.product').exec()
-        // inactiveOrders.push( await Order.find({distributionHub: distributionHub, status: "Cancelled"}))
 
-        // console.log(inactiveOrders);
         res.render("shipper_page", { activeOrders, inactiveOrders })
-        
     } catch (error) {
         console.log(error)
     }
