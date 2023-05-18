@@ -60,6 +60,19 @@
     .tag {
         @apply px-2 py-[1.5px] text-xs rounded-2xl bg-violet-100;
     }
+    .drop-down-container {
+        @apply absolute hidden bg-white shadow-md top-[125%] right-0 overflow-hidden rounded-xl z-10;
+    }
+    .drop-down-ele {
+        @apply w-full py-[6px] px-5 text-center cursor-pointer whitespace-nowrap;
+    }
+    .ellipsis-2 {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
     .svg-color {
         fill: rgb(107 114 128);
     }
@@ -93,6 +106,24 @@
 
 #filter-menu.show {
     right: 0;
+}
+
+#user-drop-down {
+    position: absolute;
+    display: none;
+    background-color: white;
+    box-shadow: 0 4px 10px 1px rgba(128, 128, 128, 0.5);
+    top: 125%;
+    right: 50%;
+    transform: translateX(50%);
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+#user-drop-down-links {
+    padding: 6px 20px;
+    text-align: center;
+    cursor: pointer;
 }
 
 #offcanvas-backdrop {
