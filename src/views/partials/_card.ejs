@@ -7,11 +7,11 @@
 <!-- Acknowledgement: W3School, TailwindCss, ChatGPT, Passport documentation, RemixIcons, Freepik, Web Dev Simplified -->
 
                 <!-- Div contains img and info about products -->
-<div class="flex flex-col m-1 rounded-lg shadow-xl cursor-pointer overflow-hidden [&:hover_img]:scale-105"
+<div class="flex flex-col m-1 rounded-lg shadow-lg cursor-pointer overflow-hidden [&:hover_img]:scale-105"
     onclick="location.href='/users/customer/<%= product._id %>'">
                 <!-- First div contains images of products -->
     <div class="flex overflow-hidden aspect-square">
-        <img class='shadow-sm object-cover transition-300' src="<%= product.imageCoverData %>" alt="hero-image-2">
+        <img class='shadow-sm w-h-full object-scale-down transition-300' src="<%= product.imageCoverData %>" alt="hero-image-2">
     </div>
                 <!-- First div contains images of products -->
                 <!-- Second div contains info of products -->

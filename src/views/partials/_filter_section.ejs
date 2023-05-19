@@ -14,7 +14,7 @@
         <div class="border-t border-gray-300 py-6">
           <%- include('_filter_expandCollapse_btn', {filterType: "Price"}) %>
           <!-- Filter section, show/hide based on section state. -->
-          <div class="filter-subpanel pt-6 hidden" id="filter-section-mobile-0">
+          <div class="filter-subpanel pt-6 hidden">
             <div class="space-y-6">
 
               <div class="center-xy">
@@ -37,19 +37,19 @@
             <!-- Filter button  -->
             <%- include('_filter_expandCollapse_btn', {filterType: "Tags"}) %>
             <!-- Filter section, show/hide based on section state. -->
-            <div class="filter-subpanel pt-6 hidden" id="filter-section-mobile-0">
+            <div class="filter-subpanel pt-6 hidden">
               <div class="space-y-6">
 
                 <% locals.tags.forEach(tag => { %>
                   <div class="flex items-center">
                     <% if (selectedTags.includes(tag)) { %>
-                      <input checked id="<%= tag %>" name="tags" value="<%= tag %>" type="checkbox"
+                      <input checked id="<%= tag.replace(' ', '-') %>" name="tags" value="<%= tag %>" type="checkbox"
                       class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                     <% } else { %>
-                      <input id="<%= tag %>" name="tags" value="<%= tag %>" type="checkbox"
+                      <input id="<%= tag.replace(' ', '-') %>" name="tags" value="<%= tag %>" type="checkbox"
                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                     <% } %>
-                    <label for="<%= tag %>" class="ml-3 min-w-0 flex-1 select-none text-gray-500"><%= tag %></label>
+                    <label for="<%= tag.replace(' ', '-') %>" class="ml-3 min-w-0 flex-1 select-none text-gray-500"><%= tag %></label>
                   </div>
                 <% }); %>
 
