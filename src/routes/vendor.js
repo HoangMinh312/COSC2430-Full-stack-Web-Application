@@ -21,8 +21,9 @@ vendorRouter.get("/", async (req, res) => {
     const user = req.user
     try {
         const products = await Product.find({publisher: user})
-        res.render("vendor_page", { products })
+        res.render("vendor_page", { products: products || [] })
     } catch (error) {
+        res.status(500).send({error: 'Unable to get user\'s product'})
     }
 })
 
@@ -41,8 +42,9 @@ vendorRouter.get("/addproduct", (req, res) => {
 vendorRouter.post("/newproduct", async (req, res) => {
     const productData = req.body;
     const publisher = req.user;
-    // console.log('hello')
-    console.log(productData.tags);
+    const actionUrl = `/users/vendor/newproduct`
+    const formAction = 'Create!'
+    // console.log(productData.tags);
 
     // error checking
     let errors = []
@@ -90,11 +92,15 @@ vendorRouter.post("/newproduct", async (req, res) => {
         res.redirect("/users/vendor")
     } catch (e) {
         errors.splice(0, 0, { msg: e.message })
-        res.render("vendorAddProduct", {
+        res.render("vendorProductDetail", {
             productData,
             categories,
             tags,
-            errors
+            errors,
+            actions: {
+                actionUrl,
+                formAction
+            }
         })
     }
 })
@@ -233,7 +239,10 @@ vendorRouter.get("/:id", async (req, res) => {
     try {
         const product = await Product.findById(req.params.id)
 
-        res.render("vendorProductDetail", { productData: product , categories, tags,
+        res.render("vendorProductDetail", { 
+            productData: product ,
+            categories, 
+            tags,
             actions: {
                 actionUrl,
                 formAction
