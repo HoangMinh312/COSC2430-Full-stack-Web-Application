@@ -1,3 +1,11 @@
+/* RMIT University Vietnam
+Course: COSC2430 Web Programming
+Semester: 2023A
+Assessment: Assignment 2
+Author: Hoang Thai Phuc, Nguyen Hoang Minh, Tran Nguyen Anh Minh, Tran Luu Quang Tung, Dao Bao Duy
+ID: s3978081, s3977773, s3979367, s3978481, s3978826
+Acknowledgement: W3School, TailwindCss, ChatGPT, Passport documentation, RemixIcons, Freepik, Web Dev Simplified */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -78,6 +86,15 @@
     }
     .svg-parent:hover .svg-color {
         fill: rgb(75 85 99);
+    }
+    .order-active {
+        @apply bg-yellow-200 text-yellow-800;
+    }
+    .order-delivered {
+        @apply bg-green-200 text-green-800;
+    }
+    .order-canceled {
+        @apply bg-red-200 text-red-800;
     }
 
     /* Need to be used with md */

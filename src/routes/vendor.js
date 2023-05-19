@@ -1,8 +1,17 @@
+// RMIT University Vietnam
+// Course: COSC2430 Web Programming
+// Semester: 2023A
+// Assessment: Assignment 2
+// Author: Hoang Thai Phuc, Nguyen Hoang Minh, Tran Nguyen Anh Minh, Tran Luu Quang Tung, Dao Bao Duy
+// ID: s3978081, s3977773, s3979367, s3978481, s3978826
+// Acknowledgement: W3School, TailwindCss, ChatGPT, Passport documentation, RemixIcons, Freepik, Web Dev Simplified
+
 import express from "express";
 export const vendorRouter = express.Router();
 import { Product } from "../models/productSchema.js";
 import { categories, tags } from "../models/productSchema.js";
 import { Vendor } from "../models/User.js"
+import { Order } from "../models/Orders.js"
 const imageMimeTypes = ['image/png', 'image/jpeg']
 
 // Variables
@@ -13,8 +22,9 @@ vendorRouter.get("/", async (req, res) => {
     const user = req.user
     try {
         const products = await Product.find({publisher: user})
-        res.render("vendor_page", { products })
+        res.render("vendor_page", { products: products || [] })
     } catch (error) {
+        res.status(500).send({error: 'Unable to get user\'s product'})
     }
 })
 
@@ -33,8 +43,9 @@ vendorRouter.get("/addproduct", (req, res) => {
 vendorRouter.post("/newproduct", async (req, res) => {
     const productData = req.body;
     const publisher = req.user;
-    // console.log('hello')
-    console.log(productData.tags);
+    const actionUrl = `/users/vendor/newproduct`
+    const formAction = 'Create!'
+    // console.log(productData.tags);
 
     // error checking
     let errors = []
@@ -82,11 +93,15 @@ vendorRouter.post("/newproduct", async (req, res) => {
         res.redirect("/users/vendor")
     } catch (e) {
         errors.splice(0, 0, { msg: e.message })
-        res.render("vendorAddProduct", {
+        res.render("vendorProductDetail", {
             productData,
             categories,
             tags,
-            errors
+            errors,
+            actions: {
+                actionUrl,
+                formAction
+            }
         })
     }
 })
@@ -99,10 +114,6 @@ function saveProductCover(product, coverEncoded) {
         product.coverImageType = cover.type
     }
 }
-
-
-
-
 
 // Update and Delete Product
 vendorRouter.post("/:id/update", async (req, res) => {
@@ -166,7 +177,7 @@ vendorRouter.post("/:id/update", async (req, res) => {
         res.redirect(`/users/vendor/${productId}`)
     } catch (e) {
         errors.splice(0, 0, { msg: e.message })
-        res.render("vendorUpdateProduct", {
+        res.render("vendorProductDetail", {
             productData,
             categories,
             tags,
@@ -179,15 +190,23 @@ vendorRouter.get("/:id/delete", async (req, res) => {
     const productId = req.params.id;
   
     try {
-      const product = await Product.findOneAndDelete({ _id: productId });
-  
-      if (!product) {
-        throw new Error("Product not found");
-      }
-  
-      res.redirect("/users/vendor");
+        const order = await Order.findOne({'products.product': productId})
+        const hasMatchingProduct = !!order
+
+        if (hasMatchingProduct) {
+            res.status(405).send('ERROR 405: Products with that ID has already been ordered by users, cannot delete. Please wait until the order with that product is delivered')
+            return
+        }
+
+        const product = await Product.findOneAndDelete({ _id: productId });
+    
+        if (!product) {
+            throw new Error("Product not found");
+        }
+    
+        res.redirect("/users/vendor");
     } catch (error) {
-      res.status(500).send(error.message);
+        res.status(500).send(error.message);
     }
   });
 
@@ -225,7 +244,10 @@ vendorRouter.get("/:id", async (req, res) => {
     try {
         const product = await Product.findById(req.params.id)
 
-        res.render("vendorProductDetail", { productData: product , categories, tags,
+        res.render("vendorProductDetail", { 
+            productData: product ,
+            categories, 
+            tags,
             actions: {
                 actionUrl,
                 formAction
