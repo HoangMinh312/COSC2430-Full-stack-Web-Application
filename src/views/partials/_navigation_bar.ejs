@@ -17,10 +17,24 @@
         </div>
 
         <!-- Navigation list -->
-        <ul id="hamburger-menu" class="whitespace-nowrap offcanvas-r [&_li]:w-full [&_li]:text-center [&_a]:py-4 [&_a]:px-12 [&_a]:block [&_a]:w-h-full [&_a:hover]:bg-violet-200 md:gap-8 md:static md:flex-row md:[&_a]:p-0 md:[&_a:hover]:bg-transparent md:[&_a:hover]:text-violet-400 transition-300">
+        <ul id="hamburger-menu" class="whitespace-nowrap offcanvas-r bg-transparent [&_li]:w-full [&_li]:text-center [&_a]:py-4 [&_a]:px-12 [&_a]:block [&_a]:w-h-full [&_a:hover]:bg-violet-200 md:gap-8 md:static md:flex-row md:[&_a]:p-0 md:[&_a:hover]:bg-transparent md:[&_a:hover]:text-violet-400 transition-300">
             <li><a href="/about-us">About Us</a></li>
-            <li><a href="/users/customer">Shop</a></li>
-            <li><a href="/contact-us">Contact</a></li>
+            <!-- Display link to user's pages on different user type -->
+            <% if (user) { %>
+                <% if (userType == "Customer") { %>
+                    <!-- Customer page -->
+                    <li><a href="/users/customer">Shop</a></li>
+                <% } else if (userType == "Vendor") { %>
+                    <!-- Vendor page -->
+                    <li><a href="/users/vendor">Products</a></li>
+                <% } else if (userType == "Shipper") { %>
+                    <!-- Vendor page -->
+                    <li><a href="/users/Shipper">Orders</a></li>
+                <% } %>
+            <% } else { %>
+                <li><a href="/users/customer">Shop</a></li>
+            <% } %>
+            <li><a href="/contact-us">Contact Us</a></li>
             <!-- Code that separates My Account and Login -->
             <% if (user) { %>
                 <% if (userType == "Customer") { %>
