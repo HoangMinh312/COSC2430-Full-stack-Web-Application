@@ -79,7 +79,7 @@ shipperRouter.get('/', async (req, res) => {
     const distributionHub = user.distributionHub
 
     try {
-        const activeOrders = await Order.find({distributionHub: distributionHub, status: "Active"}).populate('products.product').exec()
+        const activeOrders = await Order.find({distributionHub: distributionHub, status: 'Active'}).populate('products.product').exec()
         const inactiveOrders = await Order.find({distributionHub: distributionHub, status: { $in: ['Cancelled', 'Delivered'] }}).populate('products.product').exec()
 
         res.render("shipper_page", { activeOrders, inactiveOrders })
