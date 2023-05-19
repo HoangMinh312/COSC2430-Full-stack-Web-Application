@@ -14,6 +14,9 @@
 <body>
     <%- include('partials/_header.ejs') %>
     <main>
+                <!-- Landing page decoration here -->
+        <div id="gradient" class="fixed -z-10 top-0 left-0 right-0 bottom-0 bg-gradient-to-b from-violet-300 via-transparent opacity-30"></div>
+                <!-- Landing page decoration here -->
                 <!-- Hero section here -->
         <%- include('partials/_hero_section.ejs') %>
                 <!-- Hero section here -->
@@ -32,4 +35,7 @@
     </main>
     <%- include("partials/_footer.ejs"); %>
 </body>
+<Script>
+    $('#navigation-bar').css('border-bottom-style', 'none')
+</Script>
 </html>

@@ -11,6 +11,7 @@ export const vendorRouter = express.Router();
 import { Product } from "../models/productSchema.js";
 import { categories, tags } from "../models/productSchema.js";
 import { Vendor } from "../models/User.js"
+import { Order } from "../models/Orders.js"
 const imageMimeTypes = ['image/png', 'image/jpeg']
 
 // Variables
@@ -114,10 +115,6 @@ function saveProductCover(product, coverEncoded) {
     }
 }
 
-
-
-
-
 // Update and Delete Product
 vendorRouter.post("/:id/update", async (req, res) => {
     const productData = req.body
@@ -180,7 +177,7 @@ vendorRouter.post("/:id/update", async (req, res) => {
         res.redirect(`/users/vendor/${productId}`)
     } catch (e) {
         errors.splice(0, 0, { msg: e.message })
-        res.render("vendorUpdateProduct", {
+        res.render("vendorProductDetail", {
             productData,
             categories,
             tags,
@@ -193,15 +190,23 @@ vendorRouter.get("/:id/delete", async (req, res) => {
     const productId = req.params.id;
   
     try {
-      const product = await Product.findOneAndDelete({ _id: productId });
-  
-      if (!product) {
-        throw new Error("Product not found");
-      }
-  
-      res.redirect("/users/vendor");
+        const order = await Order.findOne({'products.product': productId})
+        const hasMatchingProduct = !!order
+
+        if (hasMatchingProduct) {
+            res.status(405).send('ERROR 405: Products with that ID has already been ordered by users, cannot delete. Please wait until the order with that product is delivered')
+            return
+        }
+
+        const product = await Product.findOneAndDelete({ _id: productId });
+    
+        if (!product) {
+            throw new Error("Product not found");
+        }
+    
+        res.redirect("/users/vendor");
     } catch (error) {
-      res.status(500).send(error.message);
+        res.status(500).send(error.message);
     }
   });
 
