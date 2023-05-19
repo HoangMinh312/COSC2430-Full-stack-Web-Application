@@ -1,3 +1,11 @@
+// RMIT University Vietnam
+// Course: COSC2430 Web Programming
+// Semester: 2023A
+// Assessment: Assignment 2
+// Author: Hoang Thai Phuc, Nguyen Hoang Minh, Tran Nguyen Anh Minh, Tran Luu Quang Tung, Dao Bao Duy
+// ID: s3978081, s3977773, s3979367, s3978481, s3978826
+// Acknowledgement: W3School, TailwindCss, ChatGPT, Passport documentation, RemixIcons, Freepik, Web Dev Simplified
+
 import express from "express"
 export const shipperRouter = express.Router();
 import mongoose from "mongoose";
@@ -70,33 +78,11 @@ shipperRouter.get('/', async (req, res) => {
     // Getting the shipper's distribution hub
     const distributionHub = user.distributionHub
 
-    // TESTING ORDER (REMEMBER TO COMMENT)
-    // const newOrder = new Order({
-    //     distributionHub: "District 2 Hub",
-    //     products: ["Gaming chair", "Alexa"],
-    //     user: "randomuserwithtime",
-    //     userFullName: "Hoang Thai Phuc",
-    //     userAddress: "123124, District 7, Ho Chi Minh City",
-    //     status: "Active"
-    // })
-    // newOrder.save()
-    // .then(order => {
-    //     console.log(order)
-    // })
-    // .catch(e => {
-    //     console.error(e)
-    // })
-    // END OF TESTING ORDER
-
     try {
-        // let inactiveOrders = []
-        const activeOrders = await Order.find({distributionHub: distributionHub, status: "Active"}).populate('products.product').exec()
+        const activeOrders = await Order.find({distributionHub: distributionHub, status: 'Active'}).populate('products.product').exec()
         const inactiveOrders = await Order.find({distributionHub: distributionHub, status: { $in: ['Cancelled', 'Delivered'] }}).populate('products.product').exec()
-        // inactiveOrders.push( await Order.find({distributionHub: distributionHub, status: "Cancelled"}))
 
-        // console.log(inactiveOrders);
         res.render("shipper_page", { activeOrders, inactiveOrders })
-        
     } catch (error) {
         console.log(error)
     }

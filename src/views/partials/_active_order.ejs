@@ -1,16 +1,24 @@
+<!-- RMIT University Vietnam -->
+<!-- Course: COSC2430 Web Programming -->
+<!-- Semester: 2023A -->
+<!-- Assessment: Assignment 2 -->
+<!-- Author: Hoang Thai Phuc, Nguyen Hoang Minh, Tran Nguyen Anh Minh, Tran Luu Quang Tung, Dao Bao Duy -->
+<!-- ID: s3978081, s3977773, s3979367, s3978481, s3978826 -->
+<!-- Acknowledgement: W3School, TailwindCss, ChatGPT, Passport documentation, RemixIcons, Freepik, Web Dev Simplified -->
+
 <tr>
     <td class="py-2 px-4 border-b border-gray-300 text-center"><%= order.id %></td>
-    <td class="py-2 px-4 border-b border-gray-300 text-center"><%= order.userFullName %></td>
-    <td class="py-2 px-4 border-b border-gray-300 text-center"><%= order.userAddress %></td>
-    <td class="py-2 px-4 border-b border-gray-300 text-center">
+    <td class="py-2 px-4 whitespace-nowrap border-b border-gray-300 text-center"><%= order.userFullName %></td>
+    <td class="py-2 px-4 whitespace-nowrap border-b border-gray-300 text-center"><%= order.userAddress %></td>
+    <td class="py-2 px-4 whitespace-nowrap border-b border-gray-300 text-center">
         <% let total = 0 %>
-            <% order.products.forEach(item => { %>
-                <% total += item.product.price * item.quantity %>
-            <% }) %>
-            $<%= total %>
+        <% order.products.forEach(item => { %>
+            <% total += item.product.price * item.quantity %>
+        <% }) %>
+        $<%= total %>
     </td>
-    <td class="py-2 px-4 border-b border-gray-300 text-center"><button><%= order.status %></button></td>
+    <td  class="py-2 px-4 border-b border-gray-300 text-center"><span data-status="<%= order.status %>" class="status bg-opacity-50 rounded-lg px-3 py-[2px] uppercase font-semibold text-sm"><%= order.status %></span></td>
     <td class="py-2 px-4 border-b border-gray-300 text-center">
-        <button class="py-2 px-4 bg-violet-300 rounded-md hover:bg-violet-400"><a href="<%= "/users/shipper/active-order/" + order.id %>">Click here</a></button>
+        <button class="py-1 px-3 bg-violet-500 text-white rounded-md whitespace-nowrap hover:bg-violet-600"><a href="<%= "/users/shipper/active-order/" + order.id %>">View details</a></button>
     </td>
 </tr>
