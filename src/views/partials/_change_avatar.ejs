@@ -7,7 +7,7 @@
 <!-- ID: s3978081, s3977773, s3979367, s3978481, s3978826 -->
 <!-- Acknowledgement: W3School, TailwindCss, ChatGPT, Passport documentation, RemixIcons, Freepik, Web Dev Simplified -->
 
-<div class="flex items-center justify-center m-5 p-2 bg-cover bg-center bg-gradient-to-r from-pink-300 to-purple-400 rounded-lg shadow-lg">
+<div class="flex items-center justify-center w-full md:w-2/5 max-h-fit m-auto my-5 auto bg-cover bg-center bg-gradient-to-r from-pink-300 to-purple-400 rounded-lg shadow-lg">
     <% if (userType == "Customer") { %>
         <form action="/users/customer/profile/update-picture" method="post">
     <% } else if (userType == "Vendor") { %>
@@ -17,11 +17,9 @@
     <% } else { %>
         <form action="">
     <% } %>
-        <label class="text-center text-lg font-bold text-white my-3 p-1 w-full flex items-center justify-center" for="avatar">Profile Picture</label>
-        <img class="w-96 h-auto aspect-square rounded-full overflow-hidden" src="<%= user.userPicture %>" alt="User Profile Picture">
-        <input type="file" class="profileCover my-5" name="profilePicture" accept="image/png, image/jpeg, image/gif"/>
-        <button class="flex flex-row justify-center p-2 bg-blue-800 rounded-lg text-white text-xs mx-auto">
-            <a>Update Profile Picture</a>
-        </button>
+        <div class="text-center text-lg font-bold text-white mb-3 mt-20 p-1 w-full flex items-center justify-center">Profile Picture</div>
+        <img class="w-72 h-auto aspect-square  border-white border-4 rounded-full overflow-hidden" src="<%= user.userPicture %>" alt="User Profile Picture">
+        <input type="file" class="profileCover my-5" name="profilePicture" accept="image/png, image/jpeg, image/gif">
+        <button class="flex flex-row justify-center p-2 bg-blue-800 rounded-lg text-white  mx-auto mb-20">Profile Picture</button>
     </form>
 </div>

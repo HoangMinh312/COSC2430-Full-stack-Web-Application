@@ -106,26 +106,26 @@
                                     <!-- Inactive order is here -->
     </section>
     <%- include('partials/_footer.ejs') %>
+    <Script>
+        $('.status').each(function() {
+            const status = $(this).data('status')
+            switch (status) {
+                case 'Active':
+                    $(this).addClass('order-active')
+                    break;
+    
+                case 'Delivered':
+                    $(this).addClass('order-delivered')
+                    break;
+    
+                case 'Canceled':
+                    $(this).addClass('order-canceled')
+                    break;
+            
+                default:
+                    break;
+            }
+        })
+    </Script>
 </body>
-<Script>
-    $('.status').each(function() {
-        const status = $(this).data('status')
-        switch (status) {
-            case 'Active':
-                $(this).addClass('order-active')
-                break;
-
-            case 'Delivered':
-                $(this).addClass('order-delivered')
-                break;
-
-            case 'Canceled':
-                $(this).addClass('order-canceled')
-                break;
-        
-            default:
-                break;
-        }
-    })
-</Script>
 </html>
