@@ -17,11 +17,9 @@
     <% } else { %>
         <form action="">
     <% } %>
-        <label class="text-center text-lg font-bold text-white mb-3 mt-20 p-1 w-full flex items-center justify-center" for="avatar">Profile Picture</label>
+        <div class="text-center text-lg font-bold text-white mb-3 mt-20 p-1 w-full flex items-center justify-center">Profile Picture</div>
         <img class="w-72 h-auto aspect-square  border-white border-4 rounded-full overflow-hidden" src="<%= user.userPicture %>" alt="User Profile Picture">
-        <input type="file" class="profileCover my-5" name="profilePicture" accept="image/png, image/jpeg, image/gif"/>
-        <button class="flex flex-row justify-center p-2 bg-blue-800 rounded-lg text-white  mx-auto mb-20">
-            <a>Update Profile Picture</a>
-        </button>
+        <input type="file" class="profileCover my-5" name="profilePicture" accept="image/png, image/jpeg, image/gif">
+        <button class="flex flex-row justify-center p-2 bg-blue-800 rounded-lg text-white  mx-auto mb-20">Profile Picture</button>
     </form>
 </div>
