@@ -2,7 +2,7 @@
 
 GitHub Repository: https://github.com/Rainb0wBanana/COSC2430-Full-stack-Web-Application
 
-Video demonstration URL: 
+Video demonstration URL: https://www.youtube.com/watch?v=iuyU79qXmtQ
 
 Existing accounts to test:
 
