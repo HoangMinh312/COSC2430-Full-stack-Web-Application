@@ -9,6 +9,9 @@ Existing accounts to test:
     Customer: username: hoangminhcus
               password: M!nh1234
 
+              username: demoCustomer
+              password: M!nh1234
+
     Vendor:   username: testingVendor
               password: M!nh1234
 
