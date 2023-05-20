@@ -154,8 +154,8 @@ customerRouter.post("/checkout", async (req, res) => {
     const productQuantities = convertToArray(checkoutSummary.productQuantity) 
     const productIds = convertToArray(checkoutSummary.productId)
 
-    console.log(productQuantities);
-    console.log(productIds)
+    // console.log(productQuantities);
+    // console.log(productIds)
 
     // Creating a new order
     if (productIds.length !== 0) {
