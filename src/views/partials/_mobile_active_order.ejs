@@ -32,14 +32,15 @@
         <!-- <span class="text-gray-600 font-bold">Total Amount:</span> -->
         <span class="text-gray-800 text-lg font-semibold">
             <% let total=0 %>
-                <% order.products.forEach(item=> { %>
-                    <% total +=item.product.price * item.quantity %>
-                        <% }) %>
-                            $<%= total %>
+            <% order.products.forEach(item=> { %>
+                <% total +=item.product.price * item.quantity %>
+            <% }) %>
+            $<%= total %>
         </span>
     </div>
     <div class="flex flex-col">
-        <button class="py-2 px-4 bg-violet-500 text-white rounded-md hover:bg-violet-600 transition-300"><a href="<%= "
-                /users/shipper/active-order/" + order.id %>">View details</a></button>
+        <button class="py-2 px-4 bg-violet-500 text-white rounded-md hover:bg-violet-600 transition-300">
+            <a href="<%= "/users/shipper/active-order/" + order.id %>">View details</a>
+        </button>
     </div>
 </div>

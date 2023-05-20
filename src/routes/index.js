@@ -27,3 +27,7 @@ indexRouter.get("/about-us", (req, res) => {
 indexRouter.get("/contact-us", (req, res) => {
     res.render("contact_us")
 })
+
+indexRouter.get("/privacy-policy", (req, res) => {
+    res.render("privacy_policy")
+})

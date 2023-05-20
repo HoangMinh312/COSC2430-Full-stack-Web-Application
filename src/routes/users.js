@@ -13,6 +13,7 @@ import { shipperRouter } from "./shipper.js";
 import { customerRouter } from "./customer.js";
 
 // Checking userTypes
+// The three middleware below is used to restrict access for each user type to their respective routes only 
 
 const checkCustomer = (req, res, next) => {
     const userType = res.locals.userType

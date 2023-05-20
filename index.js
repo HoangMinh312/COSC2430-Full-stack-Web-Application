@@ -83,7 +83,7 @@ app.use((req, res, next) => {
     next()  
 })
 
-// Views middleware and setup
+// Website application setup 
 app.use(express.static("./public"))
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({  limit: '10mb' , extended: true}));

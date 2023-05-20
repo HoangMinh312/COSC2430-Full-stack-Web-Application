@@ -17,7 +17,7 @@
                                     <!-- Distribution hub info is here -->
         <div class="flex md:flex-row justify-center m-1 p-1 flex-col"> 
             <div class="m-2 p-1 md:w-3/5 shadow-lg w-full ">
-                <img class="bg-gradient-to-b w-h-full object-cover" src="<%- locals.distributionHubImage || '/images/distribution-hub-1.jpg' %>" alt="">
+                <img class="bg-gradient-to-b w-h-full object-cover" src="<%- locals.distributionHubImage || '/images/distribution-hub-1.jpg' %>" alt="Distribution image">
             </div>
             <div class="m-2 p-2 md:w-2/5 flex flex-col justify-start border-gray-300 border rounded-md sm:w-full">
                 <div class="font-serif font-bold m-1 p-1">
@@ -27,7 +27,7 @@
                 </div>
                 <div class="flex flex-col">
                     <p class="italic font-sans m-1 p-1">
-                        Address: <%- locals.distributionHubLocation || "Unknown" %>
+                        Address: <%- locals.distributionHubLocation || "Ho Chi Minh City, Vietnam" %>
                     </p>
                     <br>
                     <p class="m-1 p-1">
@@ -106,26 +106,26 @@
                                     <!-- Inactive order is here -->
     </section>
     <%- include('partials/_footer.ejs') %>
+    <Script>
+        $('.status').each(function() {
+            const status = $(this).data('status')
+            switch (status) {
+                case 'Active':
+                    $(this).addClass('order-active')
+                    break;
+    
+                case 'Delivered':
+                    $(this).addClass('order-delivered')
+                    break;
+    
+                case 'Canceled':
+                    $(this).addClass('order-canceled')
+                    break;
+            
+                default:
+                    break;
+            }
+        })
+    </Script>
 </body>
-<Script>
-    $('.status').each(function() {
-        const status = $(this).data('status')
-        switch (status) {
-            case 'Active':
-                $(this).addClass('order-active')
-                break;
-
-            case 'Delivered':
-                $(this).addClass('order-delivered')
-                break;
-
-            case 'Canceled':
-                $(this).addClass('order-canceled')
-                break;
-        
-            default:
-                break;
-        }
-    })
-</Script>
 </html>

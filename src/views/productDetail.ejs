@@ -98,18 +98,19 @@
     <form id="addProduct"action="/users/customer/<%= product.id %>/add" method="get">
         <input type="hidden" name="productQuantity" id="productQuantity" value="1">
     </form>
+
+    <script>
+        $(document).ready(function () {
+            const addToCart = $("#addToCart")
+            const addToCartForm = $("#addProduct")
+            const productQuantity = $('#productQuantity')
+    
+            addToCart.on('click', () => {
+                productQuantity.val(parseInt($('#editableQuantity').text()))
+                addToCartForm.submit()
+            })
+        })
+    </script>
 </body>
 
-<script>
-    $(document).ready(function () {
-        const addToCart = $("#addToCart")
-        const addToCartForm = $("#addProduct")
-        const productQuantity = $('#productQuantity')
-
-        addToCart.on('click', () => {
-            productQuantity.val(parseInt($('#editableQuantity').text()))
-            addToCartForm.submit()
-        })
-    })
-</script>
 </html>
