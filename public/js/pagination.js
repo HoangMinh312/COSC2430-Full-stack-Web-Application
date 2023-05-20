@@ -11,7 +11,7 @@ const pageSelectedStyle = {
 }
 
 if (currentPage == 1 || currentPage == 2) {
-    for (let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= (totalPage <= 3 ? totalPage : 3); i++) {
         paginationDiv.append(getPageElement(i))
     }
     if (totalPage > 3) {
