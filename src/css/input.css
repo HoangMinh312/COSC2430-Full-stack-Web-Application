@@ -144,7 +144,7 @@ Acknowledgement: W3School, TailwindCss, ChatGPT, Passport documentation, RemixIc
 }
 
 .sidemenu-transition-300 {
-    transition-property: right left top bottom;
+    transition-property: right, left, top, bottom;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
 }
